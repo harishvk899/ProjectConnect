@@ -368,13 +368,28 @@ body.compact-chats .messages { gap: 4px !important; }
     <section class="auth-step" data-auth-step="providers">
       <div class="login-eyebrow">Sign in or create an account</div><h1>Welcome to Connect.</h1>
       <p>Choose a sign-in method to continue. This version uses demo sign-in until real providers are configured. For best results, open the extracted bundle in Safari or Chrome.</p>
-      <div class="login-warning">Demo mode: Apple, Google, and phone sign-in are not connected to identity providers yet. Do not enter a real password or sensitive information.</div>
+      <div class="login-warning">Apple and Google sign-in are not connected yet. Use the secure email option below for real Project Connect accounts.</div>
       <div class="login-actions">
+        <button class="login-action primary" type="button" data-auth-next="supabase">Continue with email &amp; password</button>
         <button class="login-action apple" type="button" data-demo-provider="Apple"><span class="provider-icon">●</span>Continue with Apple</button>
         <button class="login-action google" type="button" data-demo-provider="Google"><span class="provider-icon">G</span>Continue with Google</button>
         <button class="login-action" type="button" data-auth-next="phone"><span class="provider-icon">✆</span>Continue with phone number</button>
       </div>
       <button class="login-back" type="button" data-auth-back="terms">← Back to terms</button>
+    </section>
+    <section class="auth-step" data-auth-step="supabase">
+      <div class="login-eyebrow">Secure account</div><h1>Connect your account.</h1>
+      <p>Create a Project Connect account or sign in with your email. Email confirmation may be required.</p>
+      <form id="supabaseAuthForm">
+        <div class="login-field"><label for="pcAuthName">Display name (for new accounts)</label><input id="pcAuthName" type="text" maxlength="60" autocomplete="name" placeholder="Your name"></div>
+        <div class="login-field"><label for="pcAuthConnectId">Connect ID (for new accounts)</label><input id="pcAuthConnectId" type="text" maxlength="24" autocomplete="username" placeholder="your.connect.id" pattern="[A-Za-z0-9._-]{3,24}"></div>
+        <div class="login-field"><label for="pcAuthEmail">Email</label><input id="pcAuthEmail" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+        <div class="login-field"><label for="pcAuthPassword">Password</label><input id="pcAuthPassword" type="password" autocomplete="current-password" minlength="8" required placeholder="At least 8 characters"></div>
+        <div id="pcAuthError" class="login-error" role="alert"></div>
+        <div id="pcAuthStatus" class="login-warning" hidden aria-live="polite"></div>
+        <div class="login-actions"><button class="login-action primary" id="pcSignIn" type="button">Sign in</button><button class="login-action" id="pcSignUp" type="button">Create account</button></div>
+      </form>
+      <button class="login-back" type="button" data-auth-back="providers">← Choose another sign-in method</button>
     </section>
     <section class="auth-step" data-auth-step="phone">
       <div class="login-eyebrow">Phone sign-in</div><h1>Verify your number.</h1>
@@ -468,6 +483,19 @@ body.compact-chats .messages { gap: 4px !important; }
 
     <section id="page-chats" class="page">
       <div class="section-head" style="margin-top:0"><div><h2>Your chats</h2><p>Demo messages stay in local browser storage.</p></div><span class="tag">Local preview</span></div>
+      <section class="panel" id="pcLiveChatPanel" style="margin:14px 0 18px">
+        <div class="between" style="gap:12px;flex-wrap:wrap"><div><h3 style="margin:0">Live messaging</h3><p class="muted small" style="margin:4px 0 0">Supabase-connected conversations. Sign in with your real account to send messages across devices.</p></div><span class="tag" id="pcLiveChatStatus">Not connected</span></div>
+        <div class="notice" id="pcLiveChatNotice" style="margin-top:12px">Sign in with email to activate real-time chat. Your existing local demo chats remain below.</div>
+        <div id="pcLiveChatWorkspace" hidden style="margin-top:14px">
+          <div class="row" style="gap:8px;flex-wrap:wrap"><input class="input" id="pcStartChatId" maxlength="24" placeholder="Enter someone's Connect ID" aria-label="Connect ID"><button class="btn primary" id="pcStartChat" type="button">Start chat</button><button class="btn" id="pcLiveSignOut" type="button">Sign out</button></div>
+          <div id="pcLiveChatError" class="login-error" role="alert" style="margin-top:10px"></div>
+          <div class="grid-2" style="grid-template-columns:minmax(180px, .8fr) minmax(0, 1.5fr);gap:12px;margin-top:12px">
+            <div><h4 style="margin:0 0 8px">Conversations</h4><div id="pcLiveConversationList" class="chat-list" style="display:grid;max-height:330px;overflow:auto"></div></div>
+            <div class="panel" style="padding:12px;min-height:300px;display:flex;flex-direction:column"><div id="pcLiveConversationTitle" class="muted small">Choose a conversation to begin</div><div id="pcLiveMessages" class="messages" style="max-height:310px;min-height:210px;padding:10px"></div><form id="pcLiveSendForm" class="send-form" style="padding:10px 0 0"><input id="pcLiveMessageInput" class="input" maxlength="10000" placeholder="Write a real message…" autocomplete="off" required disabled><button class="btn primary" type="submit" disabled>Send</button></form></div>
+          </div>
+          <p class="help" style="margin:10px 0 0">Real messages are stored in Supabase. Do not send sensitive information until the app's privacy, reporting, and abuse controls are production-ready.</p>
+        </div>
+      </section>
       <div class="chat-layout">
         <aside class="chat-list-pane"><h3>Messages</h3><input class="input chat-search" id="chatSearch" placeholder="Search conversations…"><div class="chat-list" id="chatList"></div></aside>
         <section class="conversation" id="conversation"></section>
@@ -1213,7 +1241,12 @@ $("#settingsModalContent").addEventListener("submit",e=>{
  document.querySelectorAll("[data-code-tab]").forEach(btn=>btn.addEventListener("click",()=>{active=btn.dataset.codeTab;document.querySelectorAll("[data-code-tab]").forEach(b=>b.classList.toggle("active",b===btn));[[html,"html"],[css,"css"],[js,"js"]].forEach(([el,key])=>el.hidden=key!==active);const label=document.getElementById("codeEditorLabel");if(label)label.textContent=active==="js"?"JavaScript editor":active.toUpperCase()+" editor";}));
  document.getElementById("codeRun")?.addEventListener("click",run);
  document.getElementById("codeReset")?.addEventListener("click",()=>{html.value=defaults.html;css.value=defaults.css;js.value=defaults.js;run();if(status)status.textContent="Reset to starter code";});
- document.getElementById("codeDownload")?.addEventListener("click",()=>{const doc=`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>${css.value}</style></head><body>${html.value}<script>${js.value.replace(/<\/script/gi,"<\\/script")}<\/script></body></html>`;const url=URL.createObjectURL(new Blob([doc],{type:"text/html"}));const a=document.createElement("a");a.href=url;a.download="project-connect-code-lab.html";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);if(status)status.textContent="HTML exported";});
+ document.getElementById("codeDownload")?.addEventListener("click",()=>{const doc=`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>${css.value}</style></head><body>${html.value}<script>${js.value.replace(/<\/script/gi,"<\\/script")}<\/script>
+
+
+
+
+</body></html>`;const url=URL.createObjectURL(new Blob([doc],{type:"text/html"}));const a=document.createElement("a");a.href=url;a.download="project-connect-code-lab.html";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);if(status)status.textContent="HTML exported";});
  [html,css,js].forEach(el=>el.addEventListener("keydown",e=>{if(e.key==="Tab"){e.preventDefault();const start=el.selectionStart,end=el.selectionEnd;el.setRangeText("  ",start,end,"end");}}));
  let prefs={};try{prefs=JSON.parse(localStorage.getItem("pc_chat_optimization")||"{}")}catch(e){}document.body.classList.toggle("compact-chats",!!prefs.compact);document.body.classList.toggle("lightweight-chats",!!prefs.lightweight);run();
 })();
@@ -1221,3 +1254,118 @@ $("#settingsModalContent").addEventListener("submit",e=>{
 window.projectConnectRender = renderAll;
 renderAll();
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* Project Connect live auth + one-to-one realtime messaging. Uses publishable key + RLS only. */
+(function(){
+  const SUPABASE_URL = "https://wlbrgiexzlbamluofigl.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_PDQv50wqUdspIFPd-aTRkg__zijdSRB";
+  const gate=document.getElementById('publicLoginGate'), app=document.getElementById('publicAppShell');
+  const byId=id=>document.getElementById(id);
+  const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const client=window.supabase?.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+  if(!client){const n=byId('pcAuthError');if(n){n.textContent='Supabase library did not load. Refresh the page and try again.';n.classList.add('show')}return;}
+  window.projectConnectSupabase=client;
+  let currentUser=null, activeConversation=null, liveChannel=null, loading=false;
+  const showError=(message)=>{const n=byId('pcLiveChatError');if(n){n.textContent=message||'';n.classList.toggle('show',!!message)}};
+  const authMessage=(message,isError=false)=>{const e=byId('pcAuthError'),s=byId('pcAuthStatus');if(e){e.textContent=isError?message:'';e.classList.toggle('show',!!isError)}if(s){s.textContent=isError?'':message;s.hidden=isError||!message}};
+  function showApp(user){
+    currentUser=user; if(gate)gate.style.display='none'; if(app)app.style.display=''; document.body.style.overflow='';
+    const status=byId('pcLiveChatStatus'),notice=byId('pcLiveChatNotice'),workspace=byId('pcLiveChatWorkspace');
+    if(status)status.textContent='Connected · '+(user.email||'Account');
+    if(notice)notice.textContent='Signed in as '+(user.email||'your account')+'. Start a conversation using another member’s Connect ID.';
+    if(workspace)workspace.hidden=false;
+    const mode=localStorage.getItem('pc_public_demo_mode');const top=byId('topMode');if(top)top.textContent=(mode||'Full Mode')+' · Supabase';
+    loadLiveConversations();
+    if(typeof window.projectConnectRender==='function')window.projectConnectRender();
+  }
+  async function signIn(){
+    if(loading)return;loading=true;authMessage('Signing in…');
+    const email=byId('pcAuthEmail').value.trim(),password=byId('pcAuthPassword').value;
+    const {data,error}=await client.auth.signInWithPassword({email,password});loading=false;
+    if(error){authMessage(error.message,true);return;}authMessage('');showApp(data.user);
+  }
+  async function signUp(){
+    if(loading)return;loading=true;authMessage('Creating your account…');
+    const name=byId('pcAuthName').value.trim(),connectId=byId('pcAuthConnectId').value.trim().replace(/^@/,'').toLowerCase(),email=byId('pcAuthEmail').value.trim(),password=byId('pcAuthPassword').value;
+    if(!name||!connectId||!email||password.length<8||!/^[a-z0-9._-]{3,24}$/.test(connectId)){loading=false;authMessage('For a new account, enter your display name, a 3–24 character Connect ID, email, and password (at least 8 characters).',true);return;}
+    const {data,error}=await client.auth.signUp({email,password,options:{data:{display_name:name,connect_id:connectId},emailRedirectTo:location.origin+location.pathname}});loading=false;
+    if(error){authMessage(error.message,true);return;}
+    if(data.session){authMessage('Account created. You are signed in.');showApp(data.user);}
+    else authMessage('Account created. Check your email for the confirmation link, then return here and sign in.');
+  }
+  async function loadLiveConversations(){
+    if(!currentUser)return;
+    const list=byId('pcLiveConversationList');if(!list)return;list.innerHTML='<div class="muted small">Loading conversations…</div>';
+    const {data:members,error}=await client.from('conversation_members').select('conversation_id').eq('user_id',currentUser.id);
+    if(error){list.innerHTML='<div class="muted small">Unable to load conversations.</div>';showError(error.message);return;}
+    const ids=[...new Set((members||[]).map(x=>x.conversation_id))];
+    if(!ids.length){list.innerHTML='<div class="empty">No live conversations yet. Start one with a Connect ID.</div>';return;}
+    const {data:allMembers,error:memberError}=await client.from('conversation_members').select('conversation_id,user_id').in('conversation_id',ids);
+    if(memberError){showError(memberError.message);return;}
+    const others=[...new Set((allMembers||[]).map(x=>x.user_id).filter(id=>id!==currentUser.id))];
+    const {data:profiles}=others.length?await client.from('profiles').select('id,display_name,connect_id').in('id',others):{data:[]};
+    const profileMap=new Map((profiles||[]).map(p=>[p.id,p]));
+    const {data:conversations}=await client.from('conversations').select('id,last_message_at').in('id',ids).order('last_message_at',{ascending:false});
+    list.innerHTML=(conversations||[]).map(c=>{const other=(allMembers||[]).find(m=>m.conversation_id===c.id&&m.user_id!==currentUser.id);const p=other&&profileMap.get(other.user_id);return `<button class="chat-item ${activeConversation===c.id?'active':''}" type="button" data-live-conversation="${c.id}"><span class="avatar sm">${escapeHtml((p?.display_name||'M').slice(0,1).toUpperCase())}</span><span class="grow"><strong>${escapeHtml(p?.display_name||'Connect member')}</strong><small>@${escapeHtml(p?.connect_id||'member')}</small></span></button>`;}).join('')||'<div class="empty">No conversations yet.</div>';
+  }
+  async function openLiveConversation(id){
+    if(!currentUser)return;activeConversation=id;showError('');
+    if(liveChannel){await client.removeChannel(liveChannel);liveChannel=null;}
+    const {data:members}=await client.from('conversation_members').select('user_id').eq('conversation_id',id);
+    const other=(members||[]).find(m=>m.user_id!==currentUser.id);
+    let title='Conversation';if(other){const {data:p}=await client.from('profiles').select('display_name,connect_id').eq('id',other.user_id).maybeSingle();if(p)title=(p.display_name||'Member')+' · @'+(p.connect_id||'member');}
+    byId('pcLiveConversationTitle').textContent=title;
+    const input=byId('pcLiveMessageInput'),send=byId('pcLiveSendForm')?.querySelector('button');if(input)input.disabled=false;if(send)send.disabled=false;
+    await loadLiveMessages(id);
+    liveChannel=client.channel('pc-chat-'+id).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:'conversation_id=eq.'+id},payload=>appendLiveMessage(payload.new)).subscribe();
+    await loadLiveConversations();
+  }
+  function appendLiveMessage(m){
+    const box=byId('pcLiveMessages');if(!box||!m||box.querySelector('[data-message-id="'+m.id+'"]'))return;
+    const mine=m.sender_id===currentUser?.id,el=document.createElement('div');el.className='message'+(mine?' mine':'');el.dataset.messageId=m.id;
+    const time=new Date(m.created_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    el.innerHTML=`<div>${escapeHtml(m.body)}</div><small>${time}${mine?' · You':''}</small>`;box.appendChild(el);box.scrollTop=box.scrollHeight;
+  }
+  async function loadLiveMessages(id){
+    const box=byId('pcLiveMessages');box.innerHTML='<div class="muted small">Loading messages…</div>';
+    const {data,error}=await client.from('messages').select('id,conversation_id,sender_id,body,created_at').eq('conversation_id',id).is('deleted_at',null).order('created_at',{ascending:true}).limit(200);
+    if(error){box.innerHTML='';showError(error.message);return;}
+    box.innerHTML='';(data||[]).forEach(appendLiveMessage);if(!data?.length)box.innerHTML='<div class="muted small">No messages yet. Say hello!</div>';
+  }
+  async function startLiveChat(){
+    if(!currentUser)return;showError('');const handle=byId('pcStartChatId').value.trim().replace(/^@/,'').toLowerCase();
+    if(!/^[a-z0-9._-]{3,24}$/.test(handle)){showError('Enter a valid Connect ID (3–24 letters, numbers, dots, underscores, or hyphens).');return;}
+    const {data:target,error}=await client.from('profiles').select('id,display_name,connect_id').eq('connect_id',handle).maybeSingle();
+    if(error||!target){showError(error?.message||'No member found with that Connect ID.');return;}
+    if(target.id===currentUser.id){showError('You cannot start a chat with yourself.');return;}
+    const {data:mine}=await client.from('conversation_members').select('conversation_id').eq('user_id',currentUser.id);
+    const ids=(mine||[]).map(x=>x.conversation_id);let existing=null;
+    if(ids.length){const {data:rows}=await client.from('conversation_members').select('conversation_id,user_id').in('conversation_id',ids).eq('user_id',target.id);if(rows?.length)existing=rows[0].conversation_id;}
+    let conversationId=existing;
+    if(!conversationId){
+      const {data:conv,error:convError}=await client.from('conversations').insert({created_by:currentUser.id,is_group:false}).select('id').single();
+      if(convError){showError(convError.message);return;}conversationId=conv.id;
+      const {error:joinError}=await client.from('conversation_members').insert([{conversation_id:conversationId,user_id:currentUser.id,role:'owner'},{conversation_id:conversationId,user_id:target.id,role:'member'}]);
+      if(joinError){showError(joinError.message);return;}
+    }
+    byId('pcStartChatId').value='';await openLiveConversation(conversationId);
+  }
+  async function sendLiveMessage(event){
+    event.preventDefault();if(!currentUser||!activeConversation)return;const input=byId('pcLiveMessageInput'),body=input.value.trim();if(!body)return;
+    input.disabled=true;const send=byId('pcLiveSendForm').querySelector('button');send.disabled=true;
+    const {error}=await client.from('messages').insert({conversation_id:activeConversation,sender_id:currentUser.id,body,message_type:'text'});
+    input.disabled=false;send.disabled=false;if(error){showError(error.message);return;}input.value='';input.focus();
+  }
+  byId('pcSignIn')?.addEventListener('click',signIn);byId('pcSignUp')?.addEventListener('click',signUp);
+  byId('supabaseAuthForm')?.addEventListener('submit',e=>{e.preventDefault();signIn()});
+  byId('pcStartChat')?.addEventListener('click',startLiveChat);
+  byId('pcStartChatId')?.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();startLiveChat();}});
+  byId('pcLiveSendForm')?.addEventListener('submit',sendLiveMessage);
+  byId('pcLiveConversationList')?.addEventListener('click',e=>{const b=e.target.closest('[data-live-conversation]');if(b)openLiveConversation(b.dataset.liveConversation);});
+  byId('pcLiveSignOut')?.addEventListener('click',async()=>{await client.auth.signOut();location.reload();});
+  client.auth.getSession().then(({data})=>{if(data.session)showApp(data.session.user);});
+  client.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_IN'&&session?.user)showApp(session.user);if(event==='SIGNED_OUT')location.reload();});
+})();
+</script>
+</body></html>
