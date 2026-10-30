@@ -1,0 +1,1513 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1120">
+<title>Project Connect — Find your people</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1120;--panel:#131d30;--panel2:#18243a;--line:#2a3850;--ink:#f4f7fb;--muted:#9baac0;--accent:#8b7cff;--accent2:#6f64e8;--mint:#5ee0bb;--amber:#f4c76b;--red:#ff8493;--soft:#242143;--shadow:0 20px 55px #0003}
+*{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}body{margin:0;background:radial-gradient(ellipse at 88% -10%,#252049 0,transparent 34%),var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+button,input,textarea,select{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .16s,background .18s,border-color .18s,color .18s}button:active{transform:scale(.985)}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+a{color:#c3bbff;text-decoration:none}a:hover{text-decoration:underline}button:disabled{opacity:.45;cursor:not-allowed}
+.shell{max-width:1660px;margin:0 auto;min-height:100vh;display:grid;grid-template-columns:252px minmax(0,1fr)}
+.sidebar{position:sticky;top:0;height:100dvh;padding:23px 16px 18px;background:#0d1627eF;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:20px;z-index:10;backdrop-filter:blur(16px)}
+.brand{display:flex;align-items:center;gap:11px;padding:0 7px}.logo{height:41px;width:41px;border-radius:14px;background:linear-gradient(135deg,#8b7cff,#36c5d8);display:grid;place-items:center;color:#10152a;font-weight:950;font-size:19px;box-shadow:0 7px 24px #7165e533}.brand strong{display:block;font-size:17px;letter-spacing:-.4px}.brand small{display:block;color:var(--muted);font-size:11px}
+.nav-label{padding:0 10px;color:#71829c;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+.nav-list{display:grid;gap:4px}.navbtn{width:100%;display:flex;align-items:center;gap:12px;padding:11px 13px;border:1px solid transparent;border-radius:12px;background:transparent;color:#aebbd0;text-align:left}.navbtn .ico{width:21px;text-align:center;font-size:17px}.navbtn .count{margin-left:auto;font-size:11px;background:#302a53;color:#d6d0ff;padding:2px 7px;border-radius:99px}.navbtn:hover{background:#17243a;color:#fff}.navbtn.active{background:linear-gradient(110deg,#2a2650,#201e3a);border-color:#413a6b;color:#fff;box-shadow:inset 3px 0 #9b8eff}
+.sidebar-bottom{margin-top:auto}.mode-card{border:1px solid var(--line);background:linear-gradient(140deg,#18243a,#171b35);border-radius:15px;padding:13px}.mode-card b{display:block;font-size:12px}.mode-card p{font-size:11px;color:var(--muted);margin:4px 0 10px}.tiny-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border:1px solid #315b54;border-radius:99px;color:var(--mint);font-size:10px}
+main{min-width:0;padding:0 30px 44px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:23px 0 20px;border-bottom:1px solid var(--line);margin-bottom:26px}.top-left{display:flex;align-items:center;gap:13px;min-width:0}.mobile-brand{display:none}.eyebrow{font-size:10px;letter-spacing:1.7px;text-transform:uppercase;color:var(--accent);font-weight:850}h1{font-size:clamp(24px,2.5vw,34px);letter-spacing:-1px;line-height:1.15;margin:5px 0 0}h2{font-size:19px;letter-spacing:-.35px;margin:0 0 5px}h3{font-size:15px;margin:0 0 5px}.muted{color:var(--muted)}.small{font-size:12px}.user-chip{display:flex;align-items:center;gap:9px;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:7px 10px;white-space:nowrap}.avatar{display:grid;place-items:center;flex:none;border:1px solid #ffffff15;border-radius:14px;background:linear-gradient(145deg,#35305e,#1d4960);color:#e5e1ff;font-size:13px;font-weight:850;letter-spacing:.2px}.avatar.sm{width:34px;height:34px;border-radius:11px}.avatar.md{width:46px;height:46px}.avatar.lg{width:58px;height:58px;border-radius:18px;font-size:16px}.avatar.has-image{background-size:cover;background-position:center;background-repeat:no-repeat;color:transparent;text-shadow:none}.user-chip b{display:block;font-size:12px}
+.visual-settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0}.image-picker-card{border:1px solid var(--line);border-radius:14px;background:#10192a;padding:13px;min-width:0}.image-picker-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}.image-picker-head .grow{flex:1;min-width:0}.image-picker-head h3{margin:0}.image-picker-head p{margin:3px 0 0}.dp-preview{width:54px;height:54px;border-radius:17px;font-size:14px}.chat-bg-preview{height:74px;border-radius:12px;border:1px solid #3a4660;background:radial-gradient(circle at 75% 15%,#8173ff88,transparent 35%),linear-gradient(125deg,#202846,#24515a);background-position:center;background-size:cover;display:flex;align-items:end;padding:8px;margin-bottom:9px}.chat-bg-preview span{font-size:10px;color:#fff;background:#0b1120b8;padding:4px 7px;border-radius:7px}.file-input{font-size:11px;padding:9px}.visual-note{font-size:10px;color:var(--muted);line-height:1.5;margin-top:8px}
+.message-row{display:flex;align-items:flex-end;gap:7px;width:100%;min-width:0}.message-row.mine{justify-content:flex-end}.message-row .avatar{width:28px;height:28px;border-radius:9px;font-size:9px;margin-bottom:2px}.message-bubble{max-width:min(76%,520px);min-width:0;padding:10px 13px;border:1px solid #2e4059;background:#1b293e;border-radius:14px 14px 14px 4px;font-size:13px;color:#e4ebf5;overflow-wrap:anywhere}.message-bubble.mine{background:#393365;border-color:#514784;border-radius:14px 14px 4px 14px}.message-text{white-space:pre-wrap}.message-meta{display:flex;justify-content:flex-end;align-items:center;gap:7px;margin-top:4px;font-size:9px;color:#aebbd0}.message-receipt{color:#aebbd0;white-space:nowrap}.message-receipt.read{color:#88e7d0;font-weight:800}.chat-head-actions{margin-left:auto;display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.chat-bg-note{font-size:10px;color:#a8b5ca;padding:7px 13px 0}
+@media(max-width:700px){.visual-settings{grid-template-columns:1fr}.message-bubble{max-width:85%}.chat-head-actions .btn{padding:7px 8px;font-size:10px}}
+.user-chip small{display:block;color:var(--muted);font-size:10px}
+.notice{border:1px solid #514627;background:#272316;color:#e6d39e;padding:11px 14px;border-radius:12px;font-size:12px;margin-bottom:21px;display:flex;gap:9px;align-items:flex-start}
+.page{display:none;animation:enter .2s ease-out}.page.active{display:block}@keyframes enter{from{opacity:.6;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.hero{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px;border:1px solid #3c3866;border-radius:21px;background:radial-gradient(circle at 85% 0,#45406f77,transparent 35%),linear-gradient(115deg,#1a2036,#1e1b39);box-shadow:var(--shadow);margin-bottom:19px}.hero h2{font-size:clamp(23px,3vw,32px);max-width:620px;line-height:1.16;letter-spacing:-.8px}.hero p{color:#b3bfd3;max-width:610px;margin:10px 0 17px}.hero-art{width:110px;height:110px;flex:none;border-radius:32px;background:linear-gradient(145deg,#8d80ff,#41ced0);display:grid;place-items:center;color:#11172a;font-size:42px;box-shadow:0 0 45px #8b7cff38;transform:rotate(4deg)}
+.btn{border:1px solid var(--line);border-radius:11px;padding:9px 13px;background:var(--panel2);color:var(--ink);font-weight:750;font-size:12px}.btn:hover{border-color:#675f9b;background:#242847}.btn.primary{background:var(--accent);border-color:var(--accent);color:#111528}.btn.primary:hover{background:#a99fff}.btn.ghost{background:transparent}.btn.danger{color:#ffc0c9;border-color:#673340;background:#301b28}.btn.success{color:#9bf2d6;border-color:#2b6657;background:#16382f}.btn-row{display:flex;gap:8px;flex-wrap:wrap}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0 25px}.stat{padding:16px;border:1px solid var(--line);background:linear-gradient(145deg,#141f32,#121b2c);border-radius:16px;min-width:0}.stat-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:11px}.stat-icon{width:30px;height:30px;display:grid;place-items:center;background:#292649;color:#cfc8ff;border-radius:10px;font-size:16px}.stat strong{font-size:26px;letter-spacing:-.7px;display:block;margin:8px 0 2px}.stat small{font-size:10px;color:var(--muted)}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:14px;margin:27px 0 13px}.section-head p{font-size:12px;color:var(--muted);margin:4px 0 0}.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:17px;min-width:0}.panel:hover{border-color:#394a68}.row{display:flex;align-items:center;gap:12px;min-width:0}.row .grow{flex:1;min-width:0}.between{display:flex;align-items:center;justify-content:space-between;gap:12px}.line{height:1px;background:var(--line);margin:13px 0}.tag{display:inline-flex;align-items:center;gap:5px;padding:4px 8px;border-radius:99px;background:#282343;color:#c9c2ff;font-size:10px;font-weight:700}.tag.green{background:#12352f;color:var(--mint)}.tag.amber{background:#3b301d;color:var(--amber)}.tag.grey{background:#263347;color:#c0ccdd}
+.story-card{display:flex;flex-direction:column;gap:12px;transition:transform .18s,border-color .18s,box-shadow .18s}.story-card:hover{transform:translateY(-2px);border-color:#665c9d;box-shadow:0 12px 28px #0002}.story-top{display:flex;gap:11px;align-items:center}.story-name{font-weight:800;font-size:14px}.story-handle{font-size:11px;color:#b1a8ff}.story-quote{font-size:13px;color:#d1d9e7;line-height:1.55}.story-interests{display:flex;flex-wrap:wrap;gap:5px}.story-interests span{font-size:10px;color:#aebbd0;border:1px solid #304057;padding:4px 7px;border-radius:99px}.searchbar{display:flex;gap:9px;margin:17px 0;flex-wrap:wrap}.input,.textarea,.select{width:100%;background:#0e1728;border:1px solid #2d3d56;border-radius:11px;color:var(--ink);padding:11px 12px;min-width:0}.input::placeholder,.textarea::placeholder{color:#687c98}.searchbar .input{flex:1;min-width:220px}.textarea{resize:vertical;min-height:110px}.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:11px;color:#b7c4d7;font-weight:750}.help{font-size:11px;color:var(--muted)}
+.request-list,.chat-list,.group-list{display:grid;gap:9px}.request-item{display:flex;align-items:center;gap:12px;padding:13px;border:1px solid var(--line);border-radius:14px;background:#111b2c}.request-item .grow p{margin:3px 0;font-size:12px;color:var(--muted)}
+.chat-layout{display:grid;grid-template-columns:minmax(240px,330px) minmax(0,1fr);border:1px solid var(--line);border-radius:17px;overflow:hidden;min-height:515px;background:var(--panel)}.chat-list-pane{border-right:1px solid var(--line);padding:15px;min-width:0}.chat-search{margin:12px 0}.chat-item{width:100%;display:flex;gap:10px;align-items:center;text-align:left;border:1px solid transparent;border-radius:12px;padding:10px;background:transparent;color:var(--ink)}.chat-item:hover{background:#19263b}.chat-item.active{background:#242144;border-color:#423b6c}.chat-item .grow{min-width:0}.chat-item strong{display:block;font-size:12px}.chat-item small{display:block;color:var(--muted);font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.chat-time{font-size:9px;color:#8497b3;white-space:nowrap}.conversation{display:flex;flex-direction:column;min-width:0}.conv-head{padding:15px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}.messages{padding:18px;display:flex;flex-direction:column;gap:9px;flex:1;overflow-y:auto;max-height:430px;background:radial-gradient(ellipse at center,#20213a22,transparent 75%)}.message{max-width:min(76%,520px);padding:10px 13px;border:1px solid #2e4059;background:#1b293e;border-radius:14px 14px 14px 4px;font-size:13px;color:#e4ebf5;overflow-wrap:anywhere}.message.mine{align-self:flex-end;background:#393365;border-color:#514784;border-radius:14px 14px 4px 14px}.message small{display:block;text-align:right;color:#aebbd0;font-size:9px;margin-top:4px}.send-form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}.send-form .input{flex:1}.send-form .btn{white-space:nowrap}
+.group-card{display:flex;flex-direction:column;gap:12px}.group-icon{width:45px;height:45px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(145deg,#38335f,#1b5362);font-size:20px;flex:none}.group-detail{display:flex;flex-direction:column;gap:14px}.switchline{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.switchline:last-child{border-bottom:0}.toggle{accent-color:var(--accent);width:19px;height:19px}
+.empty{padding:28px 14px;text-align:center;color:var(--muted);border:1px dashed #34465f;border-radius:14px;font-size:12px}.profile-layout{display:grid;grid-template-columns:minmax(280px,.8fr) minmax(0,1.2fr);gap:15px}.profile-banner{height:80px;border-radius:12px;background:linear-gradient(110deg,#2a2753,#1f5260);margin-bottom:-30px}.profile-identity{display:flex;align-items:end;gap:12px;padding:0 10px}.profile-identity .avatar{border:4px solid var(--panel)}.profile-card-body{padding:10px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:100;background:#e8e5ff;color:#18132e;border-radius:13px;padding:10px 15px;box-shadow:var(--shadow);font-size:12px;font-weight:800;display:none;max-width:calc(100vw - 24px)}.toast.show{display:block;animation:enter .15s ease-out}
+footer{padding-top:28px;color:#6f8099;font-size:10px;text-align:center}
+@media(min-width:1700px){.shell{max-width:1900px;grid-template-columns:280px minmax(0,1fr)}main{padding-left:42px;padding-right:42px}.grid-3{grid-template-columns:repeat(4,minmax(0,1fr))}.hero{padding:34px}.hero-art{width:130px;height:130px;font-size:50px}}
+@media(max-width:1100px){.shell{grid-template-columns:215px minmax(0,1fr)}main{padding:0 21px 38px}.grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-art{width:86px;height:86px;font-size:34px}}
+@media(max-width:800px){.shell{display:block}.sidebar{position:sticky;top:0;height:auto;padding:12px 12px 8px;border-right:0;border-bottom:1px solid var(--line);gap:10px}.brand{padding:0 4px}.sidebar .nav-label,.sidebar-bottom{display:none}.nav-list{display:flex;overflow-x:auto;gap:5px;padding-bottom:2px;scrollbar-width:thin}.navbtn{width:auto;flex:none;padding:9px 12px;white-space:nowrap;font-size:12px}.navbtn .count{margin-left:0}.sidebar .brand{margin-bottom:0}.sidebar .nav-list:before{content:"";display:none}main{padding:0 16px 30px}.topbar{padding:17px 0;margin-bottom:18px}.user-chip .user-text{display:none}.hero{padding:21px}.chat-layout{grid-template-columns:220px minmax(0,1fr)}.chat-list-pane{padding:10px}.messages{padding:13px}.profile-layout{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){body{font-size:14px}.topbar{align-items:flex-start}.topbar h1{font-size:25px}.eyebrow{font-size:9px}.user-chip{padding:6px}.hero{padding:18px;align-items:flex-start}.hero h2{font-size:25px}.hero-art{display:none}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:23px}.stat-icon{width:26px;height:26px}.grid-3,.grid-2{grid-template-columns:1fr}.section-head{align-items:flex-start;margin-top:22px}.searchbar{display:grid;grid-template-columns:1fr}.searchbar .input{min-width:0}.request-item{align-items:flex-start;flex-wrap:wrap}.request-item .btn-row{width:100%;padding-left:46px}.chat-layout{grid-template-columns:1fr;min-height:0}.chat-list-pane{border-right:0;border-bottom:1px solid var(--line)}.chat-list{display:flex;overflow-x:auto;padding-bottom:3px}.chat-item{flex:none;width:185px}.conversation{min-height:390px}.messages{max-height:330px}.message{max-width:88%}.profile-layout{grid-template-columns:1fr}.hero .btn-row .btn{flex:1}.panel{padding:14px}.conv-head{padding:12px}.send-form{padding:10px}.send-form .btn{padding:9px 11px}}
+@media(orientation:landscape) and (max-height:520px){.sidebar{position:relative;height:auto}.hero{padding:15px}.messages{max-height:230px}.conversation{min-height:340px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* === Adaptive + high-refresh-friendly polish === */
+:root {
+  --motion-quick: 110ms;
+  --motion-normal: 160ms;
+  --motion-long: 210ms;
+  --content-max: 1760px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+html { scroll-padding-top: 16px; }
+body { min-height: 100svh; }
+.shell { width: 100%; max-width: var(--content-max); }
+main { min-width: 0; }
+img, video, canvas, svg { max-width: 100%; }
+button, input, textarea, select { max-width: 100%; }
+.nav-list, .chat-list, .story-interests { overscroll-behavior-inline: contain; }
+.nav-list, .chat-list { -webkit-overflow-scrolling: touch; }
+.panel, .stat, .hero, .image-picker-card { min-width: 0; overflow-wrap: anywhere; }
+.story-quote, .message-text, .muted, .help, .small { overflow-wrap: anywhere; }
+.btn { touch-action: manipulation; min-height: 36px; }
+.navbtn { touch-action: pan-x manipulation; }
+.input, .textarea, .select { min-height: 42px; }
+.file-input { min-height: 38px; }
+.profile-banner, .chat-bg-preview { background-repeat: no-repeat; background-position: center; background-size: cover; }
+
+/* Keep animated effects on compositor-friendly properties wherever possible. */
+.page.active { animation: enter var(--motion-long) ease-out both; }
+.story-card, .btn, .navbtn, .chat-item, .panel {
+  transition-property: transform, opacity, border-color, box-shadow;
+  transition-duration: var(--motion-normal);
+  transition-timing-function: cubic-bezier(.2,.7,.2,1);
+}
+.btn:hover { transform: translate3d(0,-1px,0); }
+.story-card:hover { transform: translate3d(0,-2px,0); }
+.navbtn.active { box-shadow: inset 3px 0 var(--accent); }
+.hero-art { will-change: transform; }
+.message-row { contain: layout style; }
+.messages { overscroll-behavior: contain; scrollbar-gutter: stable; }
+.page { min-width: 0; }
+#discoverResults, #homeStories, #homeGroups, #groupResults { align-items: stretch; }
+input, textarea, select, button { font-size: max(12px, 1em); }
+
+/* Narrow phones including 320px widths. */
+@media (max-width: 380px) {
+  main { padding-left: 10px; padding-right: 10px; }
+  .sidebar { padding-left: 8px; padding-right: 8px; }
+  .brand strong { font-size: 15px; }
+  .brand small { font-size: 10px; }
+  .navbtn { gap: 7px; padding: 8px 9px; font-size: 11px; }
+  .topbar h1 { font-size: 22px; letter-spacing: -.6px; }
+  .hero { padding: 14px; border-radius: 16px; }
+  .hero h2 { font-size: 22px; }
+  .hero p { font-size: 12px; }
+  .hero .btn-row { display: grid; grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat { padding: 10px; }
+  .stat strong { font-size: 21px; }
+  .stat small { font-size: 9px; }
+  .panel { padding: 11px; }
+  .request-item { padding: 10px; gap: 8px; }
+  .request-item .btn-row { padding-left: 0; }
+  .message-bubble { max-width: calc(100% - 36px); padding: 9px 10px; font-size: 12px; }
+  .send-form { gap: 6px; }
+  .send-form .btn { padding: 8px 9px; }
+  .profile-identity { padding-left: 4px; }
+  .visual-settings { gap: 8px; }
+}
+@media (max-width: 360px) {
+  .navbtn .ico { display: none; }
+  .user-chip { display: none; }
+  .topbar { gap: 8px; }
+  .stats .stat-top { align-items: flex-start; gap: 4px; }
+}
+
+/* Tablets, split screen, foldables and narrow windows. */
+@media (min-width: 601px) and (max-width: 900px) {
+  main { padding-left: clamp(14px, 2.5vw, 24px); padding-right: clamp(14px, 2.5vw, 24px); }
+  .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .profile-layout { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+  .chat-layout { grid-template-columns: minmax(185px, 34%) minmax(0, 1fr); }
+  .chat-head-actions .tag { display: none; }
+}
+@media (min-width: 801px) and (max-width: 1100px) {
+  .shell { grid-template-columns: 205px minmax(0, 1fr); }
+  .sidebar { padding-left: 12px; padding-right: 12px; }
+  main { padding-left: 18px; padding-right: 18px; }
+  .hero { padding: 20px; }
+  .hero-art { width: 78px; height: 78px; border-radius: 23px; }
+}
+/* Normal desktops and large monitors. */
+@media (min-width: 1101px) and (max-width: 1599px) {
+  .shell { grid-template-columns: 235px minmax(0, 1fr); }
+  main { padding-left: clamp(22px, 2.5vw, 38px); padding-right: clamp(22px, 2.5vw, 38px); }
+  .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+/* Ultrawide / TV-width viewports: limit line length while using space efficiently. */
+@media (min-width: 1600px) {
+  .shell { max-width: 2200px; grid-template-columns: 270px minmax(0, 1fr); }
+  main { padding-left: clamp(34px, 3vw, 64px); padding-right: clamp(34px, 3vw, 64px); }
+  .topbar { padding-top: 30px; padding-bottom: 25px; }
+  .hero { padding: clamp(28px, 2.4vw, 46px); }
+  .hero h2 { font-size: clamp(31px, 2.1vw, 42px); max-width: 900px; }
+  .hero p { font-size: clamp(14px, .95vw, 18px); max-width: 850px; }
+  h2 { font-size: clamp(19px, 1.2vw, 25px); }
+  .panel { padding: clamp(17px, 1.3vw, 25px); }
+  .grid-3 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .stats { gap: 16px; }
+  .stat { padding: clamp(17px, 1.2vw, 25px); }
+  .stat strong { font-size: clamp(26px, 1.7vw, 36px); }
+  .messages { max-height: min(58vh, 760px); }
+}
+/* Low-height landscape, kiosks and TV browser layouts. */
+@media (min-width: 700px) and (max-height: 650px) {
+  .sidebar { height: 100vh; overflow-y: auto; }
+  .topbar { padding-top: 13px; padding-bottom: 13px; margin-bottom: 15px; }
+  .hero { padding: 16px 20px; }
+  .hero-art { width: 68px; height: 68px; }
+  .section-head { margin-top: 18px; }
+  .messages { max-height: 38vh; }
+}
+/* Support displays that advertise a high refresh rate without locking the browser cadence. */
+@media (prefers-reduced-motion: no-preference) {
+  .page.active { animation-duration: var(--motion-long); }
+  .btn:active, .navbtn:active, .chat-item:active { transition-duration: var(--motion-quick); }
+}
+@media (hover: none), (pointer: coarse) {
+  .story-card:hover, .panel:hover, .btn:hover { transform: none; box-shadow: none; }
+  .btn, .navbtn, .chat-item { min-height: 42px; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .story-card:hover { box-shadow: 0 12px 28px #0002; }
+}
+/* User preference for reduced animation overrides all motion polish. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+    will-change: auto !important;
+  }
+}
+
+
+/* Global search, QR utilities and settings hub */
+.topbar{align-items:flex-start;flex-wrap:wrap}
+.topbar-main{display:flex;align-items:flex-start;gap:18px;flex:1;min-width:250px;flex-wrap:wrap}
+.topbar-heading{min-width:120px}
+.global-search{display:flex;align-items:center;gap:8px;width:min(440px,100%);flex:1;min-width:220px;border:1px solid var(--line);border-radius:13px;background:#0e1728;padding:5px 6px 5px 12px}
+.global-search .search-symbol{font-size:18px;color:#a99fff}
+.global-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--ink);padding:8px 2px}
+.global-search input:focus{outline:0}
+.global-search .btn{padding:8px 10px;white-space:nowrap}
+.topbar-tools{display:flex;align-items:center;gap:8px;margin-left:auto;flex-wrap:wrap;justify-content:flex-end}
+.qr-tools{display:flex;gap:7px;align-items:center}
+.qr-tools .btn{white-space:nowrap}
+.settings-panel{margin-top:20px}
+.settings-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.setting-tile{width:100%;display:flex;align-items:center;gap:11px;min-width:0;padding:13px 12px;border:1px solid var(--line);border-radius:14px;background:#101a2b;color:var(--ink);text-align:left;transition:transform .14s,border-color .15s,background .15s}
+.setting-tile:hover{transform:translateY(-1px);border-color:#665e9a;background:#17243a}
+.setting-icon{width:36px;height:36px;display:grid;place-items:center;flex:none;border-radius:12px;background:#292649;color:#cfc8ff;font-size:17px}
+.setting-tile b{display:block;font-size:12px}
+.setting-tile small{display:block;color:var(--muted);font-size:10px;margin-top:3px;overflow-wrap:anywhere}
+.setting-arrow{margin-left:auto;color:#8799b5;font-size:15px}
+.modal-overlay{position:fixed;inset:0;z-index:1200;background:#030712c9;backdrop-filter:blur(9px);display:none;align-items:center;justify-content:center;padding:18px;overflow-y:auto}
+.modal-overlay.open{display:flex}
+.modal-card{width:min(660px,100%);max-height:min(88dvh,900px);overflow:auto;border:1px solid #364560;border-radius:20px;background:#111b2d;box-shadow:0 30px 90px #0008;padding:20px}
+.modal-card.wide{width:min(820px,100%)}
+.modal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:15px}
+.modal-header h2{font-size:20px}
+.modal-close{border:1px solid var(--line);background:#1c2940;color:var(--ink);border-radius:10px;width:36px;height:36px;font-size:18px;flex:none}
+.modal-content{min-width:0}
+.settings-section{padding:13px 0;border-bottom:1px solid var(--line)}
+.settings-section:last-child{border-bottom:0}
+.settings-section h3{margin-bottom:5px}
+.settings-section p{font-size:12px;color:var(--muted);margin:4px 0 10px}
+.settings-field-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #28364b}
+.settings-field-row:last-child{border-bottom:0}
+.settings-field-row b{display:block;font-size:12px}
+.settings-field-row small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.settings-field-row .toggle{flex:none}
+.qr-wrap{display:grid;grid-template-columns:minmax(180px,240px) minmax(0,1fr);gap:20px;align-items:center}
+.qr-paper{min-height:245px;display:grid;place-items:center;padding:14px;background:#fff;border-radius:16px;color:#101626}
+.qr-paper canvas,.qr-paper img{max-width:100%;height:auto!important}
+.qr-payload{font-size:12px;overflow-wrap:anywhere;border:1px solid var(--line);border-radius:10px;background:#0b1423;padding:10px;color:#c5cfe0}
+.scanner-video{width:100%;max-height:340px;object-fit:cover;border-radius:14px;background:#050b16;border:1px solid var(--line);display:none}
+.scanner-status{padding:11px 12px;border:1px solid var(--line);background:#0e1728;border-radius:12px;color:var(--muted);font-size:12px;margin:11px 0}
+.qr-result{margin:16px 0 0;border:1px solid #51477f;background:linear-gradient(140deg,#171f34,#1b1b37);border-radius:17px;padding:18px}
+.qr-result .profile-story{font-size:14px;line-height:1.65;color:#d5ddec;margin:15px 0}
+.qr-result .qr-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.qr-result .qr-actions .btn{min-width:95px}
+.blocked-chip{display:inline-flex;border-radius:99px;padding:5px 8px;color:#ffc0c9;background:#3c222d;font-size:10px}
+.message-star{border:0;background:transparent;color:#f4c76b;padding:0 2px;font-size:14px;line-height:1}
+.starred-item{padding:12px;border:1px solid var(--line);border-radius:12px;background:#0f1828;margin:8px 0}
+.starred-item p{margin:5px 0;font-size:12px;color:#dce4f2;white-space:pre-wrap;overflow-wrap:anywhere}
+.inline-search-results{display:grid;gap:8px;margin-top:10px}
+@media(max-width:900px){.settings-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.topbar-main{gap:12px}.global-search{min-width:220px}}
+@media(max-width:650px){.topbar{gap:12px}.topbar-main{min-width:0;width:100%;display:grid;grid-template-columns:1fr}.topbar-heading{min-width:0}.global-search{width:100%;min-width:0}.topbar-tools{width:100%;justify-content:space-between;margin-left:0}.qr-tools{gap:6px}.qr-tools .btn{padding:8px 9px;font-size:11px}.settings-grid{grid-template-columns:1fr}.setting-tile{padding:11px}.modal-overlay{padding:8px}.modal-card{max-height:94dvh;padding:15px;border-radius:16px}.qr-wrap{grid-template-columns:1fr}.qr-paper{min-height:210px}.qr-result{padding:13px}.topbar h1{font-size:24px}}
+@media(max-width:360px){.qr-tools .btn{font-size:10px;padding:8px 7px}.global-search{gap:5px;padding-left:8px}.global-search .btn{font-size:10px}.setting-tile small{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.setting-tile:hover{transform:none}.modal-overlay,.modal-card{scroll-behavior:auto}}
+
+
+body.compact-chats .message-bubble{padding:6px 9px;font-size:12px}body.compact-chats .message-row{gap:5px}body.compact-chats .messages{gap:6px}
+
+/* Public onboarding + login gate */
+.login-gate{min-height:100svh;display:grid;place-items:center;padding:clamp(14px,4vw,34px);background:radial-gradient(ellipse at 86% -7%,#29234d 0,transparent 38%),radial-gradient(ellipse at -8% 100%,#113e4a55 0,transparent 34%),#0b1120;color:#f4f7fb}
+.login-card{width:min(520px,100%);border:1px solid #2c3b54;border-radius:24px;background:linear-gradient(145deg,#141f32f7,#111a2df7);box-shadow:0 28px 90px #0005;padding:clamp(20px,4vw,34px);overflow:hidden;position:relative}
+.login-brand{display:flex;align-items:center;gap:12px;margin-bottom:26px}.login-logo{width:47px;height:47px;flex:none;display:grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,#8b7cff,#36c5d8);color:#101528;font-size:22px;font-weight:950}.login-brand strong{display:block;font-size:17px}.login-brand small{display:block;color:#9baac0;font-size:11px}.login-eyebrow{font-size:10px;letter-spacing:1.7px;text-transform:uppercase;color:#a99fff;font-weight:850}.login-gate h1{font-size:clamp(27px,5vw,39px);letter-spacing:-1.2px;line-height:1.12;margin:9px 0 12px}.login-gate p{color:#aebbd0;margin:9px 0 18px;font-size:13px;line-height:1.65}.auth-step{display:none}.auth-step.active{display:block;animation:loginEnter .18s ease-out both}@keyframes loginEnter{from{opacity:.65;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}.login-actions{display:grid;gap:9px;margin-top:20px}.login-action{width:100%;min-height:48px;border-radius:12px;border:1px solid #304057;background:#1a2740;color:#f4f7fb;font-weight:750;text-align:center;padding:12px 14px}.login-action:hover{border-color:#8b7cff;background:#212b48}.login-action.primary{background:#8b7cff;color:#121528;border-color:#8b7cff}.login-action.primary:hover{background:#a99fff}.login-action.apple{background:#f4f6fb;color:#121724;border-color:#f4f6fb}.login-action.google{background:#fff;color:#232836;border-color:#e8eaf0}.login-back{background:transparent;border:0;color:#b8afff;padding:9px 0;margin-top:12px;font-size:12px;font-weight:700}.login-divider{height:1px;background:#2a3850;margin:18px 0}.login-field{display:grid;gap:7px;margin:13px 0}.login-field label{font-size:11px;color:#b8c5d8;font-weight:750}.login-field input,.login-field select,.login-field textarea{width:100%;min-width:0;min-height:46px;border:1px solid #304057;background:#0b1525;color:#f4f7fb;border-radius:11px;padding:11px 12px;font:inherit}.login-field input:focus{outline:2px solid #8b7cff;outline-offset:2px}.login-hint{font-size:10px!important;color:#8293ad!important;margin:9px 0!important}.login-error{display:none;border:1px solid #673340;background:#301b28;color:#ffc0c9;padding:10px 12px;border-radius:10px;font-size:12px;margin:12px 0}.login-error.show{display:block}.login-warning{border:1px solid #594c2a;background:#282316;border-radius:12px;color:#e6d49d;padding:11px 12px;font-size:11px;line-height:1.55;margin:12px 0}.terms-copy{max-height:220px;overflow:auto;border:1px solid #2a3850;border-radius:12px;padding:13px;background:#0c1626;color:#b9c5d7;font-size:12px;line-height:1.65}.login-bottom{margin-top:25px;padding-top:15px;border-top:1px solid #28364b;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.login-bottom a{color:#b5adff;font-size:12px;text-decoration:none}.login-bottom a:hover{text-decoration:underline}.provider-icon{display:inline-flex;width:21px;height:21px;align-items:center;justify-content:center;margin-right:8px;vertical-align:middle;font-size:15px}.mode-result{display:inline-flex;border:1px solid #315b54;background:#102e2b;color:#5ee0bb;border-radius:99px;padding:6px 9px;font-size:11px;font-weight:750}
+@media(max-width:380px){.login-card{padding:19px;border-radius:19px}.login-gate h1{font-size:27px}.login-brand{margin-bottom:20px}}
+@media(prefers-reduced-motion:reduce){.auth-step.active{animation:none}}
+
+
+/* Project Connect performance pass: responsive layout + smoother frame pacing. */
+html { scroll-behavior: auto; }
+body { min-width: 320px; }
+/* Avoid costly full-screen blur and permanent compositor promotion on mid-range devices. */
+.sidebar { -webkit-backdrop-filter: none; backdrop-filter: none; }
+.hero-art { will-change: auto; }
+/* Keep interactions short and avoid animating large shadows/filters during scrolling. */
+button, .btn, .navbtn, .chat-item, .story-card, .setting-tile, .panel {
+  transition-property: background-color, color, border-color, opacity;
+  transition-duration: 110ms;
+  transition-timing-function: ease-out;
+}
+.btn:hover, .story-card:hover, .setting-tile:hover { transform: none; box-shadow: none; }
+.page.active, .auth-step.active { animation: none !important; }
+@media (min-width: 1600px) { .shell { max-width: 2200px; } }
+@media (max-width: 700px) {
+  .shell { display: block; }
+  .sidebar { position: relative; top: auto; height: auto; }
+  .profile-layout, .chat-layout { grid-template-columns: minmax(0, 1fr); }
+  .settings-grid { grid-template-columns: minmax(0, 1fr); }
+  .modal-overlay { padding: 8px; }
+  .modal-card { max-height: 94dvh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* Compact profile refinement — preserves the full earlier portal and settings hub. */
+.profile-layout{gap:12px}
+.profile-layout>.panel{padding:14px}
+.profile-banner{height:64px;margin-bottom:-25px}
+.profile-identity{gap:10px}
+.profile-identity .avatar.lg{width:50px;height:50px;border-radius:15px}
+.profile-card-body{padding:8px}
+.profile-card-body .field{margin:9px 0}
+@media(max-width:600px){
+  .profile-layout{grid-template-columns:minmax(0,1fr)}
+  .profile-layout>.panel{padding:12px}
+  .profile-banner{height:58px;margin-bottom:-22px}
+}
+
+
+/* Profile-only compact mode: no other tabs are changed. */
+#page-profile .profile-head-compact{align-items:center;gap:8px;margin-bottom:10px}
+#page-profile .profile-head-compact .btn{padding:6px 9px;min-height:30px;white-space:nowrap;font-size:10px}
+#page-profile .profile-layout{grid-template-columns:minmax(230px,.68fr) minmax(0,1.32fr);gap:10px;align-items:start}
+#page-profile .profile-layout>.panel{padding:12px}
+#page-profile .profile-banner{height:46px;margin-bottom:-19px}
+#page-profile .profile-identity{gap:9px;padding:0 6px;align-items:center}
+#page-profile .profile-identity .avatar.lg{width:44px;height:44px;min-width:44px;border-radius:13px;font-size:13px}
+#page-profile #profileDisplayName{font-size:16px;line-height:1.2;margin:0}
+#page-profile .profile-card-body{padding:8px 4px 2px}
+#page-profile #profileStoryPreview{margin:5px 0 8px;font-size:12px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+#page-profile .profile-card-body .line{margin:7px 0}
+#page-profile .profile-review-row{margin-top:7px;gap:8px}
+#page-profile .profile-review-row .tag{font-size:9px;padding:3px 7px;white-space:nowrap}
+#page-profile .visual-settings{gap:8px;margin:8px 0}
+#page-profile .image-picker-card{padding:9px}
+#page-profile .dp-preview{width:36px;height:36px;border-radius:11px}
+#page-profile .field{gap:4px;margin:7px 0}
+#page-profile .field label{font-size:10px}
+#page-profile .field .input,#page-profile .field .textarea{padding:8px 9px;min-height:32px;font-size:12px}
+#page-profile .field .textarea{min-height:60px}
+#page-profile .settings-panel{margin-top:10px;padding:12px}
+#page-profile .settings-panel .settings-grid{gap:7px;grid-template-columns:repeat(4,minmax(0,1fr))}
+#page-profile .settings-panel .setting-tile{padding:8px;gap:7px}
+#page-profile .settings-panel .setting-icon{width:28px;height:28px;font-size:13px}
+#page-profile .settings-panel .setting-tile b{font-size:10px}
+#page-profile .settings-panel .setting-tile small{font-size:9px;line-height:1.3}
+.code-lab-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:stretch}
+.code-editor-panel,.code-preview-panel{min-width:0;border:1px solid var(--line);background:#10192a;border-radius:14px;overflow:hidden}
+.code-lab-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid var(--line);background:#131f32}
+.code-tabs{display:flex;gap:5px;flex-wrap:wrap}
+.code-tab{border:1px solid var(--line);background:#0d1727;color:var(--muted);border-radius:8px;padding:6px 9px;font-size:11px;font-weight:800}
+.code-tab.active{background:#302a53;border-color:#6258a4;color:#fff}
+.code-editor{display:block;width:100%;min-height:340px;resize:vertical;border:0;background:#0b1220;color:#d9e6fa;padding:13px;font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;tab-size:2;outline:none}
+.code-editor:focus{box-shadow:inset 0 0 0 2px #665caa}
+.code-preview-frame{display:block;width:100%;height:430px;border:0;background:#fff}
+.code-lab-status{font-size:11px;color:var(--mint)}
+.code-lab-note{font-size:11px;color:var(--muted);margin:9px 0 0;line-height:1.5}
+@media(max-width:900px){.code-lab-grid{grid-template-columns:1fr}.code-editor{min-height:260px}.code-preview-frame{height:350px}#page-profile .settings-panel .settings-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){#page-profile .profile-layout{grid-template-columns:minmax(0,1fr)}#page-profile .profile-layout>.panel{padding:11px}#page-profile .settings-panel .settings-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){#page-profile .settings-panel .settings-grid{grid-template-columns:minmax(0,1fr)}}
+
+
+/* Account-first release refinements */
+.empty{padding:24px 18px;border:1px dashed #34445f;border-radius:14px;background:#111b2c;color:var(--muted);text-align:center;font-size:12px;line-height:1.6}
+#profileForm .help{line-height:1.5}
+#connectId[readonly]{opacity:.82;cursor:not-allowed}
+#profileSaveStatus{min-height:18px;align-self:center}
+#page-groups #createGroupPanel{display:none!important}
+
+
+/* Account-first profile and empty-state treatment */
+.empty{padding:24px 18px;border:1px dashed #34445f;border-radius:14px;background:#111b2c;color:var(--muted);text-align:center;font-size:12px;line-height:1.6}
+#connectId[readonly]{opacity:.82;cursor:not-allowed}
+#profileSaveStatus{min-height:18px;align-self:center}
+#page-groups #createGroupPanel{display:none!important}
+
+
+/* Friend requests and member safety controls */
+.pc-social-card-actions{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:9px}
+.pc-social-card-actions .btn{font-size:11px;padding:8px 10px;min-height:32px}
+.pc-social-mini-actions{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.pc-social-mini-actions .btn{font-size:11px;padding:7px 10px;min-height:30px}
+.pc-social-person{display:flex;align-items:center;gap:11px;min-width:0}
+.pc-social-person .grow{min-width:0}
+.pc-social-person strong{display:block;overflow-wrap:anywhere}
+.pc-social-person small{display:block;color:var(--muted);font-size:10px}
+.pc-social-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--line);border-radius:13px;background:#111b2c;min-width:0}
+.pc-social-row .pc-social-mini-actions{justify-content:flex-end}
+.pc-danger-link{color:#ffb8c1!important;border-color:#603440!important}
+#page-connections .grid-2{align-items:start}
+@media(max-width:600px){.pc-social-row{align-items:flex-start;flex-direction:column}.pc-social-row .pc-social-mini-actions{width:100%;justify-content:flex-start}.pc-social-card-actions{width:100%}}
+
+</style>
+
+<style id="project-connect-chat-optimization">
+body.lightweight-chats *, body.lightweight-chats *::before, body.lightweight-chats *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+body.compact-chats .message-row { margin-block: 4px !important; gap: 6px !important; }
+body.compact-chats .message-bubble { padding: 8px 10px !important; }
+body.compact-chats .messages { gap: 4px !important; }
+</style>
+
+<style id="project-connect-login-refresh">
+/* Login refresh: visual-only enhancement; existing auth steps and handlers remain intact. */
+.login-gate{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 12% 18%,#5146a044 0,transparent 34%),radial-gradient(ellipse at 90% 85%,#19a7b044 0,transparent 32%),linear-gradient(135deg,#080e1b,#101a2c 55%,#0a1422);padding:clamp(16px,4vw,48px)}
+.login-gate:before,.login-gate:after{content:"";position:fixed;z-index:-1;border:1px solid #ffffff0d;border-radius:50%;pointer-events:none}
+.login-gate:before{width:520px;height:520px;left:-210px;top:-220px;box-shadow:0 0 0 42px #ffffff05,0 0 0 84px #ffffff04}
+.login-gate:after{width:440px;height:440px;right:-180px;bottom:-220px;box-shadow:0 0 0 36px #ffffff05,0 0 0 72px #ffffff04}
+.login-card{width:min(1000px,100%);min-height:570px;border:1px solid #ffffff1c;border-radius:30px;padding:34px clamp(22px,4vw,48px);display:grid;grid-template-columns:minmax(0,0.86fr) minmax(340px,1.14fr);grid-template-rows:auto 1fr;column-gap:clamp(28px,5vw,64px);align-items:start;background:linear-gradient(145deg,#17243aF5,#101a2df7);box-shadow:0 34px 110px #0008;backdrop-filter:blur(18px)}
+.login-brand{grid-column:1/-1;margin-bottom:34px;position:relative;z-index:1}
+.login-logo{border-radius:15px;box-shadow:0 8px 28px #8b7cff40}
+.login-card:before{content:"A place to\A be heard.";white-space:pre-line;grid-column:1;grid-row:2;align-self:start;padding:26px 20px 0 0;color:#f7f8ff;font-size:clamp(34px,4.7vw,58px);font-weight:850;letter-spacing:-2.5px;line-height:1.04;max-width:360px}
+.login-card:after{content:"Connect through stories, shared interests, and conversations that feel like you.\A\A PRIVATE BY CHOICE   ·   CONNECT BY STORY";white-space:pre-line;grid-column:1;grid-row:2;align-self:start;margin-top:150px;padding:0 24px 0 0;color:#aebbd0;font-size:13px;line-height:1.9;letter-spacing:.1px;max-width:350px}
+.auth-step{grid-column:2;grid-row:2;min-width:0;padding:4px 0 10px}
+.login-eyebrow{color:#b6aaff;letter-spacing:1.9px}
+.login-gate h1{font-size:clamp(28px,3.5vw,39px);letter-spacing:-1.35px;line-height:1.1}
+.login-gate p{font-size:13px;line-height:1.75;color:#b9c5d8}
+.login-actions{gap:11px;margin-top:24px}
+.login-action{min-height:51px;border-radius:14px;border-color:#ffffff20;background:#ffffff09;transition:transform .18s ease,border-color .18s ease,background .18s ease;cursor:pointer}
+.login-action:hover{transform:translateY(-1px);border-color:#a99fff;background:#ffffff12}
+.login-action.primary{background:linear-gradient(100deg,#9a8cff,#63c8dc);border:0;color:#101629;box-shadow:0 10px 28px #7d73e52b}
+.login-action.primary:hover{background:linear-gradient(100deg,#b1a7ff,#80d8e8)}
+.login-back{color:#c0b8ff}
+.login-field input,.login-field select,.login-field textarea{border-radius:13px;background:#091323;border-color:#ffffff22;min-height:49px}
+.login-field input:focus{outline:2px solid #9b8cff;outline-offset:2px;border-color:transparent}
+.terms-copy{border-radius:14px;border-color:#ffffff20;background:#0b1525}
+.login-warning{border-radius:13px}
+.login-bottom{margin-top:28px;padding-top:14px;border-top:1px solid #ffffff14}
+.login-hint{font-size:11px!important}
+@media(max-width:720px){.login-card{width:min(540px,100%);min-height:0;display:block;padding:24px 20px;border-radius:24px}.login-brand{margin-bottom:28px}.login-card:before,.login-card:after{display:none}.auth-step{padding:0}.login-gate h1{font-size:clamp(29px,8vw,38px)}.login-gate{padding:14px}}
+@media(prefers-reduced-motion:reduce){.login-action,.auth-step.active{animation:none!important;transition:none!important}}
+</style>
+
+</head>
+<body>
+<div id="publicLoginGate" class="login-gate">
+  <section class="login-card" aria-label="Project Connect sign-in">
+    <div class="login-brand"><div class="login-logo">C</div><div><strong>Project Connect</strong><small>People beyond profiles</small></div></div>
+    <section class="auth-step active" data-auth-step="welcome">
+      <div class="login-eyebrow">Your world, connected</div>
+      <h1>Find people who connect with your story.</h1>
+      <p>Meet people through interests, thoughtful profiles, and Connect IDs. Your phone number stays private unless you choose to share it.</p>
+      <div class="login-actions"><button class="login-action primary" type="button" data-auth-next="terms">Get started <span aria-hidden="true">↗</span></button></div>
+      <div class="login-bottom"><span class="login-hint">Connect by story. Take conversations at your own pace.</span><a href="admin.html">Admin Portal ↗</a></div>
+    </section>
+    <section class="auth-step" data-auth-step="terms">
+      <div class="login-eyebrow">Before you connect</div><h1>Terms & conditions</h1>
+      <p>Review the community rules before creating an account or signing in.</p>
+      <div class="terms-copy"><b>Project Connect — Community Rules</b><br><br>Use your own identity and accurate account details. Respect other members, get consent before sharing contact details or media, and do not harass, threaten, impersonate, spam, or share another person's private information.<br><br>Keep personal information private. Share your location only when you understand who can see it. Report suspicious behavior and block members who make you uncomfortable.<br><br>Project Connect is being released in stages. Some services, including social discovery, groups, push notifications, media sharing, and account safety tools, may not yet be available. These rules are an interim notice and do not replace the final Terms of Service and Privacy Policy that must be published before a full public launch.</div>
+      <label class="switchline" style="margin-top:13px"><span><b class="small">I have read and agree to these rules</b><span class="help" style="display:block">You can disagree and return to the welcome screen.</span></span><input type="checkbox" class="toggle" id="termsAccepted"></label>
+      <div id="termsError" class="login-error" role="alert">Please confirm you've read the community rules.</div>
+      <div class="login-actions"><button class="login-action primary" id="agreeTerms" type="button">Agree & continue</button><button class="login-action" id="disagreeTerms" type="button">Disagree — back to welcome</button></div>
+    </section>
+    <section class="auth-step" data-auth-step="providers">
+      <div class="login-eyebrow">Sign in or create an account</div><h1>Welcome to Connect.</h1>
+      <p>Use your Project Connect account to continue. Email and password sign-in is currently available.</p>
+      <div class="login-warning">Google, Apple, and phone sign-in will appear here once their identity providers and verification settings are configured.</div>
+      <div class="login-actions">
+        <button class="login-action primary" type="button" data-auth-next="supabase">Continue with email &amp; password</button>
+      </div>
+      <button class="login-back" type="button" data-auth-back="terms">← Back to terms</button>
+    </section>
+    <section class="auth-step" data-auth-step="supabase">
+      <div class="login-eyebrow">Secure account</div><h1>Connect your account.</h1>
+      <p>Create your Project Connect account or sign in with your email. Email confirmation may be required.</p>
+      <form id="supabaseAuthForm">
+        <div class="login-field"><label for="pcAuthName">Display name (for new accounts)</label><input id="pcAuthName" type="text" maxlength="60" autocomplete="name" placeholder="Your name"></div>
+        <div class="login-field"><label for="pcAuthConnectId">Connect ID (for new accounts)</label><input id="pcAuthConnectId" type="text" maxlength="24" autocomplete="username" placeholder="your.connect.id" pattern="[A-Za-z0-9._-]{3,24}"></div>
+        <div class="login-field"><label for="pcAuthEmail">Email</label><input id="pcAuthEmail" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+        <div class="login-field"><label for="pcAuthPassword">Password</label><input id="pcAuthPassword" type="password" autocomplete="current-password" minlength="8" required placeholder="At least 8 characters"></div>
+        <div id="pcAuthError" class="login-error" role="alert"></div>
+        <div id="pcAuthStatus" class="login-warning" hidden aria-live="polite"></div>
+        <div class="login-actions"><button class="login-action primary" id="pcSignIn" type="button">Sign in</button><button class="login-action" id="pcSignUp" type="button">Create account</button></div>
+      </form>
+      <button class="login-back" type="button" data-auth-back="providers">← Choose another sign-in method</button>
+    </section>
+  </section>
+</div>
+
+<div class="shell" id="publicAppShell" style="display:none">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">C</div><div><strong>Project Connect</strong><small>People beyond profiles</small></div></div>
+    <div class="nav-label">Your space</div>
+    <nav class="nav-list" aria-label="Main navigation">
+      <button class="navbtn active" data-tab="home"><span class="ico">⌂</span>Home</button>
+      <button class="navbtn" data-tab="discover"><span class="ico">⌕</span>Discover</button>
+      <button class="navbtn" data-tab="requests"><span class="ico">♧</span>Requests <span class="count" id="requestCount" hidden>0</span></button>
+      <button class="navbtn" data-tab="connections"><span class="ico">♧</span>Connections <span class="count" id="connectionCount" hidden>0</span></button>
+      <button class="navbtn" data-tab="chats"><span class="ico">▤</span>Chats</button>
+      <button class="navbtn" data-tab="groups"><span class="ico">◎</span>Groups</button>
+      <button class="navbtn" data-tab="profile"><span class="ico">♙</span>My profile</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="mode-card"><b>Privacy-first by design</b><p>Connect by story and interests. Share only what you choose.</p><span class="tiny-pill">● Member space</span></div>
+      <div style="margin:12px 6px 0"><a href="admin.html" class="small">Admin portal ↗</a></div>
+    </div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <div class="topbar-main">
+        <div class="topbar-heading"><div class="eyebrow">Your world, connected</div><h1 id="pageTitle">Home</h1></div>
+        <form id="globalSearchForm" class="global-search" role="search">
+          <span class="search-symbol" aria-hidden="true">⌕</span>
+          <input id="globalSearch" type="search" autocomplete="off" placeholder="Search anything…" aria-label="Search people, chats, groups, and settings">
+          <button class="btn primary" type="submit">Search</button>
+        </form>
+      </div>
+      <div class="topbar-tools">
+        <div class="qr-tools">
+          <button class="btn" type="button" id="openQrScanner" aria-haspopup="dialog">▦ Scan QR</button>
+          <button class="btn primary" type="button" id="openQrGenerator" aria-haspopup="dialog">▧ My QR</button>
+        </div>
+        <div class="user-chip"><div class="avatar sm" id="topAvatar">YC</div><div class="user-text"><b id="topHandle">@youconnect</b><small id="topMode">Signed in</small></div></div>
+      </div>
+    </header>
+    <section id="page-home" class="page active">
+      <div class="hero"><div><div class="eyebrow">Good conversations start here</div><h2>Find people who connect with your story, not just your picture.</h2><p>Explore thoughtful profiles, share a little about yourself, and build connections at your own pace.</p><div class="btn-row"><button class="btn primary" data-go="discover">Discover people ↗</button><button class="btn" data-go="profile">Write your story</button></div></div><div class="hero-art">✳</div></div>
+      <div class="stats">
+        <div class="stat"><div class="stat-top">Connections <span class="stat-icon">♧</span></div><strong id="statConnections">—</strong><small>People you've connected with</small></div>
+        <div class="stat"><div class="stat-top">Pending requests <span class="stat-icon">↗</span></div><strong id="statRequests">—</strong><small>Waiting for your response</small></div>
+        <div class="stat"><div class="stat-top">Open chats <span class="stat-icon">▤</span></div><strong id="statChats">—</strong><small>Live conversations</small></div>
+        <div class="stat"><div class="stat-top">Groups <span class="stat-icon">◎</span></div><strong id="statGroups">—</strong><small>Communities you can explore</small></div>
+      </div>
+      <div class="section-head"><div><h2>Stories worth meeting</h2><p>Profiles are built around stories and interests, not photos.</p></div><button class="btn ghost" data-go="discover">See all ↗</button></div>
+      <div class="grid-3" id="homeStories"></div>
+      <div class="section-head"><div><h2>Your communities</h2><p>Find a group around something you care about.</p></div><button class="btn ghost" data-go="groups">Explore groups ↗</button></div>
+      <div class="grid-2" id="homeGroups"></div>
+    </section>
+
+    <section id="page-discover" class="page">
+      <div class="panel"><h2>Discover people</h2><p class="muted small">Search by Connect ID, name, story, or interest.</p><div class="searchbar"><input id="discoverSearch" class="input" placeholder="Try @mira.reads, music, or design…" autocomplete="off"><button class="btn primary" id="clearDiscover">Clear search</button></div><div class="help">Only members who have enabled profile discovery are shown. Search results come from registered Project Connect accounts.</div></div>
+      <div id="qrProfileResult" class="qr-result" hidden></div>
+      <div class="section-head"><div><h2>People you may connect with</h2><p id="discoverSummary">Find members by name, Connect ID, or interests.</p></div></div>
+      <div class="grid-3" id="discoverResults"></div>
+    </section>
+
+    <section id="page-requests" class="page">
+      <div class="section-head" style="margin-top:0"><div><h2>Connection requests</h2><p>Accept people you know, decline requests you don't recognize, or cancel invitations you sent.</p></div><button class="btn" type="button" data-pc-social="refresh">Refresh</button></div>
+      <div class="panel"><h3>Received</h3><div class="request-list" id="incomingRequests"><div class="empty">Loading requests…</div></div></div>
+      <div class="section-head"><div><h2>Sent requests</h2><p>Invitations waiting for the other member to respond.</p></div></div>
+      <div class="panel"><div class="request-list" id="outgoingRequests"><div class="empty">Loading sent requests…</div></div></div>
+    </section>
+
+    <section id="page-connections" class="page">
+      <div class="section-head" style="margin-top:0"><div><h2>Your connections</h2><p>Manage people you've mutually connected with.</p></div><button class="btn" type="button" data-pc-social="refresh">Refresh</button></div>
+      <div class="grid-2" id="pcConnectionsList"><div class="empty">Loading connections…</div></div>
+      <div class="section-head"><div><h2>Blocked members</h2><p>People you've blocked cannot discover your profile or message you.</p></div></div>
+      <div class="panel"><div class="request-list" id="pcBlockedList"><div class="empty">Loading blocked members…</div></div></div>
+    </section>
+
+    <section id="page-chats" class="page">
+      <div class="section-head pc-chat-page-head" style="margin-top:0">
+        <div><h2>Your messages</h2><p>One place for your private conversations.</p></div>
+        <span class="tag" id="pcLiveChatStatus">Not connected</span>
+      </div>
+      <div class="notice" id="pcLiveChatNotice" style="margin:0 0 14px">Sign in with your Project Connect account to view and send real messages.</div>
+      <div id="pcLiveChatWorkspace" class="pc-chat-workspace" hidden>
+        <div class="pc-chat-toolbar">
+          <div class="pc-chat-start-wrap">
+            <label for="pcStartChatId">Start a conversation</label>
+            <div class="pc-chat-start-row">
+              <input class="input" id="pcStartChatId" maxlength="24" placeholder="Enter a Connect ID" aria-label="Connect ID">
+              <button class="btn primary" id="pcStartChat" type="button">Start chat</button>
+            </div>
+          </div>
+          <button class="btn pc-signout" id="pcLiveSignOut" type="button">Sign out</button>
+        </div>
+        <div id="pcLiveChatError" class="login-error pc-chat-error" role="alert"></div>
+        <div class="chat-layout pc-unified-chat" id="pcUnifiedChat">
+          <aside class="chat-list-pane pc-live-list-pane">
+            <div class="pc-chat-list-title"><h3>Conversations</h3><span class="muted small">Your chats</span></div>
+            <input class="input chat-search" id="pcLiveConversationSearch" type="search" placeholder="Search conversations…" aria-label="Search conversations">
+            <div id="pcLiveConversationList" class="chat-list pc-live-conversation-list" aria-label="Conversation list"><div class="empty">Your conversations will appear here.</div></div>
+          </aside>
+          <section class="conversation pc-live-conversation" id="pcLiveConversationPanel" aria-label="Selected conversation">
+            <header class="conv-head pc-live-conv-head">
+              <button class="btn pc-chat-back" id="pcChatBack" type="button" aria-label="Back to conversations">← Chats</button>
+              <div class="pc-live-title-wrap">
+                <strong id="pcLiveConversationTitle">Choose a conversation</strong>
+                <small id="pcLiveConversationSub">Select a chat or start a new one</small>
+              </div>
+            </header>
+            <div id="pcLiveMessages" class="messages pc-live-messages" role="log" aria-live="polite" aria-relevant="additions text">
+              <div class="pc-chat-empty-state"><span class="pc-chat-empty-icon">✉</span><strong>Your conversations, together</strong><span>Select a conversation on the left or start one using a Connect ID.</span></div>
+            </div>
+            <form id="pcLiveSendForm" class="send-form pc-live-send-form">
+              <input id="pcLiveMessageInput" class="input" maxlength="10000" placeholder="Write a message…" autocomplete="off" required disabled aria-label="Message">
+              <button class="btn primary" type="submit" disabled>Send</button>
+            </form>
+          </section>
+        </div>
+        <p class="help pc-chat-footnote">Messages are synchronized through Project Connect. Avoid sharing sensitive information until all production privacy and abuse safeguards have been completed.</p>
+      </div>
+      <div class="pc-legacy-chat-stash" hidden aria-hidden="true"><div id="chatList"></div><section id="conversation"></section></div>
+    </section>
+
+    <section id="page-groups" class="page">
+      <div class="section-head" style="margin-top:0"><div><h2>Groups & communities</h2><p>Community spaces are being prepared for release.</p></div><button class="btn primary" id="showCreateGroup" disabled title="Group backend is not enabled yet">Groups coming soon</button></div>
+      <div id="createGroupPanel" class="panel" hidden aria-hidden="true">
+        <form id="createGroupForm">
+          <div class="grid-2">
+            <div class="field"><label for="groupName">Group name</label><input class="input" id="groupName" maxlength="48" required placeholder="e.g. Weekend Photowalkers"></div>
+            <div class="field"><label for="groupTopic">Topic</label><input class="input" id="groupTopic" maxlength="32" placeholder="e.g. Photography"></div>
+          </div>
+          <div class="field"><label for="groupDescription">Description</label><textarea class="textarea" id="groupDescription" maxlength="260" placeholder="What brings this community together?"></textarea></div>
+          <div class="field"><label for="groupPosting">Who can send messages?</label><select class="select" id="groupPosting"><option value="everyone">All members can message</option><option value="admins">Admins only can message</option></select><div class="help">You become the group's admin. Maximum size: 500 members.</div></div>
+          <div class="btn-row"><button class="btn primary" type="submit">Create group</button><button class="btn" id="cancelCreateGroup" type="button">Cancel</button></div>
+        </form>
+      </div>
+      <div class="searchbar"><input id="groupSearch" class="input" placeholder="Search groups by name or topic…"></div>
+      <div class="grid-3" id="groupResults"></div>
+      <div id="selectedGroupPanel" class="panel" style="margin-top:16px" hidden></div>
+    </section>
+
+
+    <section id="page-codeLab" class="page">
+      <div class="section-head" style="margin-top:0"><div><h2>Terminal Mode · Code Lab</h2><p>Write and run front-end code in an isolated browser workspace.</p></div><span class="tag green">Sandbox preview</span></div>
+      <div class="notice"><span>ⓘ</span><span>This is a browser coding workspace, not a computer shell. It runs HTML/CSS/JavaScript in an isolated preview. Python, Node.js, package installation, server files and operating-system commands require a separately secured execution backend.</span></div>
+      <div class="panel" style="margin-bottom:12px"><div class="between" style="gap:10px;flex-wrap:wrap"><div><h3>Editor</h3><p class="muted small">Switch language tabs, edit code, then run it.</p></div><div class="btn-row"><button type="button" class="btn primary" id="codeRun">▶ Run</button><button type="button" class="btn" id="codeDownload">Export HTML</button><button type="button" class="btn" id="codeReset">Reset</button></div></div></div>
+      <div class="code-lab-grid">
+        <div class="code-editor-panel">
+          <div class="code-lab-toolbar"><div class="code-tabs"><button class="code-tab active" type="button" data-code-tab="html">HTML</button><button class="code-tab" type="button" data-code-tab="css">CSS</button><button class="code-tab" type="button" data-code-tab="js">JavaScript</button></div><span class="muted small" id="codeEditorLabel">HTML editor</span></div>
+          <textarea class="code-editor" id="codeHtml" spellcheck="false" aria-label="HTML editor"><main class="card">
+  <p class="eyebrow">PROJECT CONNECT · TERMINAL MODE</p>
+  <h1>Hello, creator!</h1>
+  <p>Edit this page and press Run.</p>
+  <button id="helloButton">Click me</button>
+  <p id="message">Your project starts here.</p>
+</main></textarea>
+          <textarea class="code-editor" id="codeCss" spellcheck="false" aria-label="CSS editor" hidden>:root { font-family: system-ui, sans-serif; color: #f4f7fb; background: #0b1120; }
+body { margin: 0; padding: 24px; }
+.card { max-width: 620px; margin: 30px auto; padding: 28px; border: 1px solid #394766; border-radius: 20px; background: #141f32; }
+.eyebrow { color: #a99fff; font-size: 12px; letter-spacing: 2px; }
+button { padding: 10px 15px; border: 0; border-radius: 10px; background: #8b7cff; color: #111528; font-weight: 700; cursor: pointer; }</textarea>
+          <textarea class="code-editor" id="codeJs" spellcheck="false" aria-label="JavaScript editor" hidden>document.querySelector("#helloButton").addEventListener("click", () => {
+  document.querySelector("#message").textContent = "Nice! Your JavaScript is working.";
+});</textarea>
+        </div>
+        <div class="code-preview-panel"><div class="code-lab-toolbar"><b>Preview</b><span class="code-lab-status" id="codeStatus" role="status">Ready</span></div><iframe id="codePreview" class="code-preview-frame" title="Code preview" sandbox="allow-scripts"></iframe></div>
+      </div>
+      <p class="code-lab-note">Code is kept in this browser session. Export your HTML to keep a copy; cloud project saving is not enabled yet.</p>
+    </section>
+
+    <section id="page-profile" class="page">
+      <div class="section-head profile-head-compact" style="margin-top:0"><div><h2>Your profile, your terms</h2><p>Photos are optional; your story and interests help people get to know you.</p></div></div>
+      <div class="profile-layout">
+        <div class="panel">
+          <div class="profile-banner"></div>
+          <div class="profile-identity"><button type="button" class="avatar lg" id="profileAvatar" data-action="edit-profile" title="Edit your profile" aria-label="Edit your profile">YC</button><div style="padding-bottom:5px"><h2 id="profileDisplayName">Your Connect</h2><div class="story-handle" id="profileHandle">@youconnect</div><button type="button" class="btn primary" data-action="edit-profile" style="margin-top:7px">Edit profile</button></div></div>
+          <div class="profile-card-body"><p id="profileStoryPreview" class="story-quote">Still writing my story…</p><div class="line"></div><div class="story-interests" id="profileInterestTags"></div><div class="line"></div><div class="between"><span class="muted small">Profile discovery</span><span id="visibilityPill" class="tag green">Visible</span></div>
+            <div class="between profile-review-row"><span class="muted small">Reviews</span><span class="tag">☆ No reviews yet</span></div></div>
+        </div>
+        <div class="panel">
+          <h3>Edit your profile</h3><p class="muted small">Change the name shown to other members, update your bio and interests, and control profile discovery. Changes are saved to your signed-in account. Images are stored only in this browser for now.</p>
+          <div class="visual-settings">
+            <div class="image-picker-card">
+              <div class="image-picker-head">
+                <div class="grow"><h3>Display picture (DP)</h3><p class="muted small">Shown beside your messages</p></div>
+                <div id="dpEditPreview" class="avatar dp-preview">YC</div>
+              </div>
+              <div class="field"><label for="dpUpload">Change your DP</label><input class="input file-input" id="dpUpload" type="file" accept="image/*"></div>
+              <div class="btn-row"><button type="button" class="btn" id="removeDp">Remove DP</button></div>
+            </div>
+            <div class="image-picker-card">
+              <div class="image-picker-head"><div class="grow"><h3>Chat background</h3><p class="muted small">Use it behind your conversations</p></div></div>
+              <div id="chatBgPreview" class="chat-bg-preview"><span>Conversation preview</span></div>
+              <div class="field"><label for="chatBackgroundUpload">Upload background image</label><input class="input file-input" id="chatBackgroundUpload" type="file" accept="image/*"></div>
+              <div class="btn-row"><button type="button" class="btn" id="removeChatBackground">Remove background</button></div>
+              <label class="switchline"><span><b class="small">Share background setting</b><span class="help" style="display:block">This preference is saved on this device; shared media storage is not enabled yet.</span></span><input type="checkbox" class="toggle" id="shareChatBackground" checked></label>
+            </div>
+          </div>
+          <div class="visual-note">Images are resized before saving and remain on this device. Cloud image upload will be added after secure media storage is configured.</div>
+          <form id="profileForm">
+            <div class="field"><label for="displayName">Your name</label><input class="input" id="displayName" maxlength="40" autocomplete="nickname" placeholder="Enter the name people will see" required><div class="help">You can change this name at any time. It does not change your login email or Connect ID.</div></div>
+            <div class="field"><label for="connectId">Connect ID</label><input class="input" id="connectId" maxlength="24" readonly aria-readonly="true"><div class="help">Your unique Connect ID helps other members find you. It is fixed for this account.</div></div>
+            <div class="field"><label for="profileStory">Your story / bio</label><textarea class="textarea" id="profileStory" maxlength="400" placeholder="What are you curious about? What matters to you?"></textarea><div class="help"><span id="storyCount">0</span>/400 characters</div></div>
+            <div class="field"><label for="profileInterests">Interests (comma-separated)</label><input class="input" id="profileInterests" maxlength="180" placeholder="books, design, travel"></div>
+            <div class="switchline"><div><b class="small">Show me in discovery</b><div class="help">Turn off to hide your profile from directory searches.</div></div><input type="checkbox" class="toggle" id="profileVisible" aria-label="Show me in discovery"></div>
+            <div class="btn-row" style="margin-top:15px"><button type="submit" class="btn primary" id="saveProfileButton">Save profile</button><span id="profileSaveStatus" class="help" role="status" aria-live="polite"></span></div>
+          </form>
+        </div>
+      </div>
+      <section class="panel settings-panel">
+        <div class="between"><div><h2>Settings & tools</h2><p class="muted small">Manage your account, chats, privacy, and app preferences.</p></div><span class="tag green">Account settings</span></div>
+        <div class="settings-grid">
+          <button class="setting-tile" data-setting="broadcast"><span class="setting-icon">◉</span><span><b>Broadcast messages</b><small>Prepare a message for multiple Connect IDs</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="starred"><span class="setting-icon">★</span><span><b>Starred messages</b><small>Message starring will be added to live chats</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="devices"><span class="setting-icon">▣</span><span><b>Linked devices</b><small>Review device-session status</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="account"><span class="setting-icon">♙</span><span><b>Account</b><small>Connect ID and account overview</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="ai"><span class="setting-icon">✦</span><span><b>Private AI / API keys</b><small>Choose an AI provider and configure your own API</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="cloud"><span class="setting-icon">☁</span><span><b>Cloud & infrastructure</b><small>Backend, database, storage, CDN, monitoring and deployment roadmap</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="terminal"><span class="setting-icon">⌘</span><span><b>Terminal Mode</b><small>Open the HTML, CSS and JavaScript Code Lab</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="optimizeChats"><span class="setting-icon">⚡</span><span><b>Optimize Chats</b><small>Reduce visual effects and fit more messages on screen</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="privacy"><span class="setting-icon">⌑</span><span><b>Privacy</b><small>Discovery visibility and blocked users</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="chat"><span class="setting-icon">▤</span><span><b>Chat</b><small>Read receipts and message preferences</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="appearance"><span class="setting-icon">◐</span><span><b>Appearance</b><small>Chat density and background preference</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="notifications"><span class="setting-icon">♢</span><span><b>Notifications</b><small>Connection and activity preferences</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="storage"><span class="setting-icon">▤</span><span><b>Storage and data</b><small>Local data estimate and export</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="help"><span class="setting-icon">?</span><span><b>Help and feedback</b><small>Support contact options</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="invite"><span class="setting-icon">↗</span><span><b>Invite a friend</b><small>Share your Connect ID</small></span><span class="setting-arrow">›</span></button>
+        </div>
+      </section>
+    </section>
+    <div class="modal-overlay" id="aiProfileModal" role="dialog" aria-modal="true" aria-labelledby="aiProfileTitle"><div class="modal-card"><div class="modal-header"><div><div class="eyebrow">Profile assistant</div><h2 id="aiProfileTitle">Profile writing assistant</h2><p class="muted small">Create a better bio and interests from your own instructions.</p></div><button type="button" class="modal-close" data-close-modal="aiProfileModal" aria-label="Close">×</button></div><div class="modal-content"><div class="field"><label for="aiProfileTone">Style</label><select class="select" id="aiProfileTone"><option>Natural and friendly</option><option>Creative and thoughtful</option><option>Funny and playful</option><option>Professional</option><option>Warm and romantic</option></select></div><div class="field"><label for="aiProfilePrompt">What should your profile say?</label><textarea class="textarea" id="aiProfilePrompt" placeholder="Tell the AI about your personality, interests, and the kind of people you hope to meet."></textarea></div><button type="button" class="btn primary" id="generateAiProfile" disabled>AI writing not connected</button><div class="field"><label for="aiProfileDraft">Draft (you can edit it)</label><textarea class="textarea" id="aiProfileDraft" maxlength="400" placeholder="Your suggested bio will appear here."></textarea></div><div class="btn-row"><button type="button" class="btn primary" id="applyAiProfileDraft">Use this bio</button><button type="button" class="btn" data-close-modal="aiProfileModal">Cancel</button></div><p class="help" id="aiProfileNote">AI-assisted writing will be enabled after a secure AI backend is connected. You can still write and save your bio yourself.</p></div></div></div>
+<footer>Project Connect · Member platform</footer>
+  </main>
+</div>
+<div class="modal-overlay" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+  <section class="modal-card wide">
+    <div class="modal-header"><div><div class="eyebrow">Project Connect settings</div><h2 id="settingsModalTitle">Settings</h2></div><button class="modal-close" type="button" data-close-modal="settingsModal" aria-label="Close settings">×</button></div>
+    <div id="settingsModalContent" class="modal-content"></div>
+  </section>
+</div>
+<div class="modal-overlay" id="qrGeneratorModal" role="dialog" aria-modal="true" aria-labelledby="qrGeneratorTitle">
+  <section class="modal-card">
+    <div class="modal-header"><div><div class="eyebrow">Your unique Connect ID</div><h2 id="qrGeneratorTitle">My Connect QR</h2><p class="muted small">This QR identifies one profile in Project Connect.</p></div><button class="modal-close" type="button" data-close-modal="qrGeneratorModal" aria-label="Close QR generator">×</button></div>
+    <div class="qr-wrap"><div class="qr-paper"><div id="qrCodeOutput" aria-label="Your QR code"></div><div id="qrCodeFallback" class="small muted" hidden>QR generator unavailable. Check your internet connection, then reopen this panel.</div></div><div><h3 id="qrProfileName">Your Connect</h3><p id="qrProfileHandle" class="story-handle">@youconnect</p><p class="muted small">Share this code so someone can discover the person linked to this Connect ID. The QR payload is created in your browser.</p><div class="qr-payload" id="qrPayloadText"></div><div class="btn-row" style="margin-top:12px"><button class="btn primary" id="copyQrId" type="button">Copy Connect ID</button><button class="btn" id="downloadQr" type="button">Download QR</button></div></div></div>
+    <p class="help" style="margin-top:14px">Your QR code contains your Connect ID. People can scan it in Project Connect or enter the ID in Discover.</p>
+  </section>
+</div>
+<div class="modal-overlay" id="qrScannerModal" role="dialog" aria-modal="true" aria-labelledby="qrScannerTitle">
+  <section class="modal-card">
+    <div class="modal-header"><div><div class="eyebrow">Discover a person</div><h2 id="qrScannerTitle">Scan Connect QR</h2><p class="muted small">Allow camera access or enter a Connect ID manually.</p></div><button class="modal-close" type="button" data-close-modal="qrScannerModal" aria-label="Close QR scanner">×</button></div>
+    <video id="qrVideo" class="scanner-video" autoplay playsinline muted></video>
+    <div id="scannerStatus" class="scanner-status">The scanner will request camera access. Camera detection depends on browser support; using a hosted HTTPS site or localhost is recommended.</div>
+    <div class="btn-row"><button class="btn primary" type="button" id="startQrCamera">Start camera</button><button class="btn" type="button" id="stopQrCamera">Stop camera</button></div>
+    <div class="line"></div>
+    <form id="manualQrForm"><div class="field"><label for="manualQrCode">Enter a Connect ID or QR payload</label><input class="input" id="manualQrCode" placeholder="@your.connect.id or projectconnect://connect/your.connect.id" required></div><button class="btn primary" type="submit">Find profile</button></form>
+    <p class="help" style="margin-top:12px">If your browser doesn't support built-in QR detection, use the manual fallback here. A production app should use HTTPS and a tested QR scanning library.</p>
+  </section>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function () {
+  const gate = document.getElementById("publicLoginGate");
+  const app = document.getElementById("publicAppShell");
+  if (!gate || !app) return;
+  const showStep = function (name) {
+    document.querySelectorAll("[data-auth-step]").forEach(function (step) {
+      step.classList.toggle("active", step.dataset.authStep === name);
+    });
+    const active = document.querySelector('[data-auth-step="' + name + '"]');
+    const target = active && active.querySelector("input,button");
+    if (target) setTimeout(function () { target.focus(); }, 25);
+  };
+  const error = function (id, message) {
+    const node = document.getElementById(id);
+    if (!node) return;
+    node.textContent = message || "";
+    node.classList.toggle("show", !!message);
+  };
+  gate.style.display = "grid";
+  app.style.display = "none";
+  gate.addEventListener("click", function (event) {
+    const next = event.target.closest("[data-auth-next]");
+    if (next) { showStep(next.dataset.authNext); return; }
+    const back = event.target.closest("[data-auth-back]");
+    if (back) showStep(back.dataset.authBack);
+  });
+  document.getElementById("agreeTerms")?.addEventListener("click", function () {
+    if (!document.getElementById("termsAccepted").checked) {
+      error("termsError", "Please confirm you've read the community rules.");
+      return;
+    }
+    error("termsError", "");
+    showStep("providers");
+  });
+  document.getElementById("disagreeTerms")?.addEventListener("click", function () {
+    document.getElementById("termsAccepted").checked = false;
+    error("termsError", "");
+    showStep("welcome");
+  });
+})();
+</script>
+
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+"use strict";
+const $ = (sel, root=document) => root.querySelector(sel);
+const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
+const SEED_USERS = [];
+const SEED = {
+ profile:{name:"New member",handle:"member",story:"",interests:[],visible:true,dpData:null,chatBackgroundData:null,shareChatBackground:false},
+ incoming:[],outgoing:[],connected:[],chats:[],groups:[],selectedChat:null,selectedGroup:null,
+ blockedUsers:[],broadcasts:[],feedback:[],
+ settings:{readReceipts:false,showLinkPreviews:false,compactChats:false,shareChatBackground:false,connectionAlerts:false,activityNotifications:false,messagePreviews:false}
+};
+let state;
+try{
+ const saved=localStorage.getItem("projectConnectFeatures_v1");
+ state=saved?JSON.parse(saved):structuredClone(SEED);
+ if(!state.profile||!Array.isArray(state.groups)||!Array.isArray(state.chats)) state=structuredClone(SEED);
+ state.profile={...SEED.profile,...state.profile};
+ // Production transition: discard fictional sample users, local conversations, requests and groups from older builds.
+ state.incoming=[];state.outgoing=[];state.connected=[];state.chats=[];state.groups=[];state.selectedChat=null;state.selectedGroup=null;
+ state.blockedUsers=Array.isArray(state.blockedUsers)?state.blockedUsers:[];
+ state.broadcasts=Array.isArray(state.broadcasts)?state.broadcasts:[];
+ state.feedback=Array.isArray(state.feedback)?state.feedback:[];
+ state.settings={...SEED.settings,...(state.settings||{})};
+ state.chats.forEach(c=>{if(!Array.isArray(c.messages))c.messages=[]});
+}catch(e){state=structuredClone(SEED)}
+let activeTab="home",toastTimer;
+function save(){try{localStorage.setItem("projectConnectFeatures_v1",JSON.stringify(state));return true}catch(e){return false}}
+function esc(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function user(id){return SEED_USERS.find(u=>u.id===id)||{id:"unknown",name:"Unknown member",handle:"unknown",initials:"?",story:"",interests:[],note:""}}
+function avatar(u,size="md"){
+ const initials=esc(u.initials||u.name.split(/\s+/).map(x=>x[0]).join("").slice(0,2));
+ const src=u.dpData||null;
+ return `<div class="avatar ${size}${src?" has-image":""}" ${src?`style="background-image:url(${src})"`:""}>${src?"":initials}</div>`;
+}
+function initialsForProfile(){return (state.profile.name||"YC").trim().split(/\s+/).map(x=>x[0]).join("").slice(0,2).toUpperCase()||"YC"}
+function myAvatar(size="md"){const src=state.profile.dpData;return `<div class="avatar ${size}${src?" has-image":""}" ${src?`style="background-image:url(${src})"`:""}>${src?"":esc(initialsForProfile())}</div>`}
+function paintAvatar(el,src,initials){if(!el)return;el.classList.toggle("has-image",!!src);el.style.backgroundImage=src?`url(${src})`:"";el.textContent=src?"":initials}
+function refreshAvatarEverywhere(){paintAvatar($("#topAvatar"),state.profile.dpData,initialsForProfile());paintAvatar($("#profileAvatar"),state.profile.dpData,initialsForProfile());paintAvatar($("#dpEditPreview"),state.profile.dpData,initialsForProfile())}
+function refreshImagePreviews(){
+ const bg=$("#chatBgPreview");if(bg){bg.style.backgroundImage=state.profile.chatBackgroundData?`linear-gradient(#0b112066,#0b112066),url("${state.profile.chatBackgroundData}")`:"radial-gradient(circle at 75% 15%,#8173ff88,transparent 35%),linear-gradient(125deg,#202846,#24515a)";bg.style.backgroundSize="cover";bg.style.backgroundPosition="center"}
+ const share=$("#shareChatBackground");if(share)share.checked=state.profile.shareChatBackground!==false;
+ refreshAvatarEverywhere();
+}
+function compressImageFile(file,maxDimension,quality,maxChars){
+ return new Promise((resolve,reject)=>{
+  if(!file||!file.type||!file.type.startsWith("image/")){reject(new Error("Please choose an image file."));return}
+  const reader=new FileReader();
+  reader.onerror=()=>reject(new Error("The image could not be read."));
+  reader.onload=()=>{
+   const img=new Image();
+   img.onerror=()=>reject(new Error("This image format could not be opened by the browser."));
+   img.onload=()=>{
+    let scale=Math.min(1,maxDimension/Math.max(img.naturalWidth||img.width,img.naturalHeight||img.height));
+    const canvas=document.createElement("canvas"),ctx=canvas.getContext("2d");
+    if(!ctx){reject(new Error("Image processing is unavailable in this browser."));return}
+    const draw=()=>{
+     canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));
+     ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);
+    };
+    draw();let q=quality;let data=canvas.toDataURL("image/jpeg",q);
+    while(data.length>maxChars&&q>0.48){q-=0.08;data=canvas.toDataURL("image/jpeg",q)}
+    while(data.length>maxChars&&scale>0.28){scale*=0.82;draw();data=canvas.toDataURL("image/jpeg",Math.max(.5,q))}
+    if(data.length>maxChars){reject(new Error("This image is too large to save in this browser. Try a smaller image."));return}
+    resolve(data);
+   };
+   img.src=reader.result;
+  };
+  reader.readAsDataURL(file);
+ });
+}
+function badge(text,cls=""){return `<span class="tag ${cls}">${esc(text)}</span>`}
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),2400)}
+function setTab(tab){activeTab=tab;$$(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+tab));$$(".navbtn").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));$("#pageTitle").textContent=({home:"Home",discover:"Discover people",requests:"Connection requests",connections:"Connections",chats:"Chats",groups:"Groups & communities",profile:"My profile",codeLab:"Terminal Mode"})[tab]||"Home";renderAll();window.scrollTo({top:0,behavior:"smooth"})}
+function storyCard(u){const connected=state.connected.includes(u.id);const sent=state.outgoing.some(x=>x.userId===u.id);const incoming=state.incoming.some(x=>x.userId===u.id);let label=connected?"Connected":sent?"Request sent":incoming?"Respond to request":"Connect";let cls=connected?"success":sent||incoming?"":"primary";let action=connected?`data-action="open-chat" data-user="${u.id}"`:incoming?`data-action="go-requests"`:`data-action="connect" data-user="${u.id}"`;
+return `<article class="panel story-card"><div class="story-top">${avatar(u)}<div class="grow"><div class="story-name">${esc(u.name)}</div><div class="story-handle">@${esc(u.handle)}</div></div>${badge("Story-first")}</div><div class="story-quote">“${esc(u.story)}”</div><div class="story-interests">${u.interests.map(x=>`<span>${esc(x)}</span>`).join("")}</div><div class="between"><span class="muted small">${esc(u.note)}</span><button class="btn ${cls}" ${action} ${connected?"":""}>${label}</button></div></article>`}
+function renderHome(){
+ const stories=$("#homeStories"),groups=$("#homeGroups");
+ if(stories){
+  stories.innerHTML=`<div class="empty" style="grid-column:1/-1">Sign in to load real member profiles.</div>`;
+  if(window.pcSearchDirectory){
+   stories.innerHTML=`<div class="empty" style="grid-column:1/-1">Loading members…</div>`;
+   window.pcSearchDirectory("").then(profiles=>{
+    if(!stories.isConnected)return;
+    const people=(profiles||[]).slice(0,3);
+    stories.innerHTML=people.length?people.map(p=>`<article class="panel story-card"><div class="story-top"><div class="avatar">${esc((p.display_name||"M").trim().slice(0,1).toUpperCase())}</div><div class="grow"><div class="story-name">${esc(p.display_name||"Member")}</div><div class="story-handle">@${esc(p.connect_id||"")}</div></div></div><div class="story-quote">${esc(p.bio||"This member has not added a story yet.")}</div><div class="story-interests">${(p.interests||[]).slice(0,4).map(x=>`<span>${esc(x)}</span>`).join("")}</div><div class="pc-social-card-actions"><button class="btn primary" type="button" data-live-message-id="${esc(p.connect_id||"")}">Message</button>${window.pcSocialControls?window.pcSocialControls(p):""}</div></article>`).join(""):`<div class="empty" style="grid-column:1/-1">No discoverable members yet. Complete your profile and invite others to join.</div>`;
+   }).catch(()=>{if(stories.isConnected)stories.innerHTML=`<div class="empty" style="grid-column:1/-1">Member profiles could not be loaded. Open Discover to try again.</div>`;});
+  }
+ }
+ if(groups)groups.innerHTML=`<div class="empty" style="grid-column:1/-1">Groups will appear here after group conversations and member controls are enabled.</div>`;
+ $("#statConnections").textContent=String(window.pcSocialConnectionCount??"—");$("#statRequests").textContent=String(window.pcSocialRequestCount??"—");$("#statChats").textContent=String(window.pcLiveConversationCount??"—");$("#statGroups").textContent="—";
+}
+function renderDiscoverResults(q=""){const root=$("#discoverResults"),summary=$("#discoverSummary");if(!root)return;root.innerHTML=`<div class="empty" style="grid-column:1/-1">Loading members…</div>`;if(!window.pcSearchDirectory){root.innerHTML=`<div class="empty" style="grid-column:1/-1">Member discovery is unavailable right now. Please refresh and try again.</div>`;return}window.pcSearchDirectory(q).then(profiles=>{if(!profiles.length){root.innerHTML=`<div class="empty" style="grid-column:1/-1">No members found. Try a different name or Connect ID.</div>`;if(summary)summary.textContent="No matching members";return}root.innerHTML=profiles.map(p=>`<article class="panel story-card"><div class="story-top"><div class="avatar">${esc((p.display_name||"M").trim().slice(0,1).toUpperCase())}</div><div class="grow"><div class="story-name">${esc(p.display_name||"Member")}</div><div class="story-handle">@${esc(p.connect_id||"")}</div></div></div><div class="story-quote">${esc(p.bio||"This member has not added a story yet.")}</div><div class="story-interests">${(p.interests||[]).map(x=>`<span>${esc(x)}</span>`).join("")}</div><div class="between"><span class="muted small">Project Connect member</span><div class="pc-social-card-actions"><button class="btn primary" type="button" data-live-message-id="${esc(p.connect_id||"")}">Message</button>${window.pcSocialControls?window.pcSocialControls(p):""}</div></div></article>`).join("");if(summary)summary.textContent=`${profiles.length} member${profiles.length===1?"":"s"} found`;}).catch(err=>{root.innerHTML=`<div class="empty" style="grid-column:1/-1">Unable to load members: ${esc(err.message||"Please try again.")}</div>`;});}
+function renderRequests(){
+ if(typeof window.pcRenderSocialRequests==="function"){window.pcRenderSocialRequests();return;}
+ const incoming=$("#incomingRequests"),outgoing=$("#outgoingRequests");
+ if(incoming)incoming.innerHTML=`<div class="empty">Connection service is loading. Please try again shortly.</div>`;
+ if(outgoing)outgoing.innerHTML=`<div class="empty">Connection service is loading. Please try again shortly.</div>`;
+}
+function renderChatList(){const q=($("#chatSearch")?.value||"").toLowerCase();let list=state.chats.filter(c=>{const u=user(c.userId);return !state.blockedUsers.includes(c.userId)&&(u.name+" "+u.handle).toLowerCase().includes(q)});$("#chatList").innerHTML=list.length?list.map(c=>{const u=user(c.userId),last=c.messages[c.messages.length-1];return `<button class="chat-item ${state.selectedChat===c.id?"active":""}" data-action="select-chat" data-chat="${c.id}">${avatar(u,"sm")}<span class="grow"><strong>${esc(u.name)}</strong><small>${esc(last?last.text:"Start a conversation")}</small></span><span class="chat-time">${esc(last?last.time:"")}</span></button>`}).join(""):`<div class="empty">No conversations found.</div>`}
+function renderConversation(){
+ const c=state.chats.find(c=>c.id===state.selectedChat),box=$("#conversation");
+ if(!c){box.innerHTML=`<div class="empty" style="margin:auto">Select a chat to open the conversation.</div>`;return}
+ const u=user(c.userId);
+ const messageHtml=c.messages.map((m,idx)=>{
+  const mine=m.from==="me",sender=mine?{name:state.profile.name,handle:state.profile.handle,initials:initialsForProfile(),dpData:state.profile.dpData}:u;
+  const receipt=mine?`<span class="message-receipt ${m.status==="read"?"read":""}">${m.status==="read"?"Read ✓✓":"Sent ✓"}</span>`:"";
+  return `<div class="message-row ${mine?"mine":""}">${avatar(sender,"sm")}<div class="message-bubble ${mine?"mine":""}"><div class="message-text">${esc(m.text)}</div><div class="message-meta"><button type="button" class="message-star" title="${m.starred?"Remove from starred":"Star message"}" aria-label="${m.starred?"Unstar message":"Star message"}" data-action="star-message" data-chat="${c.id}" data-message-index="${idx}">${m.starred?"★":"☆"}</button><span>${esc(m.time||"")}</span>${receipt}</div></div></div>`;
+ }).join("");
+ box.innerHTML=`<div class="conv-head">${avatar(u,"sm")}<div class="grow"><b>${esc(u.name)}</b><div class="muted small">@${esc(u.handle)}</div></div><div class="chat-head-actions">${badge("Connected","green")}<button type="button" class="btn" data-action="simulate-read" data-chat="${c.id}" title="Read receipts are not available yet">Read status unavailable</button></div></div><div class="messages" id="messageScroll">${messageHtml}</div>${state.profile.chatBackgroundData?`<div class="chat-bg-note">${state.profile.shareChatBackground===false?"Your background is stored on this device.":"Background preference enabled on this device"}</div>`:""}<form class="send-form" id="sendMessageForm"><input id="messageInput" class="input" maxlength="1000" autocomplete="off" placeholder="Write a message…" required aria-label="Message"><button class="btn primary" type="submit">Send ↗</button></form><div style="padding:0 13px 10px;color:#71829c;font-size:10px">Use the unified account messaging workspace.</div>`;
+ const scroll=$("#messageScroll");
+ if(scroll){scroll.scrollTop=scroll.scrollHeight;if(state.profile.chatBackgroundData){scroll.style.backgroundImage=`linear-gradient(180deg,rgba(11,17,32,.60),rgba(11,17,32,.77)),url("${state.profile.chatBackgroundData}")`;scroll.style.backgroundSize="cover";scroll.style.backgroundPosition="center";scroll.style.backgroundRepeat="no-repeat"}}
+}
+function renderChats(){renderChatList();renderConversation()}
+function groupCardMini(g){return `<article class="panel row"><div class="group-icon">${esc(g.icon||"◎")}</div><div class="grow"><h3>${esc(g.name)}</h3><div class="muted small">${esc(g.topic||"Community")} · ${g.memberCount}/500 members</div><div class="small muted" style="margin-top:5px">${esc(g.description)}</div></div><button class="btn" data-action="view-group" data-group="${g.id}">View</button></article>`}
+function groupCard(g){return `<article class="panel group-card"><div class="row"><div class="group-icon">${esc(g.icon||"◎")}</div><div class="grow"><h3>${esc(g.name)}</h3><div class="muted small">${esc(g.topic||"Community")}</div></div>${badge(g.memberCount+"/500")}</div><p class="muted small" style="margin:0">${esc(g.description||"A community on Project Connect.")}</p><div class="between"><span class="small muted">${g.posting==="admins"?"Admins only can message":"All members can message"}</span>${g.isAdmin?badge("Your group","green"):badge("Member")}</div><div class="btn-row"><button class="btn primary" data-action="view-group" data-group="${g.id}">Open group</button>${g.isAdmin?`<button class="btn" data-action="toggle-posting" data-group="${g.id}">${g.posting==="admins"?"Allow everyone to post":"Admins-only mode"}</button>`:""}</div></article>`}
+function renderGroups(){const root=$("#groupResults"),panel=$("#selectedGroupPanel");if(root)root.innerHTML=`<div class="empty" style="grid-column:1/-1">Groups are being prepared. Group creation and group messaging will be enabled after their shared backend and moderation controls are ready.</div>`;if(panel){panel.hidden=true;panel.innerHTML=""}}
+function renderSelectedGroup(){const el=$("#selectedGroupPanel");if(!el)return;el.hidden=false;el.innerHTML=`<div class="empty">Group conversations are not enabled yet. No sample groups or simulated messages are shown here.</div>`;}
+function renderProfile(){const p=state.profile;$("#topHandle").textContent="@"+(p.handle||"member");$("#profileDisplayName").textContent=p.name||"New member";$("#profileHandle").textContent="@"+(p.handle||"member");$("#profileStoryPreview").textContent=p.story||"Add a short introduction to help people know you.";$("#profileInterestTags").innerHTML=(p.interests||[]).map(x=>`<span>${esc(x)}</span>`).join("")||`<span>No interests added</span>`;$("#visibilityPill").textContent=p.visible?"Visible":"Hidden";$("#visibilityPill").className="tag "+(p.visible?"green":"amber");$("#displayName").value=p.name||"";$("#connectId").value=p.handle||"";$("#profileStory").value=p.story||"";$("#profileInterests").value=(p.interests||[]).join(", ");$("#profileVisible").checked=p.visible!==false;$("#storyCount").textContent=(p.story||"").length;$("#topMode").textContent="Signed in";refreshImagePreviews()}
+function renderAll(){refreshAvatarEverywhere();renderHome();if(activeTab==="discover")renderDiscoverResults($("#discoverSearch")?.value||"");if(activeTab==="requests")renderRequests();if(activeTab==="connections")window.pcRenderSocialConnections?.();if(activeTab==="chats")renderChats();if(activeTab==="groups")renderGroups();if(activeTab==="profile")renderProfile();$("#requestCount").textContent=String(window.pcSocialRequestCount??0);$("#requestCount").hidden=!(window.pcSocialRequestCount>0);$("#connectionCount").textContent=String(window.pcSocialConnectionCount??0);$("#connectionCount").hidden=!(window.pcSocialConnectionCount>0)}
+function ensureChat(userId){let c=state.chats.find(x=>x.userId===userId);if(!c){c={id:"chat-"+userId,userId,messages:[]};state.chats.push(c)}state.selectedChat=c.id;save()}
+function addConnection(userId){if(!state.connected.includes(userId))state.connected.push(userId);state.incoming=state.incoming.filter(x=>x.userId!==userId);state.outgoing=state.outgoing.filter(x=>x.userId!==userId);ensureChat(userId);save()}
+function connect(userId){toast("Connection requests are not enabled yet. Use Message to start a private conversation.");}
+document.addEventListener("click",e=>{
+ const liveMessage=e.target.closest("[data-live-message-id]");if(liveMessage){const id=liveMessage.dataset.liveMessageId;if(id&&window.pcStartChatForId){setTab("chats");window.pcStartChatForId(id)}return;}
+ const nav=e.target.closest("[data-tab]");if(nav){setTab(nav.dataset.tab);return}
+ const go=e.target.closest("[data-go]");if(go){setTab(go.dataset.go);return}
+ const b=e.target.closest("[data-action]");if(!b)return;
+ const action=b.dataset.action,u=b.dataset.user,gid=b.dataset.group;
+ if(action==="connect"){toast("Connection requests are not enabled yet. Use Message to start a private conversation.")}
+ if(action==="go-requests"){setTab("requests")}
+ if(action==="open-chat"){toast("Use the unified messaging workspace to start a conversation by Connect ID.")}
+ if(action==="accept"){toast("Connection requests are not enabled yet.")}
+ if(action==="decline"){toast("Connection requests are not enabled yet.")}
+ if(action==="cancel-request"){state.outgoing=state.outgoing.filter(x=>x.userId!==u);save();renderRequests();renderDiscoverResults($("#discoverSearch")?.value||"");toast("Request cancelled.")}
+ if(action==="select-chat"){state.selectedChat=b.dataset.chat;save();renderChats()}
+ if(action==="simulate-read"){toast("Read receipts are not enabled yet.")}
+ if(action==="remove-dp"){state.profile.dpData=null;save();refreshImagePreviews();if(activeTab==="chats")renderChats();toast("Display picture removed from this browser.")}
+ if(action==="remove-chat-background"){state.profile.chatBackgroundData=null;save();refreshImagePreviews();if(activeTab==="chats")renderChats();toast("Chat background removed from this browser.")}
+ if(action==="view-group"){state.selectedGroup=gid;renderSelectedGroup();$("#selectedGroupPanel").scrollIntoView({behavior:"smooth",block:"nearest"})}
+ if(action==="close-group"){state.selectedGroup=null;renderSelectedGroup()}
+ if(action==="toggle-posting"){const g=state.groups.find(x=>x.id===gid);if(g&&g.isAdmin){g.posting=g.posting==="admins"?"everyone":"admins";save();renderGroups();toast(g.posting==="admins"?"Only admins can post now.":"All members can post now.")}}
+ if(action==="add-member"){const g=state.groups.find(x=>x.id===gid);if(g&&g.memberCount<500){g.memberCount++;save();renderGroups();toast("Group member management is not enabled yet.")}}
+});
+$("#discoverSearch").addEventListener("input",e=>renderDiscoverResults(e.target.value));
+$("#clearDiscover").addEventListener("click",()=>{$("#discoverSearch").value="";renderDiscoverResults("");$("#discoverSearch").focus()});
+$("#chatSearch").addEventListener("input",()=>renderChatList());
+document.addEventListener("submit",async e=>{
+ if(e.target.id==="sendMessageForm"){e.preventDefault();const input=$("#messageInput"),text=input.value.trim();if(!text)return;const chat=state.chats.find(c=>c.id===state.selectedChat);if(!chat)return;const now=new Date();chat.messages.push({from:"me",text,time:now.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}),status:"sent"});save();renderChats();$("#messageInput")?.focus()}
+ if(e.target.id==="profileForm"){e.preventDefault();const name=$("#displayName").value.trim(),handle=$("#connectId").value.trim().replace(/^@/,""),story=$("#profileStory").value.trim(),interests=$("#profileInterests").value.split(",").map(x=>x.trim()).filter(Boolean).slice(0,12),visible=$("#profileVisible").checked;if(name.length<2||name.length>40){toast("Enter a display name between 2 and 40 characters.");return}if(!window.pcUpdateProfile){toast("Your account profile service is not available. Refresh and try again.");return}const button=$("#saveProfileButton"),status=$("#profileSaveStatus");if(button)button.disabled=true;if(status)status.textContent="Saving…";const result=await window.pcUpdateProfile({name,handle,story,interests,visible});if(button)button.disabled=false;if(result?.error){if(status)status.textContent="Not saved";toast(result.error.message||"Unable to save profile.");return}state.profile={...state.profile,name,handle,story,interests,visible};save();renderProfile();renderHome();if(status)status.textContent="Saved to your account";toast("Your profile name and details have been updated.")}
+ if(e.target.id==="createGroupForm"){e.preventDefault();toast("Group creation is not available yet. No group was created.")}
+ if(e.target.id==="groupMessageForm"){e.preventDefault();toast("Group messaging is not available yet.")}
+});
+$("#showCreateGroup").addEventListener("click",()=>toast("Groups will be available in a later release."));
+$("#cancelCreateGroup").addEventListener("click",()=>{$("#createGroupPanel").hidden=true});
+$("#groupSearch").addEventListener("input",()=>renderGroups());
+$("#displayName").addEventListener("input",e=>{const preview=$("#profileDisplayName");if(preview)preview.textContent=e.target.value.trim()||"Your name";});
+$("#profileStory").addEventListener("input",e=>$("#storyCount").textContent=e.target.value.length);
+$("#dpUpload").addEventListener("change",async e=>{
+ const file=e.target.files&&e.target.files[0];if(!file)return;
+ try{const data=await compressImageFile(file,512,.84,420000);const old=state.profile.dpData;state.profile.dpData=data;if(!save()){state.profile.dpData=old;toast("Browser storage is full. Remove another image or choose a smaller one.");return}refreshImagePreviews();if(activeTab==="chats")renderChats();toast("DP saved in this browser and applied to your profile and chat bubbles.");}
+ catch(err){toast(err.message||"Unable to use this image.");}finally{e.target.value=""}
+});
+$("#chatBackgroundUpload").addEventListener("change",async e=>{
+ const file=e.target.files&&e.target.files[0];if(!file)return;
+ try{const data=await compressImageFile(file,1400,.76,820000);const old=state.profile.chatBackgroundData;state.profile.chatBackgroundData=data;if(!save()){state.profile.chatBackgroundData=old;toast("Browser storage is full. Choose a smaller background image.");return}refreshImagePreviews();if(activeTab==="chats")renderChats();toast("Chat background saved and applied to your conversations in this browser.");}
+ catch(err){toast(err.message||"Unable to use this image.");}finally{e.target.value=""}
+});
+$("#removeDp").addEventListener("click",()=>{state.profile.dpData=null;save();refreshImagePreviews();if(activeTab==="chats")renderChats();toast("Display picture removed.")});
+$("#removeChatBackground").addEventListener("click",()=>{state.profile.chatBackgroundData=null;save();refreshImagePreviews();if(activeTab==="chats")renderChats();toast("Chat background removed.")});
+$("#shareChatBackground").addEventListener("change",e=>{state.profile.shareChatBackground=e.target.checked;save();if(activeTab==="chats")renderChats();toast(e.target.checked?"Shared-background preference enabled (this browser).":"Background sharing preference disabled.");});
+// Profile changes are saved through the authenticated account service.
+
+/* Global search + settings hub + QR discovery */
+let activeScannerStream=null, activeScannerTimer=null, qrTargetHandle=null;
+const SETTINGS_LABELS={
+ broadcast:"Broadcast messages",starred:"Starred",devices:"Linked devices",account:"Account",ai:"Private AI / API settings",cloud:"Cloud & infrastructure roadmap",terminal:"Terminal Mode",optimizeChats:"Optimize Chats",privacy:"Privacy",chat:"Chat",appearance:"Appearance",notifications:"Notifications",storage:"Storage and data",help:"Help and feedback",invite:"Invite a friend"
+};
+function openSettings(key){
+ const modal=$("#settingsModal");if(!SETTINGS_LABELS[key])key="account";
+ $("#settingsModalTitle").textContent=SETTINGS_LABELS[key];renderSettingsContent(key);modal.classList.add("open");document.body.style.overflow="hidden";
+ const focusTarget=modal.querySelector("button,input,textarea,select");if(focusTarget)focusTarget.focus();
+}
+function closeModal(id){const m=$("#"+id);if(m)m.classList.remove("open");if(!$$(".modal-overlay.open").length)document.body.style.overflow="";if(id==="qrScannerModal")stopQrCamera();}
+function settingsRow(title,description,control){return `<div class="settings-field-row"><div><b>${esc(title)}</b><small>${esc(description)}</small></div>${control}</div>`}
+function renderSettingsContent(key){
+ const p=state.profile,settings=state.settings;
+ let content="";
+ if(key==="terminal"){
+  content=`<div class="settings-section"><h3>Terminal Mode · Code Lab</h3><p>Open the browser-based editor for HTML, CSS and JavaScript. Code runs inside an isolated preview; this is not a computer shell and cannot run operating-system commands.</p><div class="notice">Your current code is held in this page only. Export your HTML before leaving if you want to keep a copy.</div><div class="btn-row" style="margin-top:14px"><button type="button" class="btn primary" data-action="open-terminal-mode">Open Terminal Mode</button></div></div>`;
+ }else if(key==="optimizeChats"){
+  const prefs=(()=>{try{return JSON.parse(localStorage.getItem("pc_chat_optimization")||"{}")}catch(e){return {}}})();
+  content=`<div class="settings-section"><h3>Optimize your chat experience</h3><p>These browser-side options reduce visual work and help more messages fit on screen. They do not change server speed or message delivery.</p>${settingsRow("Compact chat bubbles","Reduce spacing around messages",`<input class="toggle" id="optCompactChats" type="checkbox" ${prefs.compact!==false?"checked":""}>`)}${settingsRow("Lightweight mode","Reduce transitions and decorative effects",`<input class="toggle" id="optLightweightChats" type="checkbox" ${prefs.lightweight?"checked":""}>`)}<div class="btn-row" style="margin-top:14px"><button type="button" class="btn primary" data-action="apply-chat-optimization">Apply recommended settings</button><button type="button" class="btn" data-action="reset-chat-optimization">Restore defaults</button></div><div id="chatOptimizationStatus" class="scanner-status" role="status">Preferences are saved in this browser.</div></div>`;
+ }else if(key==="broadcast"){
+  content=`<div class="settings-section"><h3>Broadcast messaging</h3><p>Broadcasts are not enabled yet. They will be released after recipient consent, delivery limits, abuse prevention, and moderation controls are connected.</p><span class="tag amber">Not available yet</span></div>`;
+ }else if(key==="starred"){
+  const starred=[];state.chats.forEach(c=>c.messages.forEach((m,i)=>{if(m.starred)starred.push({c,m,i})}));
+  content=`<div class="settings-section"><p>Message starring is not enabled in live conversations yet. This page will show saved messages after that feature is connected.</p>${starred.length?starred.map(x=>`<div class="starred-item"><div class="between"><b>${esc(user(x.c.userId).name)} · ${esc(user(x.c.userId).handle)}</b><button class="btn" data-action="unstar-message" data-chat="${x.c.id}" data-message-index="${x.i}">★ Remove</button></div><p>${esc(x.m.text)}</p><small class="muted">${esc(x.m.time||"")}</small></div>`).join(""):`<div class="empty">No starred messages yet. Open a chat and tap ☆ beside a message.</div>`}</div>`;
+ }else if(key==="devices"){
+  content=`<div class="settings-section"><h3>Linked devices</h3><p>Device management is not enabled yet. Your sign-in is managed by Supabase authentication.</p><span class="tag amber">Device management coming later</span></div>`;
+ }else if(key==="account"){
+  content=`<div class="settings-section"><h3>Account overview</h3><p>Your authenticated Project Connect account.</p>${settingsRow("Display name",p.name||"Member",`<button class="btn" data-action="edit-profile">Edit name</button>`)}${settingsRow("Connect ID","@"+(p.handle||"member"),`<span class="tag">Account ID</span>`)}${settingsRow("Account status","Supabase authenticated",badge("Signed in","green"))}</div><div class="settings-section"><h3>Sign out</h3><p>End the current session on this browser.</p><button class="btn danger" id="settingsSignOut" type="button">Sign out</button></div>`;
+ }else if(key==="ai"){
+  const aiPrefs=(()=>{try{return JSON.parse(sessionStorage.getItem("pc_ai_preferences")||"{}")}catch(e){return {}}})();
+  content=`<div class="settings-section"><h3>Run your own private AI</h3><p>Choose a provider and enter your own API details. This preview does not send requests to AI providers yet; a secure backend proxy is required before real chat or AI profile editing can work.</p><div class="field"><label for="aiProvider">AI provider</label><select class="select" id="aiProvider"><option value="openai" ${aiPrefs.provider==="openai"?"selected":""}>OpenAI compatible API</option><option value="anthropic" ${aiPrefs.provider==="anthropic"?"selected":""}>Anthropic</option><option value="google" ${aiPrefs.provider==="google"?"selected":""}>Google Gemini</option><option value="openrouter" ${aiPrefs.provider==="openrouter"?"selected":""}>OpenRouter (multiple models)</option><option value="ollama" ${aiPrefs.provider==="ollama"?"selected":""}>Ollama / local model</option><option value="custom" ${aiPrefs.provider==="custom"?"selected":""}>Custom OpenAI-compatible endpoint</option></select></div><div class="field"><label for="aiBaseUrl">API base URL (optional)</label><input class="input" id="aiBaseUrl" placeholder="https://your-provider.example/v1" value="${esc(aiPrefs.baseUrl||"")}"></div><div class="field"><label for="aiModel">Model name</label><input class="input" id="aiModel" placeholder="e.g. gpt-4o-mini, gemini model, or local model" value="${esc(aiPrefs.model||"")}"></div><div class="field"><label for="aiApiKey">API key</label><input class="input" id="aiApiKey" type="password" autocomplete="off" placeholder="Paste your provider API key (optional)"><div class="help">For this preview, the key is held in memory only and is not saved when you close/reload the page. Never put a production API key in a public website's frontend.</div></div><div class="btn-row"><button type="button" class="btn primary" data-action="save-ai-settings">Save provider settings</button><button type="button" class="btn" data-action="clear-ai-settings">Clear</button></div><div id="aiSettingsStatus" class="scanner-status" role="status">${aiPrefs.provider?"Provider preference loaded for this browser session.":"No provider configured yet."}</div></div><div class="settings-section"><h3>Provider options</h3><p>OpenAI, Anthropic, Gemini, OpenRouter, Ollama/local models, and compatible custom endpoints can be configured here. Each provider has its own model names, billing, rate limits, and API format.</p><p class="notice">Security: real use should send requests through a backend that stores secrets securely. Do not expose API keys in HTML, public repositories, or client-side JavaScript.</p></div>`;
+ }else if(key==="cloud"){
+  content=`<div class="settings-section"><h3>Cloud & infrastructure roadmap</h3><p>This section records the major services to plan for the next phase. Nothing here is deployed or connected yet.</p>
+  <div class="request-item"><div class="setting-icon">☁</div><div class="grow"><b>Cloud hosting / edge delivery</b><p>Deploy frontend and API in supported regions; add CDN, TLS, domain and environment separation.</p></div>${badge("Planned","amber")}</div>
+  <div class="request-item"><div class="setting-icon">▤</div><div class="grow"><b>Application backend + database</b><p>Authenticated APIs, relational database, migrations, rate limits, queues and realtime messaging.</p></div>${badge("Required","amber")}</div>
+  <div class="request-item"><div class="setting-icon">▧</div><div class="grow"><b>Object storage and media processing</b><p>Private uploads, signed URLs, image/video processing, size limits, malware scanning and retention policies.</p></div>${badge("Planned","amber")}</div>
+  <div class="request-item"><div class="setting-icon">◉</div><div class="grow"><b>Monitoring, logs and alerts</b><p>Metrics, error tracking, uptime checks, privacy-safe logs, incident alerts and audit trails.</p></div>${badge("Required","amber")}</div>
+  <div class="request-item"><div class="setting-icon">⟳</div><div class="grow"><b>Backups and disaster recovery</b><p>Encrypted backups, tested restore drills, recovery objectives and data deletion lifecycle.</p></div>${badge("Required","amber")}</div>
+  <div class="request-item"><div class="setting-icon">⌘</div><div class="grow"><b>CI/CD and secret management</b><p>Automated tests, staged releases, rollback, least-privilege service accounts and server-side secrets.</p></div>${badge("Required","amber")}</div>
+  <div class="notice" style="margin-top:14px">Security gate: design E2EE before implementing production messaging. Cloud operators should not have a routine way to decrypt message content. Do not store API keys in browser code or commit them to a repository.</div></div>`;
+ }else if(key==="privacy"){
+  const blocked=state.blockedUsers.map(id=>user(id));
+  content=`<div class="settings-section"><h3>Profile visibility</h3><p>Choose whether your profile appears in member discovery. This preference is saved to your account.</p><label class="switchline"><span><b>Show me in discovery</b><span class="help" style="display:block">Turn off to remove your profile from discovery results.</span></span><input id="privacyVisible" type="checkbox" class="toggle" ${p.visible?"checked":""}></label></div><div class="settings-section"><h3>Blocking</h3><p>Blocking and reporting controls are not enabled yet. Avoid engaging with suspicious accounts and contact the platform operator if you need urgent help.</p><span class="tag amber">Safety controls in development</span></div>`;
+ }else if(key==="chat"){
+  content=`<div class="settings-section"><h3>Chat preferences</h3><p>One-to-one text messaging is connected to your account. Read receipts, link previews, message reactions, and message editing are not enabled yet.</p><span class="tag amber">More chat controls coming soon</span></div>`;
+ }else if(key==="appearance"){
+  content=`<div class="settings-section"><h3>Appearance</h3><p>The Project Connect theme stays dark navy and purple for a consistent brand identity.</p>${settingsRow("Compact chat bubbles","Use tighter spacing in chat messages",`<input class="toggle" id="settingCompactChats" type="checkbox" ${settings.compactChats?"checked":""}>`)}${settingsRow("Share chat background preference","Keep your shared-background preference on for this browser",`<input class="toggle" id="settingShareBackground" type="checkbox" ${p.shareChatBackground!==false?"checked":""}>`)}<div class="help">Setting a preference doesn't upload or distribute your background until the backend supports shared media.</div></div>`;
+ }else if(key==="notifications"){
+  content=`<div class="settings-section"><h3>Notifications</h3><p>Browser and push notifications are not enabled yet. The notification preferences will be added when the delivery service is configured.</p><span class="tag amber">Coming soon</span></div>`;
+ }else if(key==="storage"){
+  const bytes=new Blob([JSON.stringify(state)]).size;
+  const imageBytes=(p.dpData||"").length+(p.chatBackgroundData||"").length;
+  content=`<div class="settings-section"><h3>Browser storage</h3><p>These estimates cover only local interface preferences and images stored in this browser. Your account and messages are stored in Supabase.</p><div class="grid-2"><div class="panel"><div class="muted small">Local preferences</div><h2>${(bytes/1024).toFixed(1)} KB</h2></div><div class="panel"><div class="muted small">Local image data</div><h2>${(imageBytes/1024).toFixed(1)} KB</h2></div></div><div class="btn-row" style="margin-top:12px"><button class="btn primary" data-action="export-data">Export local preferences</button></div><p>Deleting browser data does not delete your Supabase account or cloud messages.</p></div>`;
+ }else if(key==="help"){
+  content=`<div class="settings-section"><h3>Help and feedback</h3><p>Support tickets are not connected yet. Please keep a note of any issue and share it with the Project Connect team through the official support channel when it becomes available.</p><span class="tag amber">Support inbox not enabled</span></div><div class="settings-section"><h3>Current services</h3><p>Email authentication, member profiles, and one-to-one text messaging are connected. Groups, push notifications, media cloud storage, and moderation tools are still being built.</p></div><div class="settings-section" style="text-align:center;padding:22px 16px;background:linear-gradient(135deg,rgba(124,92,255,.12),rgba(50,200,170,.08));border:1px solid rgba(160,150,255,.22);border-radius:16px"><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:800">Creator &amp; copyright</div><div style="font-size:24px;font-weight:850;letter-spacing:-.04em;margin:9px 0 2px">Project Connect</div><p style="margin:0 0 12px;color:var(--muted)">Created, designed and developed by</p><div style="font-size:19px;font-weight:800">Harish S</div><div style="font-size:13px;color:var(--muted);margin-top:9px">© 2026 Harish S. All rights reserved.</div><div style="font-size:13px;font-weight:700;margin-top:7px;color:var(--mint)">Made with love in India.</div></div>`;
+ }else if(key==="invite"){
+  const payload=`projectconnect://invite/@${p.handle}`;
+  content=`<div class="settings-section"><h3>Invite a friend</h3><p>Share your Connect ID. Friends can use it to find you in member discovery.</p><div class="qr-payload">@${esc(p.handle)}</div><div class="btn-row"><button class="btn primary" data-action="copy-connect-id">Copy Connect ID</button></div></div>`;
+ }
+ $("#settingsModalContent").innerHTML=content;
+ // Settings controls use delegated change handlers so the modal can be re-rendered safely.
+}
+function getProfileByHandle(raw){const handle=String(raw||"").trim().replace(/^@/,"").replace(/\/+$/,"").toLowerCase();if(!handle)return null;if(handle===String(state.profile.handle||"").toLowerCase())return {id:"self",name:state.profile.name,handle:state.profile.handle,initials:initialsForProfile(),story:state.profile.story,interests:state.profile.interests||[],dpData:state.profile.dpData,note:"Your profile"};return null;}
+async function showQrProfile(raw){
+ const handle=String(raw||"").trim().replace(/^@/,"").replace(/\/+$/,"").toLowerCase();if(!handle)return;
+ setTab("discover");const search=$("#discoverSearch");if(search)search.value="@"+handle;
+ const panel=$("#qrProfileResult");panel.hidden=false;qrTargetHandle=handle;panel.innerHTML=`<div class="scanner-status">Looking up @${esc(handle)}…</div>`;
+ try{const person=handle===String(state.profile.handle||"").toLowerCase()?{display_name:state.profile.name,connect_id:state.profile.handle,bio:state.profile.story,interests:state.profile.interests}:await window.pcFindProfile?.(handle);
+ if(!person){panel.innerHTML=`<div class="between"><div><div class="eyebrow">Connect ID lookup</div><h2>No member found</h2><p class="muted small">No discoverable account was found for <b>@${esc(handle)}</b>.</p></div><button class="btn" data-action="qr-skip">Close</button></div>`;return;}
+ panel.innerHTML=`<div class="between"><div class="row"><div class="avatar lg">${esc((person.display_name||"M").slice(0,1).toUpperCase())}</div><div><div class="eyebrow">Project Connect member</div><h2>${esc(person.display_name||"Member")}</h2><div class="story-handle">@${esc(person.connect_id||handle)}</div></div></div><button class="btn ghost" data-action="qr-skip">Close</button></div><p class="muted small">${esc(person.bio||"This member has not added a story yet.")}</p>${handle===String(state.profile.handle||"").toLowerCase()?'<span class="tag green">Your profile</span>':`<button class="btn primary" type="button" data-live-message-id="${esc(person.connect_id||handle)}">Message</button>`}`;
+ }catch(err){panel.innerHTML=`<div class="empty">Unable to look up this Connect ID: ${esc(err.message||"Please try again.")}</div>`;}
+}
+function parseQrPayload(raw){
+ const value=String(raw||"").trim();if(!value)return "";
+ let decoded=value;
+ try{decoded=decodeURIComponent(value)}catch(e){}
+ const scheme=decoded.match(/projectconnect:\/\/(?:connect|profile)\/@?([A-Za-z0-9._-]+)/i);
+ if(scheme)return scheme[1];
+ try{
+  if(/^https?:\/\//i.test(decoded)){
+   const u=new URL(decoded);const parts=u.pathname.split("/").filter(Boolean);
+   const marker=parts.findIndex(x=>["connect","profile","u","discover"].includes(x.toLowerCase()));
+   if(marker>=0&&parts[marker+1])return parts[marker+1].replace(/^@/,"");
+   if(parts.length)return parts[parts.length-1].replace(/^@/,"");
+  }
+ }catch(e){}
+ if(decoded.startsWith("@"))return decoded.slice(1).split(/\s/)[0];
+ return decoded.replace(/^\/?@?/,"").split(/\s/)[0].replace(/[^A-Za-z0-9._-]/g,"");
+}
+function openQrGenerator(){
+ const payload=`projectconnect://connect/${encodeURIComponent(state.profile.handle)}`;
+ $("#qrProfileName").textContent=state.profile.name;
+ $("#qrProfileHandle").textContent="@"+state.profile.handle;
+ $("#qrPayloadText").textContent=payload;
+ $("#qrCodeOutput").innerHTML="";$("#qrCodeFallback").hidden=true;
+ $("#qrGeneratorModal").classList.add("open");document.body.style.overflow="hidden";
+ if(window.QRCode){
+  try{new QRCode($("#qrCodeOutput"),{text:payload,width:220,height:220,colorDark:"#111827",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});}
+  catch(e){$("#qrCodeFallback").hidden=false;$("#qrCodeFallback").textContent="Unable to generate QR in this browser. Copy your Connect ID instead."}
+ }else{$("#qrCodeFallback").hidden=false;$("#qrCodeFallback").textContent="QR generator library could not load. Check your internet connection, then reopen this panel. Your Connect ID still works in search."}
+}
+function stopQrCamera(){
+ if(activeScannerTimer){cancelAnimationFrame(activeScannerTimer);activeScannerTimer=null}
+ if(activeScannerStream){activeScannerStream.getTracks().forEach(t=>t.stop());activeScannerStream=null}
+ const video=$("#qrVideo");if(video){video.pause();video.srcObject=null;video.style.display="none"}
+}
+async function startQrCamera(){
+ stopQrCamera();
+ const status=$("#scannerStatus"),video=$("#qrVideo");
+ if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+  status.textContent="Camera access is unavailable. Open the hosted site on HTTPS or localhost, or enter the Connect ID manually below.";return
+ }
+ let detector=null;
+ if("BarcodeDetector" in window){
+  try{detector=new BarcodeDetector({formats:["qr_code"]})}catch(e){}
+ }
+ try{
+  activeScannerStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"}},audio:false});
+  video.srcObject=activeScannerStream;video.style.display="block";await video.play();
+  if(!detector){
+   status.textContent="Camera preview is active, but this browser lacks built-in QR detection. Use the manual Connect ID field below, or try a supported browser.";
+   return;
+  }
+  status.textContent="Camera is active. Point it at a Project Connect QR code.";
+  const scan=async()=>{
+   if(!activeScannerStream||!video.videoWidth){activeScannerTimer=requestAnimationFrame(scan);return}
+   try{
+    const codes=await detector.detect(video);
+    if(codes&&codes.length&&codes[0].rawValue){
+     const raw=codes[0].rawValue;stopQrCamera();closeModal("qrScannerModal");
+     const handle=parseQrPayload(raw);
+     if(handle)showQrProfile(handle);else toast("That QR code doesn't contain a Connect ID.");
+     return;
+    }
+   }catch(e){}
+   activeScannerTimer=requestAnimationFrame(scan);
+  };
+  activeScannerTimer=requestAnimationFrame(scan);
+ }catch(e){
+  stopQrCamera();
+  status.textContent="Could not open the camera. Check browser camera permission and ensure the site is served from HTTPS or localhost. You can still enter the Connect ID manually.";
+ }
+}
+function handleGlobalSearch(event){
+ if(event)event.preventDefault();
+ const q=$("#globalSearch").value.trim();if(!q){toast("Type something to search.");$("#globalSearch").focus();return}
+ const raw=q.replace(/^@/,"").toLowerCase();
+ const settingMatch=Object.entries({broadcast:"broadcast",starred:"starred",device:"devices","linked device":"devices",account:"account",privacy:"privacy",chat:"chat",appearance:"appearance",notification:"notifications",storage:"storage",feedback:"help",help:"help",invite:"invite"})
+  .find(([label])=>raw===label||raw.includes(label));
+ if(settingMatch&&/\b(settings?|broadcast|starred|devices?|account|privacy|chat|appearance|notifications?|storage|feedback|help|invite)\b/i.test(raw)){setTab("profile");openSettings(settingMatch[1]);return}
+ const person=(String(state.profile.handle||"").toLowerCase()===raw?getProfileByHandle(raw):null);
+ if(person){showQrProfile(person.handle);return}
+ const group=state.groups.find(g=>(g.name+" "+g.topic+" "+g.description).toLowerCase().includes(q.toLowerCase()));
+ if(group){setTab("groups");$("#groupSearch").value=q;renderGroups();state.selectedGroup=group.id;renderSelectedGroup();return}
+ const messageChat=state.chats.find(c=>c.messages.some(m=>m.text.toLowerCase().includes(q.toLowerCase())));
+ if(messageChat){setTab("chats");$("#chatSearch").value=user(messageChat.userId).name;state.selectedChat=messageChat.id;renderChats();toast("Search is limited to member directory and settings.");return}
+ setTab("discover");$("#discoverSearch").value=q;renderDiscoverResults(q);
+}
+function exportLocalSettings(){
+ const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+ const url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="project-connect-local-settings.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ toast("Your local preferences export was prepared.");
+}
+function resetLocalData(){
+ if(!confirm("Reset this browser’s local preferences and locally stored images? Your Supabase account and cloud messages will not be deleted."))return;
+ state=structuredClone(SEED);save();closeModal("settingsModal");renderAll();toast("Local browser preferences reset.");
+}
+document.addEventListener("click",e=>{
+ const settingButton=e.target.closest("[data-setting]");
+ if(settingButton){openSettings(settingButton.dataset.setting);return}
+ const close=e.target.closest("[data-close-modal]");
+ if(close){closeModal(close.dataset.closeModal);return}
+ if(e.target.closest("#settingsSignOut")){if(window.projectConnectSupabase)window.projectConnectSupabase.auth.signOut().then(()=>location.reload());return;}
+ const actionButton=e.target.closest("[data-action]");
+ if(!actionButton)return;
+ const action=actionButton.dataset.action;
+ if(action==="open-terminal-mode"){closeModal("settingsModal");setTab("codeLab");return}
+ if(action==="apply-chat-optimization"){
+  const prefs={compact:$("#optCompactChats")?.checked??true,lightweight:$("#optLightweightChats")?.checked??true};
+  try{localStorage.setItem("pc_chat_optimization",JSON.stringify(prefs))}catch(e){}
+  document.body.classList.toggle("compact-chats",prefs.compact);document.body.classList.toggle("lightweight-chats",prefs.lightweight);
+  const status=$("#chatOptimizationStatus");if(status)status.textContent="Optimization settings applied and saved in this browser.";toast("Chat optimization settings applied.");return;
+ }
+ if(action==="reset-chat-optimization"){
+  const prefs={compact:false,lightweight:false};try{localStorage.setItem("pc_chat_optimization",JSON.stringify(prefs))}catch(e){}
+  document.body.classList.remove("compact-chats","lightweight-chats");renderSettingsContent("optimizeChats");toast("Chat appearance restored to defaults.");return;
+ }
+ if(action==="edit-profile"){closeModal("settingsModal");setTab("profile");$("#displayName").focus()}
+ if(action==="ai-edit-profile"){closeModal("settingsModal");setTab("profile");$("#aiProfileDraft").value=state.profile.story||"";$("#aiProfilePrompt").value="";$("#aiProfileModal").classList.add("open");document.body.style.overflow="hidden";$("#aiProfilePrompt").focus()}
+ if(action==="save-ai-settings"){const pref={provider:$("#aiProvider").value,baseUrl:$("#aiBaseUrl").value.trim(),model:$("#aiModel").value.trim()};try{sessionStorage.setItem("pc_ai_preferences",JSON.stringify(pref));}catch(e){}window.pcAiApiKey=$("#aiApiKey").value;$("#aiSettingsStatus").textContent="Provider preferences saved for this session. No API request has been made.";toast("AI provider preferences saved for this session.")}
+ if(action==="clear-ai-settings"){try{sessionStorage.removeItem("pc_ai_preferences")}catch(e){}window.pcAiApiKey="";renderSettingsContent("ai");toast("AI provider settings cleared.")}
+ if(action==="qr-skip"){const panel=$("#qrProfileResult");panel.hidden=true;panel.innerHTML="";qrTargetHandle=null;toast("Skipped this profile.");}
+ if(action==="qr-connect"){
+  const id=actionButton.dataset.user;
+  if(id==="self"){toast("This is your own profile.");return}
+  toast("Connection requests are not enabled yet. You can start a one-to-one message from this profile.");
+ }
+ if(action==="qr-block"){
+  toast("Blocking will be available after account-level safety controls are connected.");
+ }
+ if(action==="star-message"||action==="unstar-message"){
+  const chat=state.chats.find(c=>c.id===actionButton.dataset.chat),idx=Number(actionButton.dataset.messageIndex);
+  if(chat&&Number.isInteger(idx)&&chat.messages[idx]){chat.messages[idx].starred=action==="star-message"?!chat.messages[idx].starred:false;save();if(activeTab==="chats")renderChats();if($("#settingsModal").classList.contains("open")&&$("#settingsModalTitle").textContent==="Starred")renderSettingsContent("starred");toast(chat.messages[idx].starred?"Message added to Starred.":"Message removed from Starred.");}
+ }
+ if(action==="unblock-user"){
+  const id=actionButton.dataset.user;state.blockedUsers=state.blockedUsers.filter(x=>x!==id);save();renderSettingsContent("privacy");renderHome();renderDiscoverResults($("#discoverSearch")?.value||"");toast("Block management is not enabled yet.");
+ }
+ if(action==="export-data"){exportLocalSettings()}
+ if(action==="public-signout"){if(window.projectConnectSupabase)window.projectConnectSupabase.auth.signOut().then(()=>location.reload())}
+ if(action==="reset-local-data"){toast("Your Supabase account is not affected by a browser preference reset.")}
+ if(action==="copy-invite"){copyText(`projectconnect://invite/@${state.profile.handle}`,"Invite identifier copied.")}
+ if(action==="copy-connect-id"){copyText("@"+state.profile.handle,"Connect ID copied.")}
+});
+function copyText(value,message){
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(value).then(()=>toast(message)).catch(()=>fallbackCopy(value,message))}
+ else fallbackCopy(value,message)
+}
+function fallbackCopy(value,message){const t=document.createElement("textarea");t.value=value;t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();try{document.execCommand("copy");toast(message)}catch(e){toast(value)}t.remove()}
+$("#globalSearchForm").addEventListener("submit",handleGlobalSearch);
+$("#openQrGenerator").addEventListener("click",openQrGenerator);
+$("#openQrScanner").addEventListener("click",()=>{$("#qrScannerModal").classList.add("open");document.body.style.overflow="hidden";startQrCamera();});
+$("#startQrCamera").addEventListener("click",startQrCamera);
+$("#stopQrCamera").addEventListener("click",()=>{stopQrCamera();$("#scannerStatus").textContent="Camera stopped. You can start it again or enter the Connect ID manually.";});
+$("#copyQrId").addEventListener("click",()=>copyText("@"+state.profile.handle,"Connect ID copied."));
+$("#downloadQr").addEventListener("click",()=>{
+ const root=$("#qrCodeOutput"),img=root.querySelector("img"),canvas=root.querySelector("canvas");
+ const link=document.createElement("a");link.download="project-connect-"+state.profile.handle+"-qr.png";
+ if(img&&img.src)link.href=img.src;else if(canvas)link.href=canvas.toDataURL("image/png");else{toast("QR code hasn't been generated. Check your connection.");return}
+ link.click();
+});
+$("#manualQrForm").addEventListener("submit",e=>{e.preventDefault();const h=parseQrPayload($("#manualQrCode").value);if(!h){toast("Enter a Connect ID or QR payload.");return}closeModal("qrScannerModal");showQrProfile(h)});
+["settingsModal","qrGeneratorModal","qrScannerModal","aiProfileModal"].forEach(id=>{$("#"+id).addEventListener("click",e=>{if(e.target.id===id)closeModal(id)})});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$$(".modal-overlay.open").forEach(m=>closeModal(m.id))});
+$("#settingsModalContent").addEventListener("change",async e=>{
+ const id=e.target.id;
+ if(id==="optCompactChats"||id==="optLightweightChats"){
+  let prefs={};try{prefs=JSON.parse(localStorage.getItem("pc_chat_optimization")||"{}")}catch(err){}
+  if(id==="optCompactChats")prefs.compact=e.target.checked;else prefs.lightweight=e.target.checked;
+  try{localStorage.setItem("pc_chat_optimization",JSON.stringify(prefs))}catch(err){}
+  document.body.classList.toggle("compact-chats",!!prefs.compact);document.body.classList.toggle("lightweight-chats",!!prefs.lightweight);
+  const status=$("#chatOptimizationStatus");if(status)status.textContent="Preference saved in this browser.";
+ }
+ if(id==="privacyVisible"){const visible=e.target.checked;if(!window.pcUpdateProfile){toast("Profile service is unavailable.");return}const result=await window.pcUpdateProfile({name:state.profile.name,handle:state.profile.handle,story:state.profile.story,interests:state.profile.interests,visible});if(result?.error){e.target.checked=!visible;toast(result.error.message||"Unable to update visibility.");return}state.profile.visible=visible;save();renderHome();toast("Discovery visibility updated on your account.");}
+ if(id==="settingReadReceipts")state.settings.readReceipts=e.target.checked;
+ if(id==="settingLinkPreviews")state.settings.showLinkPreviews=e.target.checked;
+ if(id==="settingCompactChats"){state.settings.compactChats=e.target.checked;document.body.classList.toggle("compact-chats",e.target.checked);}
+ if(id==="settingShareBackground"){state.profile.shareChatBackground=e.target.checked;state.settings.shareChatBackground=e.target.checked;}
+ if(id==="settingConnectionAlerts")state.settings.connectionAlerts=e.target.checked;
+ if(id==="settingActivityNotifications")state.settings.activityNotifications=e.target.checked;
+ if(id==="settingMessagePreviews")state.settings.messagePreviews=e.target.checked;
+ if(id==="settingReadReceipts"||id==="settingLinkPreviews"||id==="settingCompactChats"||id==="settingShareBackground"||id==="settingConnectionAlerts"||id==="settingActivityNotifications"||id==="settingMessagePreviews"){save();toast("Preference saved in this browser.");if(id==="settingCompactChats")document.body.classList.toggle("compact-chats",e.target.checked)}
+});
+$("#generateAiProfile").addEventListener("click",()=>{const p=state.profile;const prompt=$("#aiProfilePrompt").value.trim();const tone=$("#aiProfileTone").value;const interests=(p.interests||[]).join(", ");const seed=prompt||`I enjoy ${interests||"learning new things and meeting thoughtful people"}.`;let draft=`${seed.replace(/[.!\s]+$/g,"")}. ${tone==="Funny and playful"?"Here for good conversations, shared laughs, and unexpected adventures.":tone==="Creative and thoughtful"?"I appreciate creativity, curiosity, and conversations that make me see things differently.":tone==="Professional"?"Always open to meaningful connections, exchanging ideas, and learning from others.":tone==="Warm and romantic"?"I value kindness, warmth, and connections that feel genuine and effortless.":"I value kindness, curiosity, and genuine conversations."}`;$("#aiProfileDraft").value=draft.slice(0,400);$("#aiProfileNote").textContent="Draft created locally. Connect a secure AI backend to generate this using your selected provider.";});
+$("#applyAiProfileDraft").addEventListener("click",()=>{const draft=$("#aiProfileDraft").value.trim();if(!draft){toast("Generate or write a bio draft first.");return}$("#profileStory").value=draft.slice(0,400);$("#storyCount").textContent=$("#profileStory").value.length;closeModal("aiProfileModal");setTab("profile");toast("Bio draft placed in the editor. Tap Save profile to keep it.")});
+$("#settingsModalContent").addEventListener("submit",e=>{
+ if(e.target.id==="broadcastForm"){e.preventDefault();toast("Broadcast messaging is not enabled yet.")}
+ if(e.target.id==="feedbackForm"){e.preventDefault();toast("Support submission is not enabled yet.")}
+});
+
+
+
+// Terminal Mode Code Lab interactions
+(function initCodeLab(){
+ const html=document.getElementById("codeHtml"),css=document.getElementById("codeCss"),js=document.getElementById("codeJs"),preview=document.getElementById("codePreview"),status=document.getElementById("codeStatus");
+ if(!html||!css||!js||!preview)return;
+ const defaults={html:html.value,css:css.value,js:js.value};let active="html";
+ function run(){const doc=`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>${css.value}</style></head><body>${html.value}<script>${js.value.replace(/<\/script/gi,"<\\/script")}<\/script></body></html>`;preview.srcdoc=doc;if(status)status.textContent="Preview updated";}
+ document.querySelectorAll("[data-code-tab]").forEach(btn=>btn.addEventListener("click",()=>{active=btn.dataset.codeTab;document.querySelectorAll("[data-code-tab]").forEach(b=>b.classList.toggle("active",b===btn));[[html,"html"],[css,"css"],[js,"js"]].forEach(([el,key])=>el.hidden=key!==active);const label=document.getElementById("codeEditorLabel");if(label)label.textContent=active==="js"?"JavaScript editor":active.toUpperCase()+" editor";}));
+ document.getElementById("codeRun")?.addEventListener("click",run);
+ document.getElementById("codeReset")?.addEventListener("click",()=>{html.value=defaults.html;css.value=defaults.css;js.value=defaults.js;run();if(status)status.textContent="Reset to starter code";});
+ document.getElementById("codeDownload")?.addEventListener("click",()=>{const doc=`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>${css.value}
+/* Project Connect unified messaging workspace */
+.pc-chat-page-head{align-items:center;gap:12px}
+.pc-chat-workspace{min-width:0;width:100%}
+.pc-chat-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:0 0 12px;padding:14px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(135deg,#18243a,#121d30)}
+.pc-chat-start-wrap{flex:1;min-width:0;max-width:620px;display:grid;gap:7px}
+.pc-chat-start-wrap>label{font-size:11px;font-weight:750;color:#b7c4d7}
+.pc-chat-start-row{display:flex;gap:8px;min-width:0}
+.pc-chat-start-row .input{min-width:0;flex:1}
+.pc-chat-error{margin:0 0 10px}
+.pc-unified-chat{grid-template-columns:minmax(255px,320px) minmax(0,1fr);min-height:590px;height:min(70vh,760px);max-height:760px;overflow:hidden;align-items:stretch;isolation:isolate}
+.pc-live-list-pane{display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden;padding:14px;background:#111b2c}
+.pc-chat-list-title{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.pc-chat-list-title h3{margin:0;font-size:15px}
+.pc-live-list-pane .chat-search{margin:12px 0 10px;flex:none}
+.pc-live-conversation-list{display:flex;flex-direction:column;gap:6px;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding:1px 3px 4px 1px}
+.pc-live-conversation-list .chat-item{position:relative;z-index:0;flex:none;width:100%;min-width:0;max-width:100%;min-height:62px;padding:10px;border:1px solid transparent;border-radius:12px;overflow:hidden}
+.pc-live-conversation-list .chat-item.active{background:#252345;border-color:#50477d;box-shadow:inset 3px 0 0 #9b8cff;z-index:1}
+.pc-live-conversation-list .chat-item .avatar{flex:none}
+.pc-live-conversation-list .chat-item .grow{flex:1;min-width:0;overflow:hidden}
+.pc-live-conversation-list .chat-item strong,.pc-live-conversation-list .chat-item small{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pc-live-conversation{display:flex;flex-direction:column;min-width:0;min-height:0;max-height:100%;overflow:hidden;background:var(--panel)}
+.pc-live-conv-head{flex:none;min-height:70px;min-width:0;padding:12px 16px;background:#141f32}
+.pc-live-title-wrap{display:grid;gap:3px;min-width:0;overflow:hidden}
+.pc-live-title-wrap strong{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pc-live-title-wrap small{font-size:10px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pc-chat-back{display:none;flex:none}
+.pc-live-messages{flex:1 1 auto;min-height:0;max-height:none;height:auto;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding:20px;background:radial-gradient(ellipse at center,#20213a22,transparent 75%)}
+.pc-live-messages .message{max-width:min(78%,620px);flex:none}
+.pc-chat-empty-state{margin:auto;max-width:300px;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;text-align:center;color:var(--muted);font-size:12px;padding:24px}
+.pc-chat-empty-state strong{font-size:15px;color:var(--ink)}
+.pc-chat-empty-icon{width:48px;height:48px;border:1px solid #4b4679;border-radius:16px;display:grid;place-items:center;color:#b8aaff;background:#282448;font-size:22px}
+.pc-live-send-form{flex:none;display:flex;align-items:center;gap:9px;padding:12px;border-top:1px solid var(--line);background:#141f32}
+.pc-live-send-form .input{min-width:0;flex:1}
+.pc-chat-footnote{margin:10px 2px 0;line-height:1.5}
+.pc-legacy-chat-stash{display:none!important}
+@media(max-width:760px){
+ .pc-unified-chat{grid-template-columns:minmax(0,1fr);height:auto;min-height:0;max-height:none;overflow:hidden}
+ .pc-live-list-pane{min-height:390px;max-height:58vh;border-right:0;border-bottom:1px solid var(--line)}
+ .pc-live-conversation{display:none;min-height:68vh;height:68vh;max-height:760px}
+ .pc-unified-chat.has-active-chat .pc-live-list-pane{display:none}
+ .pc-unified-chat.has-active-chat .pc-live-conversation{display:flex}
+ .pc-chat-back{display:inline-flex}
+ .pc-chat-toolbar{align-items:stretch}
+ .pc-signout{align-self:flex-end;white-space:nowrap}
+}
+@media(max-width:480px){
+ .pc-chat-toolbar{padding:11px;gap:8px}
+ .pc-chat-start-row{flex-wrap:wrap}
+ .pc-chat-start-row .input{flex-basis:100%}
+ .pc-chat-start-row .btn{width:100%}
+ .pc-signout{align-self:stretch;padding-inline:10px}
+ .pc-live-list-pane{padding:11px}
+ .pc-live-conv-head{padding:10px}
+ .pc-live-messages{padding:13px}
+ .pc-live-messages .message{max-width:88%}
+ .pc-live-send-form{padding:9px}
+}
+</style></head><body>${html.value}<script>${js.value.replace(/<\/script/gi,"<\\/script")}<\/script>
+
+
+
+
+</body></html>`;const url=URL.createObjectURL(new Blob([doc],{type:"text/html"}));const a=document.createElement("a");a.href=url;a.download="project-connect-code-lab.html";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);if(status)status.textContent="HTML exported";});
+ [html,css,js].forEach(el=>el.addEventListener("keydown",e=>{if(e.key==="Tab"){e.preventDefault();const start=el.selectionStart,end=el.selectionEnd;el.setRangeText("  ",start,end,"end");}}));
+ let prefs={};try{prefs=JSON.parse(localStorage.getItem("pc_chat_optimization")||"{}")}catch(e){}document.body.classList.toggle("compact-chats",!!prefs.compact);document.body.classList.toggle("lightweight-chats",!!prefs.lightweight);run();
+})();
+
+window.projectConnectApplyServerProfile = function(profile){
+  if(!profile)return;
+  state.profile={...state.profile,name:profile.display_name||state.profile.name||"Member",handle:profile.connect_id||state.profile.handle||"member",story:profile.bio||"",interests:Array.isArray(profile.interests)?profile.interests:[],visible:profile.is_discoverable!==false};
+  save();renderProfile();renderHome();
+};
+window.projectConnectRender = renderAll;
+renderAll();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* Project Connect live auth + one-to-one realtime messaging. Uses publishable key + RLS only. */
+(function(){
+  const SUPABASE_URL = "https://wlbrgiexzlbamluofigl.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_PDQv50wqUdspIFPd-aTRkg__zijdSRB";
+  const gate=document.getElementById('publicLoginGate'), app=document.getElementById('publicAppShell');
+  const byId=id=>document.getElementById(id);
+  const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const client=window.supabase?.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+  if(!client){const n=byId('pcAuthError');if(n){n.textContent='Supabase library did not load. Refresh the page and try again.';n.classList.add('show')}return;}
+  window.projectConnectSupabase=client;
+  let currentUser=null, activeConversation=null, liveChannel=null, socialChannel=null, loading=false;
+  async function loadOwnProfile(){
+    if(!currentUser)return;
+    const {data,error}=await client.from('profiles').select('id,display_name,connect_id,bio,interests,is_discoverable').eq('id',currentUser.id).maybeSingle();
+    if(error){showError(error.message);return;}
+    if(data&&typeof window.projectConnectApplyServerProfile==='function')window.projectConnectApplyServerProfile(data);
+    else if(typeof window.projectConnectApplyServerProfile==='function')window.projectConnectApplyServerProfile({display_name:currentUser.user_metadata?.display_name||currentUser.email?.split('@')[0]||'Member',connect_id:currentUser.user_metadata?.connect_id||'member',bio:'',interests:[],is_discoverable:true});
+  }
+  window.pcUpdateProfile=async function(profile){
+    if(!currentUser)return {error:new Error('Please sign in again to update your profile.')};
+    const payload={id:currentUser.id,display_name:profile.name,connect_id:profile.handle||currentUser.user_metadata?.connect_id||null,bio:profile.story||null,interests:Array.isArray(profile.interests)?profile.interests:[],is_discoverable:profile.visible!==false,updated_at:new Date().toISOString()};
+    const {data,error}=await client.from('profiles').upsert(payload,{onConflict:'id'}).select('id,display_name,connect_id,bio,interests,is_discoverable').single();
+    if(error)return {error};
+    const meta=await client.auth.updateUser({data:{display_name:profile.name}});
+    if(meta.error)console.warn('Profile row saved; auth metadata refresh failed:',meta.error.message);
+    if(typeof window.projectConnectApplyServerProfile==='function')window.projectConnectApplyServerProfile(data);
+    return {data};
+  };
+  window.pcSearchDirectory=async function(query){
+    if(!currentUser)return [];
+    const {data,error}=await client.from('profiles').select('id,display_name,connect_id,bio,interests,is_discoverable').eq('is_discoverable',true).neq('id',currentUser.id).order('display_name',{ascending:true}).limit(100);
+    if(error)throw error;
+    const q=String(query||'').trim().replace(/^@/,'').toLowerCase();
+    return (data||[]).filter(p=>!q||[p.display_name,p.connect_id,p.bio,...(p.interests||[])].join(' ').toLowerCase().includes(q));
+  };
+  window.pcFindProfile=async function(connectId){
+    if(!currentUser)return null;
+    const {data,error}=await client.from('profiles').select('id,display_name,connect_id,bio,interests,is_discoverable').eq('connect_id',String(connectId||'').replace(/^@/,'').toLowerCase()).eq('is_discoverable',true).maybeSingle();
+    if(error)throw error;return data||null;
+  };
+  let socialState={incoming:[],outgoing:[],connections:[],blocked:[],profiles:new Map()};
+  const socialName=id=>socialState.profiles.get(id)?.display_name||'Project Connect member';
+  const socialHandle=id=>socialState.profiles.get(id)?.connect_id||'member';
+  const socialAvatar=id=>escapeHtml((socialName(id).trim().slice(0,1)||'M').toUpperCase());
+  window.pcSocialStatusForProfile=function(profile){
+    const id=profile?.id;if(!id||!currentUser)return 'none';
+    if(socialState.connections.some(c=>c.user_low===id||c.user_high===id))return 'connected';
+    if(socialState.outgoing.some(r=>r.receiver_id===id))return 'sent';
+    if(socialState.incoming.some(r=>r.sender_id===id))return 'incoming';
+    if(socialState.blocked.some(b=>b.blocked_id===id))return 'blocked';
+    return 'none';
+  };
+  window.pcSocialControls=function(profile){
+    const status=window.pcSocialStatusForProfile(profile),id=escapeHtml(profile?.id||''),handle=escapeHtml(profile?.connect_id||'');
+    let primary=status==='connected'?'<span class="tag green">Connected</span>':status==='sent'?'<button class="btn" type="button" disabled>Request sent</button>':status==='incoming'?'<button class="btn primary" type="button" data-tab="requests">Review request</button>':status==='blocked'?'<span class="tag">Blocked</span>':`<button class="btn" type="button" data-pc-social="connect" data-connect-id="${handle}">Connect</button>`;
+    if(status==='blocked')return primary;
+    return `${primary}<button class="btn pc-danger-link" type="button" data-pc-social="report" data-user-id="${id}" data-user-name="${escapeHtml(profile?.display_name||'member')}">Report</button><button class="btn pc-danger-link" type="button" data-pc-social="block" data-user-id="${id}" data-user-name="${escapeHtml(profile?.display_name||'member')}">Block</button>`;
+  };
+  async function refreshSocial(){
+    if(!currentUser)return;
+    const uid=currentUser.id;
+    const [rq,cn,bk]=await Promise.all([
+      client.from('connection_requests').select('id,sender_id,receiver_id,status,created_at').or(`sender_id.eq.${uid},receiver_id.eq.${uid}`).eq('status','pending').order('created_at',{ascending:false}),
+      client.from('connections').select('user_low,user_high,created_at').or(`user_low.eq.${uid},user_high.eq.${uid}`).order('created_at',{ascending:false}),
+      client.from('user_blocks').select('blocker_id,blocked_id,created_at').eq('blocker_id',uid).order('created_at',{ascending:false})
+    ]);
+    const err=rq.error||cn.error||bk.error;if(err){socialState={incoming:[],outgoing:[],connections:[],blocked:[],profiles:new Map()};showError('Connection service setup needed: '+err.message);return;}
+    socialState.incoming=(rq.data||[]).filter(r=>r.receiver_id===uid);
+    socialState.outgoing=(rq.data||[]).filter(r=>r.sender_id===uid);
+    socialState.connections=cn.data||[];socialState.blocked=bk.data||[];
+    const ids=new Set();socialState.incoming.forEach(r=>ids.add(r.sender_id));socialState.outgoing.forEach(r=>ids.add(r.receiver_id));
+    socialState.connections.forEach(c=>ids.add(c.user_low===uid?c.user_high:c.user_low));socialState.blocked.forEach(b=>ids.add(b.blocked_id));
+    if(ids.size){const {data,error}=await client.from('profiles').select('id,display_name,connect_id,bio,interests').in('id',[...ids]);if(error){showError(error.message);return;}socialState.profiles=new Map((data||[]).map(p=>[p.id,p]));}
+    else socialState.profiles=new Map();
+    window.pcSocialRequestCount=socialState.incoming.length;window.pcSocialConnectionCount=socialState.connections.length;
+    const rc=byId('requestCount'),cc=byId('connectionCount');if(rc){rc.textContent=String(socialState.incoming.length);rc.hidden=!socialState.incoming.length;}if(cc){cc.textContent=String(socialState.connections.length);cc.hidden=!socialState.connections.length;}
+    const sr=byId('statRequests'),sc=byId('statConnections');if(sr)sr.textContent=String(socialState.incoming.length);if(sc)sc.textContent=String(socialState.connections.length);
+    if(document.getElementById('page-requests')&&document.getElementById('page-requests').classList.contains('active'))renderSocialRequests();
+    if(document.getElementById('page-connections')&&document.getElementById('page-connections').classList.contains('active'))renderSocialConnections();
+  }
+  function socialPersonCard(id,actions){const p=socialState.profiles.get(id)||{};return `<div class="pc-social-row"><div class="pc-social-person"><span class="avatar sm">${socialAvatar(id)}</span><div class="grow"><strong>${escapeHtml(p.display_name||'Project Connect member')}</strong><small>@${escapeHtml(p.connect_id||'member')}</small></div></div><div class="pc-social-mini-actions">${actions}</div></div>`;}
+  function renderSocialRequests(){
+    const incoming=byId('incomingRequests'),outgoing=byId('outgoingRequests');
+    if(incoming)incoming.innerHTML=socialState.incoming.length?socialState.incoming.map(r=>socialPersonCard(r.sender_id,`<button class="btn primary" type="button" data-pc-social="respond" data-request-id="${r.id}" data-accept="true">Accept</button><button class="btn" type="button" data-pc-social="respond" data-request-id="${r.id}" data-accept="false">Decline</button><button class="btn pc-danger-link" type="button" data-pc-social="report" data-user-id="${r.sender_id}" data-user-name="${escapeHtml(socialName(r.sender_id))}">Report</button><button class="btn pc-danger-link" type="button" data-pc-social="block" data-user-id="${r.sender_id}" data-user-name="${escapeHtml(socialName(r.sender_id))}">Block</button>`)).join(''):'<div class="empty">No pending requests. When someone invites you, it will appear here.</div>';
+    if(outgoing)outgoing.innerHTML=socialState.outgoing.length?socialState.outgoing.map(r=>socialPersonCard(r.receiver_id,`<span class="tag">Pending</span><button class="btn" type="button" data-pc-social="cancel" data-request-id="${r.id}">Cancel request</button><button class="btn pc-danger-link" type="button" data-pc-social="block" data-user-id="${r.receiver_id}" data-user-name="${escapeHtml(socialName(r.receiver_id))}">Block</button>`)).join(''):'<div class="empty">You have not sent any pending requests.</div>';
+    window.pcSocialRequestCount=socialState.incoming.length;
+  }
+  function renderSocialConnections(){
+    const root=byId('pcConnectionsList'),blocked=byId('pcBlockedList');
+    if(root)root.innerHTML=socialState.connections.length?socialState.connections.map(c=>{const id=c.user_low===currentUser.id?c.user_high:c.user_low;return socialPersonCard(id,`<button class="btn primary" type="button" data-live-message-id="${escapeHtml(socialHandle(id))}">Message</button><button class="btn" type="button" data-pc-social="remove" data-user-id="${id}" data-user-name="${escapeHtml(socialName(id))}">Remove</button><button class="btn pc-danger-link" type="button" data-pc-social="block" data-user-id="${id}" data-user-name="${escapeHtml(socialName(id))}">Block</button><button class="btn pc-danger-link" type="button" data-pc-social="report" data-user-id="${id}" data-user-name="${escapeHtml(socialName(id))}">Report</button>`);}).join(''):'<div class="empty" style="grid-column:1/-1">No connections yet. Find members in Discover and send a request.</div>';
+    if(blocked)blocked.innerHTML=socialState.blocked.length?socialState.blocked.map(b=>socialPersonCard(b.blocked_id,`<button class="btn" type="button" data-pc-social="unblock" data-user-id="${b.blocked_id}" data-user-name="${escapeHtml(socialName(b.blocked_id))}">Unblock</button>`)).join(''):'<div class="empty">You have not blocked anyone.</div>';
+  }
+  window.pcRenderSocialRequests=renderSocialRequests;window.pcRenderSocialConnections=renderSocialConnections;
+  async function socialRpc(name,args,successMessage){
+    const {data,error}=await client.rpc(name,args||{});if(error){toast(error.message||'The action could not be completed.');return false;}
+    await refreshSocial();if(activeTab==='discover')renderDiscoverResults(byId('discoverSearch')?.value||'');if(activeTab==='home')renderHome();if(successMessage)toast(successMessage);return data||true;
+  }
+  async function handleSocialClick(event){
+    const b=event.target.closest('[data-pc-social]');if(!b)return;
+    const action=b.dataset.pcSocial,id=b.dataset.userId,requestId=b.dataset.requestId,name=b.dataset.userName||'this member';
+    b.disabled=true;
+    try{
+      if(action==='refresh'){await refreshSocial();toast('Connections refreshed.');}
+      else if(action==='connect'){await socialRpc('pc_send_connection_request',{p_connect_id:b.dataset.connectId},'Connection request sent.');}
+      else if(action==='respond'){await socialRpc('pc_respond_connection_request',{p_request_id:requestId,p_accept:b.dataset.accept==='true'},b.dataset.accept==='true'?'Connection accepted.':'Request declined.');}
+      else if(action==='cancel'){await socialRpc('pc_cancel_connection_request',{p_request_id:requestId},'Request cancelled.');}
+      else if(action==='remove'){if(confirm(`Remove ${name} from your connections?`))await socialRpc('pc_remove_connection',{p_other_user:id},'Connection removed.');}
+      else if(action==='block'){if(confirm(`Block ${name}? They will no longer be able to discover your profile or message you.`))await socialRpc('pc_block_member',{p_other_user:id},`${name} has been blocked.`);}
+      else if(action==='unblock'){if(confirm(`Unblock ${name}?`))await socialRpc('pc_unblock_member',{p_other_user:id},`${name} has been unblocked.`);}
+      else if(action==='report'){
+        const reason=prompt(`Report ${name}. Enter one reason: spam, harassment, impersonation, inappropriate content, scam, other`);
+        if(!reason)return;const normalized=reason.trim().toLowerCase().replace(/[ -]+/g,'_');const allowed=['spam','harassment','impersonation','inappropriate_content','scam','other'];
+        if(!allowed.includes(normalized)){toast('Choose one of the listed report reasons.');return;}
+        const details=prompt('Add details (optional). Do not include passwords or sensitive personal information.','')||'';
+        await socialRpc('pc_report_member',{p_other_user:id,p_reason:normalized,p_details:details},'Report submitted. Thank you for helping keep the community safe.');
+      }
+    }catch(err){toast(err.message||'Unable to complete this action.');}
+    finally{b.disabled=false;}
+  }
+  document.addEventListener('click',handleSocialClick);
+  async function loadSocialRealtime(){
+    if(socialChannel){await client.removeChannel(socialChannel);socialChannel=null;}
+    socialChannel=client.channel('pc-social-'+currentUser.id)
+      .on('postgres_changes',{event:'*',schema:'public',table:'connection_requests'},()=>refreshSocial())
+      .on('postgres_changes',{event:'*',schema:'public',table:'connections'},()=>refreshSocial())
+      .subscribe();
+  }
+  window.pcStartChatForId=async function(connectId){byId('pcStartChatId').value=connectId;await startLiveChat();};
+  const showError=(message)=>{const n=byId('pcLiveChatError');if(n){n.textContent=message||'';n.classList.toggle('show',!!message)}};
+  const authMessage=(message,isError=false)=>{const e=byId('pcAuthError'),s=byId('pcAuthStatus');if(e){e.textContent=isError?message:'';e.classList.toggle('show',!!isError)}if(s){s.textContent=isError?'':message;s.hidden=isError||!message}};
+  async function showApp(user){
+    currentUser=user; if(gate)gate.style.display='none'; if(app)app.style.display=''; document.body.style.overflow='';
+    const status=byId('pcLiveChatStatus'),notice=byId('pcLiveChatNotice'),workspace=byId('pcLiveChatWorkspace');
+    if(status)status.textContent='Connected';
+    if(notice){notice.textContent='Signed in as '+(user.email||'your account');notice.hidden=true;}
+    if(workspace)workspace.hidden=false;
+    const top=byId('topMode');if(top)top.textContent='Signed in';
+    await loadOwnProfile();
+    await refreshSocial();
+    await loadLiveConversations();
+    loadSocialRealtime();
+    if(typeof window.projectConnectRender==='function')window.projectConnectRender();
+  }
+  async function signIn(){
+    if(loading)return;loading=true;authMessage('Signing in…');
+    const email=byId('pcAuthEmail').value.trim(),password=byId('pcAuthPassword').value;
+    const {data,error}=await client.auth.signInWithPassword({email,password});loading=false;
+    if(error){authMessage(error.message,true);return;}authMessage('');showApp(data.user);
+  }
+  async function signUp(){
+    if(loading)return;loading=true;authMessage('Creating your account…');
+    const name=byId('pcAuthName').value.trim(),connectId=byId('pcAuthConnectId').value.trim().replace(/^@/,'').toLowerCase(),email=byId('pcAuthEmail').value.trim(),password=byId('pcAuthPassword').value;
+    if(!name||!connectId||!email||password.length<8||!/^[a-z0-9._-]{3,24}$/.test(connectId)){loading=false;authMessage('For a new account, enter your display name, a 3–24 character Connect ID, email, and password (at least 8 characters).',true);return;}
+    const {data,error}=await client.auth.signUp({email,password,options:{data:{display_name:name,connect_id:connectId},emailRedirectTo:location.origin+location.pathname}});loading=false;
+    if(error){authMessage(error.message,true);return;}
+    if(data.session){authMessage('Account created. You are signed in.');showApp(data.user);}
+    else authMessage('Account created. Check your email for the confirmation link, then return here and sign in. If you do not see it, check your spam folder.');
+  }
+  async function loadLiveConversations(){
+    if(!currentUser)return;
+    const list=byId('pcLiveConversationList');if(!list)return;list.innerHTML='<div class="muted small">Loading conversations…</div>';
+    const {data:members,error}=await client.from('conversation_members').select('conversation_id').eq('user_id',currentUser.id);
+    if(error){list.innerHTML='<div class="muted small">Unable to load conversations.</div>';showError(error.message);return;}
+    const ids=[...new Set((members||[]).map(x=>x.conversation_id))];window.pcLiveConversationCount=ids.length;
+    if(!ids.length){list.innerHTML='<div class="empty">No live conversations yet. Start one with a Connect ID.</div>';return;}
+    const {data:allMembers,error:memberError}=await client.from('conversation_members').select('conversation_id,user_id').in('conversation_id',ids);
+    if(memberError){showError(memberError.message);return;}
+    const others=[...new Set((allMembers||[]).map(x=>x.user_id).filter(id=>id!==currentUser.id))];
+    const {data:profiles}=others.length?await client.from('profiles').select('id,display_name,connect_id').in('id',others):{data:[]};
+    const profileMap=new Map((profiles||[]).map(p=>[p.id,p]));
+    const {data:conversations}=await client.from('conversations').select('id,last_message_at').in('id',ids).order('last_message_at',{ascending:false});
+    list.innerHTML=(conversations||[]).map(c=>{const other=(allMembers||[]).find(m=>m.conversation_id===c.id&&m.user_id!==currentUser.id);const p=other&&profileMap.get(other.user_id);return `<button class="chat-item ${activeConversation===c.id?'active':''}" type="button" data-live-conversation="${c.id}"><span class="avatar sm">${escapeHtml((p?.display_name||'M').slice(0,1).toUpperCase())}</span><span class="grow"><strong>${escapeHtml(p?.display_name||'Connect member')}</strong><small>@${escapeHtml(p?.connect_id||'member')}</small></span></button>`;}).join('')||'<div class="empty">No conversations yet. Start one using a Connect ID.</div>';const search=byId('pcLiveConversationSearch');if(search)filterLiveConversations(search.value);
+  }
+  function filterLiveConversations(query){
+    const list=byId('pcLiveConversationList');if(!list)return;const q=String(query||'').trim().toLowerCase();
+    let visible=0;list.querySelectorAll('[data-live-conversation]').forEach(item=>{const match=item.textContent.toLowerCase().includes(q);item.hidden=!match;if(match)visible++;});
+    let empty=list.querySelector('.pc-search-empty');if(!visible&&q){if(!empty){empty=document.createElement('div');empty.className='empty pc-search-empty';empty.textContent='No conversations match your search.';list.appendChild(empty);}}else empty?.remove();
+  }
+  async function openLiveConversation(id){
+    if(!currentUser)return;activeConversation=id;showError('');byId('pcUnifiedChat')?.classList.add('has-active-chat');
+    if(liveChannel){await client.removeChannel(liveChannel);liveChannel=null;}
+    const {data:members}=await client.from('conversation_members').select('user_id').eq('conversation_id',id);
+    const other=(members||[]).find(m=>m.user_id!==currentUser.id);
+    let title='Conversation';if(other){const {data:p}=await client.from('profiles').select('display_name,connect_id').eq('id',other.user_id).maybeSingle();if(p)title=(p.display_name||'Member')+' · @'+(p.connect_id||'member');}
+    byId('pcLiveConversationTitle').textContent=title;const sub=byId('pcLiveConversationSub');if(sub)sub.textContent='Private conversation';
+    const input=byId('pcLiveMessageInput'),send=byId('pcLiveSendForm')?.querySelector('button');if(input)input.disabled=false;if(send)send.disabled=false;
+    await loadLiveMessages(id);
+    liveChannel=client.channel('pc-chat-'+id).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:'conversation_id=eq.'+id},payload=>appendLiveMessage(payload.new)).subscribe();
+    await loadLiveConversations();
+  }
+  function appendLiveMessage(m){
+    const box=byId('pcLiveMessages');if(!box||!m||box.querySelector('[data-message-id="'+m.id+'"]'))return;box.querySelector('.pc-chat-empty-state,.pc-chat-empty-message')?.remove();
+    const mine=m.sender_id===currentUser?.id,el=document.createElement('div');el.className='message'+(mine?' mine':'');el.dataset.messageId=m.id;
+    const time=new Date(m.created_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    el.innerHTML=`<div>${escapeHtml(m.body)}</div><small>${time}${mine?' · You':''}</small>`;box.appendChild(el);box.scrollTop=box.scrollHeight;
+  }
+  async function loadLiveMessages(id){
+    const box=byId('pcLiveMessages');box.innerHTML='<div class="muted small">Loading messages…</div>';
+    const {data,error}=await client.from('messages').select('id,conversation_id,sender_id,body,created_at').eq('conversation_id',id).is('deleted_at',null).order('created_at',{ascending:true}).limit(200);
+    if(error){box.innerHTML='';showError(error.message);return;}
+    box.innerHTML='';(data||[]).forEach(appendLiveMessage);if(!data?.length)box.innerHTML='<div class="muted small pc-chat-empty-message" style="margin:auto;text-align:center">No messages yet. Say hello!</div>'; 
+  }
+  async function startLiveChat(){
+    if(!currentUser)return;showError('');const handle=byId('pcStartChatId').value.trim().replace(/^@/,'').toLowerCase();
+    if(!/^[a-z0-9._-]{3,24}$/.test(handle)){showError('Enter a valid Connect ID (3–24 letters, numbers, dots, underscores, or hyphens).');return;}
+    const {data:target,error}=await client.from('profiles').select('id,display_name,connect_id').eq('connect_id',handle).maybeSingle();
+    if(error||!target){showError(error?.message||'No member found with that Connect ID.');return;}
+    if(target.id===currentUser.id){showError('You cannot start a chat with yourself.');return;}
+    const {data:canMessage,error:blockCheckError}=await client.rpc('pc_can_message_user',{p_other_user:target.id});
+    if(blockCheckError){showError('Chat safety check failed. Run the Friends & Connections database migration, then try again.');return;}
+    if(!canMessage){showError('This conversation is unavailable because one member has blocked the other.');return;}
+    const {data:dm,error:dmError}=await client.rpc('pc_create_or_get_dm',{p_other_user:target.id});
+    if(dmError){showError(dmError.message||'Unable to create this conversation.');return;}
+    const conversationId=dm?.conversation_id;
+    if(!conversationId){showError('The conversation could not be created. Please try again.');return;}
+    byId('pcStartChatId').value='';await openLiveConversation(conversationId);
+  }
+  async function sendLiveMessage(event){
+    event.preventDefault();if(!currentUser||!activeConversation)return;const input=byId('pcLiveMessageInput'),body=input.value.trim();if(!body)return;
+    input.disabled=true;const send=byId('pcLiveSendForm').querySelector('button');send.disabled=true;
+    const {error}=await client.from('messages').insert({conversation_id:activeConversation,sender_id:currentUser.id,body,message_type:'text'});
+    input.disabled=false;send.disabled=false;if(error){showError(error.message);return;}input.value='';input.focus();
+  }
+  byId('pcSignIn')?.addEventListener('click',signIn);byId('pcSignUp')?.addEventListener('click',signUp);
+  byId('supabaseAuthForm')?.addEventListener('submit',e=>{e.preventDefault();signIn()});
+  byId('pcStartChat')?.addEventListener('click',startLiveChat);
+  byId('pcStartChatId')?.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();startLiveChat();}});
+  byId('pcLiveSendForm')?.addEventListener('submit',sendLiveMessage);
+  byId('pcLiveConversationList')?.addEventListener('click',e=>{const b=e.target.closest('[data-live-conversation]');if(b)openLiveConversation(b.dataset.liveConversation);});
+  byId('pcLiveConversationSearch')?.addEventListener('input',e=>filterLiveConversations(e.target.value));
+  byId('pcChatBack')?.addEventListener('click',()=>byId('pcUnifiedChat')?.classList.remove('has-active-chat'));
+  byId('pcLiveSignOut')?.addEventListener('click',async()=>{await client.auth.signOut();location.reload();});
+  client.auth.getSession().then(({data})=>{if(data.session)showApp(data.session.user);});
+  client.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_IN'&&session?.user)showApp(session.user);if(event==='SIGNED_OUT')location.reload();});
+})();
+</script>
+</body></html>
