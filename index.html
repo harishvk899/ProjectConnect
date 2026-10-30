@@ -1,0 +1,1223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1120">
+<title>Project Connect — Find your people</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1120;--panel:#131d30;--panel2:#18243a;--line:#2a3850;--ink:#f4f7fb;--muted:#9baac0;--accent:#8b7cff;--accent2:#6f64e8;--mint:#5ee0bb;--amber:#f4c76b;--red:#ff8493;--soft:#242143;--shadow:0 20px 55px #0003}
+*{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}body{margin:0;background:radial-gradient(ellipse at 88% -10%,#252049 0,transparent 34%),var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+button,input,textarea,select{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .16s,background .18s,border-color .18s,color .18s}button:active{transform:scale(.985)}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+a{color:#c3bbff;text-decoration:none}a:hover{text-decoration:underline}button:disabled{opacity:.45;cursor:not-allowed}
+.shell{max-width:1660px;margin:0 auto;min-height:100vh;display:grid;grid-template-columns:252px minmax(0,1fr)}
+.sidebar{position:sticky;top:0;height:100dvh;padding:23px 16px 18px;background:#0d1627eF;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:20px;z-index:10;backdrop-filter:blur(16px)}
+.brand{display:flex;align-items:center;gap:11px;padding:0 7px}.logo{height:41px;width:41px;border-radius:14px;background:linear-gradient(135deg,#8b7cff,#36c5d8);display:grid;place-items:center;color:#10152a;font-weight:950;font-size:19px;box-shadow:0 7px 24px #7165e533}.brand strong{display:block;font-size:17px;letter-spacing:-.4px}.brand small{display:block;color:var(--muted);font-size:11px}
+.nav-label{padding:0 10px;color:#71829c;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+.nav-list{display:grid;gap:4px}.navbtn{width:100%;display:flex;align-items:center;gap:12px;padding:11px 13px;border:1px solid transparent;border-radius:12px;background:transparent;color:#aebbd0;text-align:left}.navbtn .ico{width:21px;text-align:center;font-size:17px}.navbtn .count{margin-left:auto;font-size:11px;background:#302a53;color:#d6d0ff;padding:2px 7px;border-radius:99px}.navbtn:hover{background:#17243a;color:#fff}.navbtn.active{background:linear-gradient(110deg,#2a2650,#201e3a);border-color:#413a6b;color:#fff;box-shadow:inset 3px 0 #9b8eff}
+.sidebar-bottom{margin-top:auto}.mode-card{border:1px solid var(--line);background:linear-gradient(140deg,#18243a,#171b35);border-radius:15px;padding:13px}.mode-card b{display:block;font-size:12px}.mode-card p{font-size:11px;color:var(--muted);margin:4px 0 10px}.tiny-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border:1px solid #315b54;border-radius:99px;color:var(--mint);font-size:10px}
+main{min-width:0;padding:0 30px 44px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:23px 0 20px;border-bottom:1px solid var(--line);margin-bottom:26px}.top-left{display:flex;align-items:center;gap:13px;min-width:0}.mobile-brand{display:none}.eyebrow{font-size:10px;letter-spacing:1.7px;text-transform:uppercase;color:var(--accent);font-weight:850}h1{font-size:clamp(24px,2.5vw,34px);letter-spacing:-1px;line-height:1.15;margin:5px 0 0}h2{font-size:19px;letter-spacing:-.35px;margin:0 0 5px}h3{font-size:15px;margin:0 0 5px}.muted{color:var(--muted)}.small{font-size:12px}.user-chip{display:flex;align-items:center;gap:9px;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:7px 10px;white-space:nowrap}.avatar{display:grid;place-items:center;flex:none;border:1px solid #ffffff15;border-radius:14px;background:linear-gradient(145deg,#35305e,#1d4960);color:#e5e1ff;font-size:13px;font-weight:850;letter-spacing:.2px}.avatar.sm{width:34px;height:34px;border-radius:11px}.avatar.md{width:46px;height:46px}.avatar.lg{width:58px;height:58px;border-radius:18px;font-size:16px}.avatar.has-image{background-size:cover;background-position:center;background-repeat:no-repeat;color:transparent;text-shadow:none}.user-chip b{display:block;font-size:12px}
+.visual-settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0}.image-picker-card{border:1px solid var(--line);border-radius:14px;background:#10192a;padding:13px;min-width:0}.image-picker-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}.image-picker-head .grow{flex:1;min-width:0}.image-picker-head h3{margin:0}.image-picker-head p{margin:3px 0 0}.dp-preview{width:54px;height:54px;border-radius:17px;font-size:14px}.chat-bg-preview{height:74px;border-radius:12px;border:1px solid #3a4660;background:radial-gradient(circle at 75% 15%,#8173ff88,transparent 35%),linear-gradient(125deg,#202846,#24515a);background-position:center;background-size:cover;display:flex;align-items:end;padding:8px;margin-bottom:9px}.chat-bg-preview span{font-size:10px;color:#fff;background:#0b1120b8;padding:4px 7px;border-radius:7px}.file-input{font-size:11px;padding:9px}.visual-note{font-size:10px;color:var(--muted);line-height:1.5;margin-top:8px}
+.message-row{display:flex;align-items:flex-end;gap:7px;width:100%;min-width:0}.message-row.mine{justify-content:flex-end}.message-row .avatar{width:28px;height:28px;border-radius:9px;font-size:9px;margin-bottom:2px}.message-bubble{max-width:min(76%,520px);min-width:0;padding:10px 13px;border:1px solid #2e4059;background:#1b293e;border-radius:14px 14px 14px 4px;font-size:13px;color:#e4ebf5;overflow-wrap:anywhere}.message-bubble.mine{background:#393365;border-color:#514784;border-radius:14px 14px 4px 14px}.message-text{white-space:pre-wrap}.message-meta{display:flex;justify-content:flex-end;align-items:center;gap:7px;margin-top:4px;font-size:9px;color:#aebbd0}.message-receipt{color:#aebbd0;white-space:nowrap}.message-receipt.read{color:#88e7d0;font-weight:800}.chat-head-actions{margin-left:auto;display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.chat-bg-note{font-size:10px;color:#a8b5ca;padding:7px 13px 0}
+@media(max-width:700px){.visual-settings{grid-template-columns:1fr}.message-bubble{max-width:85%}.chat-head-actions .btn{padding:7px 8px;font-size:10px}}
+.user-chip small{display:block;color:var(--muted);font-size:10px}
+.notice{border:1px solid #514627;background:#272316;color:#e6d39e;padding:11px 14px;border-radius:12px;font-size:12px;margin-bottom:21px;display:flex;gap:9px;align-items:flex-start}
+.page{display:none;animation:enter .2s ease-out}.page.active{display:block}@keyframes enter{from{opacity:.6;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.hero{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px;border:1px solid #3c3866;border-radius:21px;background:radial-gradient(circle at 85% 0,#45406f77,transparent 35%),linear-gradient(115deg,#1a2036,#1e1b39);box-shadow:var(--shadow);margin-bottom:19px}.hero h2{font-size:clamp(23px,3vw,32px);max-width:620px;line-height:1.16;letter-spacing:-.8px}.hero p{color:#b3bfd3;max-width:610px;margin:10px 0 17px}.hero-art{width:110px;height:110px;flex:none;border-radius:32px;background:linear-gradient(145deg,#8d80ff,#41ced0);display:grid;place-items:center;color:#11172a;font-size:42px;box-shadow:0 0 45px #8b7cff38;transform:rotate(4deg)}
+.btn{border:1px solid var(--line);border-radius:11px;padding:9px 13px;background:var(--panel2);color:var(--ink);font-weight:750;font-size:12px}.btn:hover{border-color:#675f9b;background:#242847}.btn.primary{background:var(--accent);border-color:var(--accent);color:#111528}.btn.primary:hover{background:#a99fff}.btn.ghost{background:transparent}.btn.danger{color:#ffc0c9;border-color:#673340;background:#301b28}.btn.success{color:#9bf2d6;border-color:#2b6657;background:#16382f}.btn-row{display:flex;gap:8px;flex-wrap:wrap}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0 25px}.stat{padding:16px;border:1px solid var(--line);background:linear-gradient(145deg,#141f32,#121b2c);border-radius:16px;min-width:0}.stat-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:11px}.stat-icon{width:30px;height:30px;display:grid;place-items:center;background:#292649;color:#cfc8ff;border-radius:10px;font-size:16px}.stat strong{font-size:26px;letter-spacing:-.7px;display:block;margin:8px 0 2px}.stat small{font-size:10px;color:var(--muted)}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:14px;margin:27px 0 13px}.section-head p{font-size:12px;color:var(--muted);margin:4px 0 0}.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:17px;min-width:0}.panel:hover{border-color:#394a68}.row{display:flex;align-items:center;gap:12px;min-width:0}.row .grow{flex:1;min-width:0}.between{display:flex;align-items:center;justify-content:space-between;gap:12px}.line{height:1px;background:var(--line);margin:13px 0}.tag{display:inline-flex;align-items:center;gap:5px;padding:4px 8px;border-radius:99px;background:#282343;color:#c9c2ff;font-size:10px;font-weight:700}.tag.green{background:#12352f;color:var(--mint)}.tag.amber{background:#3b301d;color:var(--amber)}.tag.grey{background:#263347;color:#c0ccdd}
+.story-card{display:flex;flex-direction:column;gap:12px;transition:transform .18s,border-color .18s,box-shadow .18s}.story-card:hover{transform:translateY(-2px);border-color:#665c9d;box-shadow:0 12px 28px #0002}.story-top{display:flex;gap:11px;align-items:center}.story-name{font-weight:800;font-size:14px}.story-handle{font-size:11px;color:#b1a8ff}.story-quote{font-size:13px;color:#d1d9e7;line-height:1.55}.story-interests{display:flex;flex-wrap:wrap;gap:5px}.story-interests span{font-size:10px;color:#aebbd0;border:1px solid #304057;padding:4px 7px;border-radius:99px}.searchbar{display:flex;gap:9px;margin:17px 0;flex-wrap:wrap}.input,.textarea,.select{width:100%;background:#0e1728;border:1px solid #2d3d56;border-radius:11px;color:var(--ink);padding:11px 12px;min-width:0}.input::placeholder,.textarea::placeholder{color:#687c98}.searchbar .input{flex:1;min-width:220px}.textarea{resize:vertical;min-height:110px}.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:11px;color:#b7c4d7;font-weight:750}.help{font-size:11px;color:var(--muted)}
+.request-list,.chat-list,.group-list{display:grid;gap:9px}.request-item{display:flex;align-items:center;gap:12px;padding:13px;border:1px solid var(--line);border-radius:14px;background:#111b2c}.request-item .grow p{margin:3px 0;font-size:12px;color:var(--muted)}
+.chat-layout{display:grid;grid-template-columns:minmax(240px,330px) minmax(0,1fr);border:1px solid var(--line);border-radius:17px;overflow:hidden;min-height:515px;background:var(--panel)}.chat-list-pane{border-right:1px solid var(--line);padding:15px;min-width:0}.chat-search{margin:12px 0}.chat-item{width:100%;display:flex;gap:10px;align-items:center;text-align:left;border:1px solid transparent;border-radius:12px;padding:10px;background:transparent;color:var(--ink)}.chat-item:hover{background:#19263b}.chat-item.active{background:#242144;border-color:#423b6c}.chat-item .grow{min-width:0}.chat-item strong{display:block;font-size:12px}.chat-item small{display:block;color:var(--muted);font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.chat-time{font-size:9px;color:#8497b3;white-space:nowrap}.conversation{display:flex;flex-direction:column;min-width:0}.conv-head{padding:15px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}.messages{padding:18px;display:flex;flex-direction:column;gap:9px;flex:1;overflow-y:auto;max-height:430px;background:radial-gradient(ellipse at center,#20213a22,transparent 75%)}.message{max-width:min(76%,520px);padding:10px 13px;border:1px solid #2e4059;background:#1b293e;border-radius:14px 14px 14px 4px;font-size:13px;color:#e4ebf5;overflow-wrap:anywhere}.message.mine{align-self:flex-end;background:#393365;border-color:#514784;border-radius:14px 14px 4px 14px}.message small{display:block;text-align:right;color:#aebbd0;font-size:9px;margin-top:4px}.send-form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}.send-form .input{flex:1}.send-form .btn{white-space:nowrap}
+.group-card{display:flex;flex-direction:column;gap:12px}.group-icon{width:45px;height:45px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(145deg,#38335f,#1b5362);font-size:20px;flex:none}.group-detail{display:flex;flex-direction:column;gap:14px}.switchline{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.switchline:last-child{border-bottom:0}.toggle{accent-color:var(--accent);width:19px;height:19px}
+.empty{padding:28px 14px;text-align:center;color:var(--muted);border:1px dashed #34465f;border-radius:14px;font-size:12px}.profile-layout{display:grid;grid-template-columns:minmax(280px,.8fr) minmax(0,1.2fr);gap:15px}.profile-banner{height:80px;border-radius:12px;background:linear-gradient(110deg,#2a2753,#1f5260);margin-bottom:-30px}.profile-identity{display:flex;align-items:end;gap:12px;padding:0 10px}.profile-identity .avatar{border:4px solid var(--panel)}.profile-card-body{padding:10px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:100;background:#e8e5ff;color:#18132e;border-radius:13px;padding:10px 15px;box-shadow:var(--shadow);font-size:12px;font-weight:800;display:none;max-width:calc(100vw - 24px)}.toast.show{display:block;animation:enter .15s ease-out}
+footer{padding-top:28px;color:#6f8099;font-size:10px;text-align:center}
+@media(min-width:1700px){.shell{max-width:1900px;grid-template-columns:280px minmax(0,1fr)}main{padding-left:42px;padding-right:42px}.grid-3{grid-template-columns:repeat(4,minmax(0,1fr))}.hero{padding:34px}.hero-art{width:130px;height:130px;font-size:50px}}
+@media(max-width:1100px){.shell{grid-template-columns:215px minmax(0,1fr)}main{padding:0 21px 38px}.grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-art{width:86px;height:86px;font-size:34px}}
+@media(max-width:800px){.shell{display:block}.sidebar{position:sticky;top:0;height:auto;padding:12px 12px 8px;border-right:0;border-bottom:1px solid var(--line);gap:10px}.brand{padding:0 4px}.sidebar .nav-label,.sidebar-bottom{display:none}.nav-list{display:flex;overflow-x:auto;gap:5px;padding-bottom:2px;scrollbar-width:thin}.navbtn{width:auto;flex:none;padding:9px 12px;white-space:nowrap;font-size:12px}.navbtn .count{margin-left:0}.sidebar .brand{margin-bottom:0}.sidebar .nav-list:before{content:"";display:none}main{padding:0 16px 30px}.topbar{padding:17px 0;margin-bottom:18px}.user-chip .user-text{display:none}.hero{padding:21px}.chat-layout{grid-template-columns:220px minmax(0,1fr)}.chat-list-pane{padding:10px}.messages{padding:13px}.profile-layout{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){body{font-size:14px}.topbar{align-items:flex-start}.topbar h1{font-size:25px}.eyebrow{font-size:9px}.user-chip{padding:6px}.hero{padding:18px;align-items:flex-start}.hero h2{font-size:25px}.hero-art{display:none}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:23px}.stat-icon{width:26px;height:26px}.grid-3,.grid-2{grid-template-columns:1fr}.section-head{align-items:flex-start;margin-top:22px}.searchbar{display:grid;grid-template-columns:1fr}.searchbar .input{min-width:0}.request-item{align-items:flex-start;flex-wrap:wrap}.request-item .btn-row{width:100%;padding-left:46px}.chat-layout{grid-template-columns:1fr;min-height:0}.chat-list-pane{border-right:0;border-bottom:1px solid var(--line)}.chat-list{display:flex;overflow-x:auto;padding-bottom:3px}.chat-item{flex:none;width:185px}.conversation{min-height:390px}.messages{max-height:330px}.message{max-width:88%}.profile-layout{grid-template-columns:1fr}.hero .btn-row .btn{flex:1}.panel{padding:14px}.conv-head{padding:12px}.send-form{padding:10px}.send-form .btn{padding:9px 11px}}
+@media(orientation:landscape) and (max-height:520px){.sidebar{position:relative;height:auto}.hero{padding:15px}.messages{max-height:230px}.conversation{min-height:340px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* === Adaptive + high-refresh-friendly polish === */
+:root {
+  --motion-quick: 110ms;
+  --motion-normal: 160ms;
+  --motion-long: 210ms;
+  --content-max: 1760px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+html { scroll-padding-top: 16px; }
+body { min-height: 100svh; }
+.shell { width: 100%; max-width: var(--content-max); }
+main { min-width: 0; }
+img, video, canvas, svg { max-width: 100%; }
+button, input, textarea, select { max-width: 100%; }
+.nav-list, .chat-list, .story-interests { overscroll-behavior-inline: contain; }
+.nav-list, .chat-list { -webkit-overflow-scrolling: touch; }
+.panel, .stat, .hero, .image-picker-card { min-width: 0; overflow-wrap: anywhere; }
+.story-quote, .message-text, .muted, .help, .small { overflow-wrap: anywhere; }
+.btn { touch-action: manipulation; min-height: 36px; }
+.navbtn { touch-action: pan-x manipulation; }
+.input, .textarea, .select { min-height: 42px; }
+.file-input { min-height: 38px; }
+.profile-banner, .chat-bg-preview { background-repeat: no-repeat; background-position: center; background-size: cover; }
+
+/* Keep animated effects on compositor-friendly properties wherever possible. */
+.page.active { animation: enter var(--motion-long) ease-out both; }
+.story-card, .btn, .navbtn, .chat-item, .panel {
+  transition-property: transform, opacity, border-color, box-shadow;
+  transition-duration: var(--motion-normal);
+  transition-timing-function: cubic-bezier(.2,.7,.2,1);
+}
+.btn:hover { transform: translate3d(0,-1px,0); }
+.story-card:hover { transform: translate3d(0,-2px,0); }
+.navbtn.active { box-shadow: inset 3px 0 var(--accent); }
+.hero-art { will-change: transform; }
+.message-row { contain: layout style; }
+.messages { overscroll-behavior: contain; scrollbar-gutter: stable; }
+.page { min-width: 0; }
+#discoverResults, #homeStories, #homeGroups, #groupResults { align-items: stretch; }
+input, textarea, select, button { font-size: max(12px, 1em); }
+
+/* Narrow phones including 320px widths. */
+@media (max-width: 380px) {
+  main { padding-left: 10px; padding-right: 10px; }
+  .sidebar { padding-left: 8px; padding-right: 8px; }
+  .brand strong { font-size: 15px; }
+  .brand small { font-size: 10px; }
+  .navbtn { gap: 7px; padding: 8px 9px; font-size: 11px; }
+  .topbar h1 { font-size: 22px; letter-spacing: -.6px; }
+  .hero { padding: 14px; border-radius: 16px; }
+  .hero h2 { font-size: 22px; }
+  .hero p { font-size: 12px; }
+  .hero .btn-row { display: grid; grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat { padding: 10px; }
+  .stat strong { font-size: 21px; }
+  .stat small { font-size: 9px; }
+  .panel { padding: 11px; }
+  .request-item { padding: 10px; gap: 8px; }
+  .request-item .btn-row { padding-left: 0; }
+  .message-bubble { max-width: calc(100% - 36px); padding: 9px 10px; font-size: 12px; }
+  .send-form { gap: 6px; }
+  .send-form .btn { padding: 8px 9px; }
+  .profile-identity { padding-left: 4px; }
+  .visual-settings { gap: 8px; }
+}
+@media (max-width: 360px) {
+  .navbtn .ico { display: none; }
+  .user-chip { display: none; }
+  .topbar { gap: 8px; }
+  .stats .stat-top { align-items: flex-start; gap: 4px; }
+}
+
+/* Tablets, split screen, foldables and narrow windows. */
+@media (min-width: 601px) and (max-width: 900px) {
+  main { padding-left: clamp(14px, 2.5vw, 24px); padding-right: clamp(14px, 2.5vw, 24px); }
+  .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .profile-layout { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+  .chat-layout { grid-template-columns: minmax(185px, 34%) minmax(0, 1fr); }
+  .chat-head-actions .tag { display: none; }
+}
+@media (min-width: 801px) and (max-width: 1100px) {
+  .shell { grid-template-columns: 205px minmax(0, 1fr); }
+  .sidebar { padding-left: 12px; padding-right: 12px; }
+  main { padding-left: 18px; padding-right: 18px; }
+  .hero { padding: 20px; }
+  .hero-art { width: 78px; height: 78px; border-radius: 23px; }
+}
+/* Normal desktops and large monitors. */
+@media (min-width: 1101px) and (max-width: 1599px) {
+  .shell { grid-template-columns: 235px minmax(0, 1fr); }
+  main { padding-left: clamp(22px, 2.5vw, 38px); padding-right: clamp(22px, 2.5vw, 38px); }
+  .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+/* Ultrawide / TV-width viewports: limit line length while using space efficiently. */
+@media (min-width: 1600px) {
+  .shell { max-width: 2200px; grid-template-columns: 270px minmax(0, 1fr); }
+  main { padding-left: clamp(34px, 3vw, 64px); padding-right: clamp(34px, 3vw, 64px); }
+  .topbar { padding-top: 30px; padding-bottom: 25px; }
+  .hero { padding: clamp(28px, 2.4vw, 46px); }
+  .hero h2 { font-size: clamp(31px, 2.1vw, 42px); max-width: 900px; }
+  .hero p { font-size: clamp(14px, .95vw, 18px); max-width: 850px; }
+  h2 { font-size: clamp(19px, 1.2vw, 25px); }
+  .panel { padding: clamp(17px, 1.3vw, 25px); }
+  .grid-3 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .stats { gap: 16px; }
+  .stat { padding: clamp(17px, 1.2vw, 25px); }
+  .stat strong { font-size: clamp(26px, 1.7vw, 36px); }
+  .messages { max-height: min(58vh, 760px); }
+}
+/* Low-height landscape, kiosks and TV browser layouts. */
+@media (min-width: 700px) and (max-height: 650px) {
+  .sidebar { height: 100vh; overflow-y: auto; }
+  .topbar { padding-top: 13px; padding-bottom: 13px; margin-bottom: 15px; }
+  .hero { padding: 16px 20px; }
+  .hero-art { width: 68px; height: 68px; }
+  .section-head { margin-top: 18px; }
+  .messages { max-height: 38vh; }
+}
+/* Support displays that advertise a high refresh rate without locking the browser cadence. */
+@media (prefers-reduced-motion: no-preference) {
+  .page.active { animation-duration: var(--motion-long); }
+  .btn:active, .navbtn:active, .chat-item:active { transition-duration: var(--motion-quick); }
+}
+@media (hover: none), (pointer: coarse) {
+  .story-card:hover, .panel:hover, .btn:hover { transform: none; box-shadow: none; }
+  .btn, .navbtn, .chat-item { min-height: 42px; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .story-card:hover { box-shadow: 0 12px 28px #0002; }
+}
+/* User preference for reduced animation overrides all motion polish. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+    will-change: auto !important;
+  }
+}
+
+
+/* Global search, QR utilities and settings hub */
+.topbar{align-items:flex-start;flex-wrap:wrap}
+.topbar-main{display:flex;align-items:flex-start;gap:18px;flex:1;min-width:250px;flex-wrap:wrap}
+.topbar-heading{min-width:120px}
+.global-search{display:flex;align-items:center;gap:8px;width:min(440px,100%);flex:1;min-width:220px;border:1px solid var(--line);border-radius:13px;background:#0e1728;padding:5px 6px 5px 12px}
+.global-search .search-symbol{font-size:18px;color:#a99fff}
+.global-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--ink);padding:8px 2px}
+.global-search input:focus{outline:0}
+.global-search .btn{padding:8px 10px;white-space:nowrap}
+.topbar-tools{display:flex;align-items:center;gap:8px;margin-left:auto;flex-wrap:wrap;justify-content:flex-end}
+.qr-tools{display:flex;gap:7px;align-items:center}
+.qr-tools .btn{white-space:nowrap}
+.settings-panel{margin-top:20px}
+.settings-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.setting-tile{width:100%;display:flex;align-items:center;gap:11px;min-width:0;padding:13px 12px;border:1px solid var(--line);border-radius:14px;background:#101a2b;color:var(--ink);text-align:left;transition:transform .14s,border-color .15s,background .15s}
+.setting-tile:hover{transform:translateY(-1px);border-color:#665e9a;background:#17243a}
+.setting-icon{width:36px;height:36px;display:grid;place-items:center;flex:none;border-radius:12px;background:#292649;color:#cfc8ff;font-size:17px}
+.setting-tile b{display:block;font-size:12px}
+.setting-tile small{display:block;color:var(--muted);font-size:10px;margin-top:3px;overflow-wrap:anywhere}
+.setting-arrow{margin-left:auto;color:#8799b5;font-size:15px}
+.modal-overlay{position:fixed;inset:0;z-index:1200;background:#030712c9;backdrop-filter:blur(9px);display:none;align-items:center;justify-content:center;padding:18px;overflow-y:auto}
+.modal-overlay.open{display:flex}
+.modal-card{width:min(660px,100%);max-height:min(88dvh,900px);overflow:auto;border:1px solid #364560;border-radius:20px;background:#111b2d;box-shadow:0 30px 90px #0008;padding:20px}
+.modal-card.wide{width:min(820px,100%)}
+.modal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:15px}
+.modal-header h2{font-size:20px}
+.modal-close{border:1px solid var(--line);background:#1c2940;color:var(--ink);border-radius:10px;width:36px;height:36px;font-size:18px;flex:none}
+.modal-content{min-width:0}
+.settings-section{padding:13px 0;border-bottom:1px solid var(--line)}
+.settings-section:last-child{border-bottom:0}
+.settings-section h3{margin-bottom:5px}
+.settings-section p{font-size:12px;color:var(--muted);margin:4px 0 10px}
+.settings-field-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #28364b}
+.settings-field-row:last-child{border-bottom:0}
+.settings-field-row b{display:block;font-size:12px}
+.settings-field-row small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.settings-field-row .toggle{flex:none}
+.qr-wrap{display:grid;grid-template-columns:minmax(180px,240px) minmax(0,1fr);gap:20px;align-items:center}
+.qr-paper{min-height:245px;display:grid;place-items:center;padding:14px;background:#fff;border-radius:16px;color:#101626}
+.qr-paper canvas,.qr-paper img{max-width:100%;height:auto!important}
+.qr-payload{font-size:12px;overflow-wrap:anywhere;border:1px solid var(--line);border-radius:10px;background:#0b1423;padding:10px;color:#c5cfe0}
+.scanner-video{width:100%;max-height:340px;object-fit:cover;border-radius:14px;background:#050b16;border:1px solid var(--line);display:none}
+.scanner-status{padding:11px 12px;border:1px solid var(--line);background:#0e1728;border-radius:12px;color:var(--muted);font-size:12px;margin:11px 0}
+.qr-result{margin:16px 0 0;border:1px solid #51477f;background:linear-gradient(140deg,#171f34,#1b1b37);border-radius:17px;padding:18px}
+.qr-result .profile-story{font-size:14px;line-height:1.65;color:#d5ddec;margin:15px 0}
+.qr-result .qr-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.qr-result .qr-actions .btn{min-width:95px}
+.blocked-chip{display:inline-flex;border-radius:99px;padding:5px 8px;color:#ffc0c9;background:#3c222d;font-size:10px}
+.message-star{border:0;background:transparent;color:#f4c76b;padding:0 2px;font-size:14px;line-height:1}
+.starred-item{padding:12px;border:1px solid var(--line);border-radius:12px;background:#0f1828;margin:8px 0}
+.starred-item p{margin:5px 0;font-size:12px;color:#dce4f2;white-space:pre-wrap;overflow-wrap:anywhere}
+.inline-search-results{display:grid;gap:8px;margin-top:10px}
+@media(max-width:900px){.settings-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.topbar-main{gap:12px}.global-search{min-width:220px}}
+@media(max-width:650px){.topbar{gap:12px}.topbar-main{min-width:0;width:100%;display:grid;grid-template-columns:1fr}.topbar-heading{min-width:0}.global-search{width:100%;min-width:0}.topbar-tools{width:100%;justify-content:space-between;margin-left:0}.qr-tools{gap:6px}.qr-tools .btn{padding:8px 9px;font-size:11px}.settings-grid{grid-template-columns:1fr}.setting-tile{padding:11px}.modal-overlay{padding:8px}.modal-card{max-height:94dvh;padding:15px;border-radius:16px}.qr-wrap{grid-template-columns:1fr}.qr-paper{min-height:210px}.qr-result{padding:13px}.topbar h1{font-size:24px}}
+@media(max-width:360px){.qr-tools .btn{font-size:10px;padding:8px 7px}.global-search{gap:5px;padding-left:8px}.global-search .btn{font-size:10px}.setting-tile small{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.setting-tile:hover{transform:none}.modal-overlay,.modal-card{scroll-behavior:auto}}
+
+
+body.compact-chats .message-bubble{padding:6px 9px;font-size:12px}body.compact-chats .message-row{gap:5px}body.compact-chats .messages{gap:6px}
+
+/* Public onboarding + login gate */
+.login-gate{min-height:100svh;display:grid;place-items:center;padding:clamp(14px,4vw,34px);background:radial-gradient(ellipse at 86% -7%,#29234d 0,transparent 38%),radial-gradient(ellipse at -8% 100%,#113e4a55 0,transparent 34%),#0b1120;color:#f4f7fb}
+.login-card{width:min(520px,100%);border:1px solid #2c3b54;border-radius:24px;background:linear-gradient(145deg,#141f32f7,#111a2df7);box-shadow:0 28px 90px #0005;padding:clamp(20px,4vw,34px);overflow:hidden;position:relative}
+.login-brand{display:flex;align-items:center;gap:12px;margin-bottom:26px}.login-logo{width:47px;height:47px;flex:none;display:grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,#8b7cff,#36c5d8);color:#101528;font-size:22px;font-weight:950}.login-brand strong{display:block;font-size:17px}.login-brand small{display:block;color:#9baac0;font-size:11px}.login-eyebrow{font-size:10px;letter-spacing:1.7px;text-transform:uppercase;color:#a99fff;font-weight:850}.login-gate h1{font-size:clamp(27px,5vw,39px);letter-spacing:-1.2px;line-height:1.12;margin:9px 0 12px}.login-gate p{color:#aebbd0;margin:9px 0 18px;font-size:13px;line-height:1.65}.auth-step{display:none}.auth-step.active{display:block;animation:loginEnter .18s ease-out both}@keyframes loginEnter{from{opacity:.65;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}.login-actions{display:grid;gap:9px;margin-top:20px}.login-action{width:100%;min-height:48px;border-radius:12px;border:1px solid #304057;background:#1a2740;color:#f4f7fb;font-weight:750;text-align:center;padding:12px 14px}.login-action:hover{border-color:#8b7cff;background:#212b48}.login-action.primary{background:#8b7cff;color:#121528;border-color:#8b7cff}.login-action.primary:hover{background:#a99fff}.login-action.apple{background:#f4f6fb;color:#121724;border-color:#f4f6fb}.login-action.google{background:#fff;color:#232836;border-color:#e8eaf0}.login-back{background:transparent;border:0;color:#b8afff;padding:9px 0;margin-top:12px;font-size:12px;font-weight:700}.login-divider{height:1px;background:#2a3850;margin:18px 0}.login-field{display:grid;gap:7px;margin:13px 0}.login-field label{font-size:11px;color:#b8c5d8;font-weight:750}.login-field input,.login-field select,.login-field textarea{width:100%;min-width:0;min-height:46px;border:1px solid #304057;background:#0b1525;color:#f4f7fb;border-radius:11px;padding:11px 12px;font:inherit}.login-field input:focus{outline:2px solid #8b7cff;outline-offset:2px}.login-hint{font-size:10px!important;color:#8293ad!important;margin:9px 0!important}.login-error{display:none;border:1px solid #673340;background:#301b28;color:#ffc0c9;padding:10px 12px;border-radius:10px;font-size:12px;margin:12px 0}.login-error.show{display:block}.login-warning{border:1px solid #594c2a;background:#282316;border-radius:12px;color:#e6d49d;padding:11px 12px;font-size:11px;line-height:1.55;margin:12px 0}.terms-copy{max-height:220px;overflow:auto;border:1px solid #2a3850;border-radius:12px;padding:13px;background:#0c1626;color:#b9c5d7;font-size:12px;line-height:1.65}.login-bottom{margin-top:25px;padding-top:15px;border-top:1px solid #28364b;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.login-bottom a{color:#b5adff;font-size:12px;text-decoration:none}.login-bottom a:hover{text-decoration:underline}.provider-icon{display:inline-flex;width:21px;height:21px;align-items:center;justify-content:center;margin-right:8px;vertical-align:middle;font-size:15px}.mode-result{display:inline-flex;border:1px solid #315b54;background:#102e2b;color:#5ee0bb;border-radius:99px;padding:6px 9px;font-size:11px;font-weight:750}
+@media(max-width:380px){.login-card{padding:19px;border-radius:19px}.login-gate h1{font-size:27px}.login-brand{margin-bottom:20px}}
+@media(prefers-reduced-motion:reduce){.auth-step.active{animation:none}}
+
+
+/* Project Connect performance pass: responsive layout + smoother frame pacing. */
+html { scroll-behavior: auto; }
+body { min-width: 320px; }
+/* Avoid costly full-screen blur and permanent compositor promotion on mid-range devices. */
+.sidebar { -webkit-backdrop-filter: none; backdrop-filter: none; }
+.hero-art { will-change: auto; }
+/* Keep interactions short and avoid animating large shadows/filters during scrolling. */
+button, .btn, .navbtn, .chat-item, .story-card, .setting-tile, .panel {
+  transition-property: background-color, color, border-color, opacity;
+  transition-duration: 110ms;
+  transition-timing-function: ease-out;
+}
+.btn:hover, .story-card:hover, .setting-tile:hover { transform: none; box-shadow: none; }
+.page.active, .auth-step.active { animation: none !important; }
+@media (min-width: 1600px) { .shell { max-width: 2200px; } }
+@media (max-width: 700px) {
+  .shell { display: block; }
+  .sidebar { position: relative; top: auto; height: auto; }
+  .profile-layout, .chat-layout { grid-template-columns: minmax(0, 1fr); }
+  .settings-grid { grid-template-columns: minmax(0, 1fr); }
+  .modal-overlay { padding: 8px; }
+  .modal-card { max-height: 94dvh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* Compact profile refinement — preserves the full earlier portal and settings hub. */
+.profile-layout{gap:12px}
+.profile-layout>.panel{padding:14px}
+.profile-banner{height:64px;margin-bottom:-25px}
+.profile-identity{gap:10px}
+.profile-identity .avatar.lg{width:50px;height:50px;border-radius:15px}
+.profile-card-body{padding:8px}
+.profile-card-body .field{margin:9px 0}
+@media(max-width:600px){
+  .profile-layout{grid-template-columns:minmax(0,1fr)}
+  .profile-layout>.panel{padding:12px}
+  .profile-banner{height:58px;margin-bottom:-22px}
+}
+
+
+/* Profile-only compact mode: no other tabs are changed. */
+#page-profile .profile-head-compact{align-items:center;gap:8px;margin-bottom:10px}
+#page-profile .profile-head-compact .btn{padding:6px 9px;min-height:30px;white-space:nowrap;font-size:10px}
+#page-profile .profile-layout{grid-template-columns:minmax(230px,.68fr) minmax(0,1.32fr);gap:10px;align-items:start}
+#page-profile .profile-layout>.panel{padding:12px}
+#page-profile .profile-banner{height:46px;margin-bottom:-19px}
+#page-profile .profile-identity{gap:9px;padding:0 6px;align-items:center}
+#page-profile .profile-identity .avatar.lg{width:44px;height:44px;min-width:44px;border-radius:13px;font-size:13px}
+#page-profile #profileDisplayName{font-size:16px;line-height:1.2;margin:0}
+#page-profile .profile-card-body{padding:8px 4px 2px}
+#page-profile #profileStoryPreview{margin:5px 0 8px;font-size:12px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+#page-profile .profile-card-body .line{margin:7px 0}
+#page-profile .profile-review-row{margin-top:7px;gap:8px}
+#page-profile .profile-review-row .tag{font-size:9px;padding:3px 7px;white-space:nowrap}
+#page-profile .visual-settings{gap:8px;margin:8px 0}
+#page-profile .image-picker-card{padding:9px}
+#page-profile .dp-preview{width:36px;height:36px;border-radius:11px}
+#page-profile .field{gap:4px;margin:7px 0}
+#page-profile .field label{font-size:10px}
+#page-profile .field .input,#page-profile .field .textarea{padding:8px 9px;min-height:32px;font-size:12px}
+#page-profile .field .textarea{min-height:60px}
+#page-profile .settings-panel{margin-top:10px;padding:12px}
+#page-profile .settings-panel .settings-grid{gap:7px;grid-template-columns:repeat(4,minmax(0,1fr))}
+#page-profile .settings-panel .setting-tile{padding:8px;gap:7px}
+#page-profile .settings-panel .setting-icon{width:28px;height:28px;font-size:13px}
+#page-profile .settings-panel .setting-tile b{font-size:10px}
+#page-profile .settings-panel .setting-tile small{font-size:9px;line-height:1.3}
+.code-lab-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:stretch}
+.code-editor-panel,.code-preview-panel{min-width:0;border:1px solid var(--line);background:#10192a;border-radius:14px;overflow:hidden}
+.code-lab-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid var(--line);background:#131f32}
+.code-tabs{display:flex;gap:5px;flex-wrap:wrap}
+.code-tab{border:1px solid var(--line);background:#0d1727;color:var(--muted);border-radius:8px;padding:6px 9px;font-size:11px;font-weight:800}
+.code-tab.active{background:#302a53;border-color:#6258a4;color:#fff}
+.code-editor{display:block;width:100%;min-height:340px;resize:vertical;border:0;background:#0b1220;color:#d9e6fa;padding:13px;font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;tab-size:2;outline:none}
+.code-editor:focus{box-shadow:inset 0 0 0 2px #665caa}
+.code-preview-frame{display:block;width:100%;height:430px;border:0;background:#fff}
+.code-lab-status{font-size:11px;color:var(--mint)}
+.code-lab-note{font-size:11px;color:var(--muted);margin:9px 0 0;line-height:1.5}
+@media(max-width:900px){.code-lab-grid{grid-template-columns:1fr}.code-editor{min-height:260px}.code-preview-frame{height:350px}#page-profile .settings-panel .settings-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){#page-profile .profile-layout{grid-template-columns:minmax(0,1fr)}#page-profile .profile-layout>.panel{padding:11px}#page-profile .settings-panel .settings-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){#page-profile .settings-panel .settings-grid{grid-template-columns:minmax(0,1fr)}}
+
+</style>
+
+<style id="project-connect-chat-optimization">
+body.lightweight-chats *, body.lightweight-chats *::before, body.lightweight-chats *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+body.compact-chats .message-row { margin-block: 4px !important; gap: 6px !important; }
+body.compact-chats .message-bubble { padding: 8px 10px !important; }
+body.compact-chats .messages { gap: 4px !important; }
+</style>
+</head>
+<body>
+<div id="publicLoginGate" class="login-gate">
+  <section class="login-card" aria-label="Project Connect sign-in">
+    <div class="login-brand"><div class="login-logo">C</div><div><strong>Project Connect</strong><small>People beyond profiles</small></div></div>
+    <section class="auth-step active" data-auth-step="welcome">
+      <div class="login-eyebrow">Your world, connected</div>
+      <h1>Find people who connect with your story.</h1>
+      <p>Meet people through interests, thoughtful profiles, and Connect IDs. Your phone number stays private unless you choose to share it.</p>
+      <div class="login-actions"><button class="login-action primary" type="button" data-auth-next="terms">Get started <span aria-hidden="true">↗</span></button></div>
+      <div class="login-bottom"><span class="login-hint">A new way to make meaningful connections.</span><a href="admin.html">Admin Portal ↗</a></div>
+    </section>
+    <section class="auth-step" data-auth-step="terms">
+      <div class="login-eyebrow">Before you connect</div><h1>Terms & conditions</h1>
+      <p>Review the prototype notice and agree to continue to the sign-in options.</p>
+      <div class="terms-copy"><b>Project Connect — Preview Terms</b><br><br>Use an accurate date of birth and do not impersonate another person. Respect other members, get consent before sharing contact details, and do not harass, threaten, spam, or share another person's private information.<br><br>Student Mode is intended to stay separate from adult-oriented features, and AI features are not part of Student Mode. Location features, when introduced, should be opt-in and should not expose a precise location by default.<br><br>This is a prototype. Sign-in, messages, profile visibility, blocking, read receipts, and other actions are demonstrations only. No real identity is verified, no real messages are delivered, and these sample terms are not a final legal agreement. The production version needs properly reviewed terms and privacy notices.</div>
+      <label class="switchline" style="margin-top:13px"><span><b class="small">I have read this preview</b><span class="help" style="display:block">You can disagree and return to the welcome screen.</span></span><input type="checkbox" class="toggle" id="termsAccepted"></label>
+      <div id="termsError" class="login-error" role="alert">Please confirm you've read the preview terms.</div>
+      <div class="login-actions"><button class="login-action primary" id="agreeTerms" type="button">Agree & continue</button><button class="login-action" id="disagreeTerms" type="button">Disagree — back to welcome</button></div>
+    </section>
+    <section class="auth-step" data-auth-step="providers">
+      <div class="login-eyebrow">Sign in or create an account</div><h1>Welcome to Connect.</h1>
+      <p>Choose a sign-in method to continue. This version uses demo sign-in until real providers are configured. For best results, open the extracted bundle in Safari or Chrome.</p>
+      <div class="login-warning">Demo mode: Apple, Google, and phone sign-in are not connected to identity providers yet. Do not enter a real password or sensitive information.</div>
+      <div class="login-actions">
+        <button class="login-action apple" type="button" data-demo-provider="Apple"><span class="provider-icon">●</span>Continue with Apple</button>
+        <button class="login-action google" type="button" data-demo-provider="Google"><span class="provider-icon">G</span>Continue with Google</button>
+        <button class="login-action" type="button" data-auth-next="phone"><span class="provider-icon">✆</span>Continue with phone number</button>
+      </div>
+      <button class="login-back" type="button" data-auth-back="terms">← Back to terms</button>
+    </section>
+    <section class="auth-step" data-auth-step="phone">
+      <div class="login-eyebrow">Phone sign-in</div><h1>Verify your number.</h1>
+      <p>Enter a demo number and request a test code. No SMS will be sent.</p>
+      <form id="demoPhoneForm">
+        <div class="login-field"><label for="demoPhone">Phone number</label><input id="demoPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+91 9XXXXXXXXX" required pattern="[+0-9 ()-]{8,20}"></div>
+        <div id="demoOtpArea" hidden><div class="login-warning">Demo OTP: <b>246810</b>. This code is fixed for testing only.</div><div class="login-field"><label for="demoOtp">Verification code</label><input id="demoOtp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="6-digit demo code"></div></div>
+        <div id="phoneError" class="login-error" role="alert"></div>
+        <div class="login-actions"><button id="sendDemoOtp" class="login-action primary" type="button">Send demo code</button><button id="verifyDemoOtp" class="login-action primary" type="submit" hidden>Verify demo code</button></div>
+      </form>
+      <button class="login-back" type="button" data-auth-back="providers">← Choose another sign-in method</button>
+    </section>
+    <section class="auth-step" data-auth-step="dob">
+      <div class="login-eyebrow">One more step</div><h1>When's your birthday?</h1>
+      <p>Your date of birth selects the appropriate demo experience. Enter an accurate date; this step does not verify age.</p>
+      <form id="demoDobForm">
+        <div class="login-field"><label for="demoDob">Date of birth</label><input id="demoDob" type="date" autocomplete="bday" required max="2026-10-29"></div>
+        <div id="dobError" class="login-error" role="alert"></div>
+        <div class="login-actions"><button class="login-action primary" type="submit">Continue to Project Connect</button></div>
+      </form>
+      <p class="login-hint">Under 18 → Student Mode (no AI features). 18 or older → Full Mode. Production age-assurance and safety requirements still need review.</p>
+    </section>
+  </section>
+</div>
+
+<div class="shell" id="publicAppShell" style="display:none">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">C</div><div><strong>Project Connect</strong><small>People beyond profiles</small></div></div>
+    <div class="nav-label">Your space</div>
+    <nav class="nav-list" aria-label="Main navigation">
+      <button class="navbtn active" data-tab="home"><span class="ico">⌂</span>Home</button>
+      <button class="navbtn" data-tab="discover"><span class="ico">⌕</span>Discover</button>
+      <button class="navbtn" data-tab="requests"><span class="ico">♧</span>Requests <span class="count" id="requestCount">2</span></button>
+      <button class="navbtn" data-tab="chats"><span class="ico">▤</span>Chats</button>
+      <button class="navbtn" data-tab="groups"><span class="ico">◎</span>Groups</button>
+      <button class="navbtn" data-tab="profile"><span class="ico">♙</span>My profile</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="mode-card"><b>Privacy-first by design</b><p>Connect by story and interests. Profile photos are not required in this prototype.</p><span class="tiny-pill">● Local demo</span></div>
+      <div style="margin:12px 6px 0"><a href="admin.html" class="small">Admin portal preview ↗</a></div>
+    </div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <div class="topbar-main">
+        <div class="topbar-heading"><div class="eyebrow">Your world, connected</div><h1 id="pageTitle">Home</h1></div>
+        <form id="globalSearchForm" class="global-search" role="search">
+          <span class="search-symbol" aria-hidden="true">⌕</span>
+          <input id="globalSearch" type="search" autocomplete="off" placeholder="Search anything…" aria-label="Search people, chats, groups, and settings">
+          <button class="btn primary" type="submit">Search</button>
+        </form>
+      </div>
+      <div class="topbar-tools">
+        <div class="qr-tools">
+          <button class="btn" type="button" id="openQrScanner" aria-haspopup="dialog">▦ Scan QR</button>
+          <button class="btn primary" type="button" id="openQrGenerator" aria-haspopup="dialog">▧ My QR</button>
+        </div>
+        <div class="user-chip"><div class="avatar sm" id="topAvatar">YC</div><div class="user-text"><b id="topHandle">@youconnect</b><small id="topMode">Full Mode · Demo</small></div></div>
+      </div>
+    </header>
+    <div class="notice"><span>ⓘ</span><span><b>Prototype only:</b> changes are saved in this browser on this device. No real accounts, delivery, or cross-device sync yet. Use fictional details while testing.</span></div>
+
+    <section id="page-home" class="page active">
+      <div class="hero"><div><div class="eyebrow">Good conversations start here</div><h2>Find people who connect with your story, not just your picture.</h2><p>Explore thoughtful profiles, share a little about yourself, and build connections at your own pace.</p><div class="btn-row"><button class="btn primary" data-go="discover">Discover people ↗</button><button class="btn" data-go="profile">Write your story</button></div></div><div class="hero-art">✳</div></div>
+      <div class="stats">
+        <div class="stat"><div class="stat-top">Connections <span class="stat-icon">♧</span></div><strong id="statConnections">2</strong><small>People you've connected with</small></div>
+        <div class="stat"><div class="stat-top">Pending requests <span class="stat-icon">↗</span></div><strong id="statRequests">2</strong><small>Waiting for your response</small></div>
+        <div class="stat"><div class="stat-top">Open chats <span class="stat-icon">▤</span></div><strong id="statChats">2</strong><small>Conversations on this device</small></div>
+        <div class="stat"><div class="stat-top">Groups <span class="stat-icon">◎</span></div><strong id="statGroups">2</strong><small>Communities you can explore</small></div>
+      </div>
+      <div class="section-head"><div><h2>Stories worth meeting</h2><p>Profiles are built around stories and interests, not photos.</p></div><button class="btn ghost" data-go="discover">See all ↗</button></div>
+      <div class="grid-3" id="homeStories"></div>
+      <div class="section-head"><div><h2>Your communities</h2><p>Find a group around something you care about.</p></div><button class="btn ghost" data-go="groups">Explore groups ↗</button></div>
+      <div class="grid-2" id="homeGroups"></div>
+    </section>
+
+    <section id="page-discover" class="page">
+      <div class="panel"><h2>Discover people</h2><p class="muted small">Search by Connect ID, name, story, or interest.</p><div class="searchbar"><input id="discoverSearch" class="input" placeholder="Try @mira.reads, music, or design…" autocomplete="off"><button class="btn primary" id="clearDiscover">Clear search</button></div><div class="help">Demo profiles below are fictional. A real directory will require an authenticated backend and privacy controls.</div></div>
+      <div id="qrProfileResult" class="qr-result" hidden></div>
+      <div class="section-head"><div><h2>People you may connect with</h2><p id="discoverSummary">Story-first profiles from the demo directory.</p></div></div>
+      <div class="grid-3" id="discoverResults"></div>
+    </section>
+
+    <section id="page-requests" class="page">
+      <div class="section-head" style="margin-top:0"><div><h2>Connection requests</h2><p>Accept only people you'd like to connect with.</p></div></div>
+      <div class="panel"><h3>Received</h3><div class="request-list" id="incomingRequests"></div></div>
+      <div class="section-head"><div><h2>Sent requests</h2><p>People you have invited to connect.</p></div></div>
+      <div class="panel"><div class="request-list" id="outgoingRequests"></div></div>
+    </section>
+
+    <section id="page-chats" class="page">
+      <div class="section-head" style="margin-top:0"><div><h2>Your chats</h2><p>Demo messages stay in local browser storage.</p></div><span class="tag">Local preview</span></div>
+      <div class="chat-layout">
+        <aside class="chat-list-pane"><h3>Messages</h3><input class="input chat-search" id="chatSearch" placeholder="Search conversations…"><div class="chat-list" id="chatList"></div></aside>
+        <section class="conversation" id="conversation"></section>
+      </div>
+    </section>
+
+    <section id="page-groups" class="page">
+      <div class="section-head" style="margin-top:0"><div><h2>Groups & communities</h2><p>Create a space for up to 500 members and choose who can post.</p></div><button class="btn primary" id="showCreateGroup">＋ Create group</button></div>
+      <div id="createGroupPanel" class="panel" hidden>
+        <form id="createGroupForm">
+          <div class="grid-2">
+            <div class="field"><label for="groupName">Group name</label><input class="input" id="groupName" maxlength="48" required placeholder="e.g. Weekend Photowalkers"></div>
+            <div class="field"><label for="groupTopic">Topic</label><input class="input" id="groupTopic" maxlength="32" placeholder="e.g. Photography"></div>
+          </div>
+          <div class="field"><label for="groupDescription">Description</label><textarea class="textarea" id="groupDescription" maxlength="260" placeholder="What brings this community together?"></textarea></div>
+          <div class="field"><label for="groupPosting">Who can send messages?</label><select class="select" id="groupPosting"><option value="everyone">All members can message</option><option value="admins">Admins only can message</option></select><div class="help">You become the group's admin. Maximum size: 500 members.</div></div>
+          <div class="btn-row"><button class="btn primary" type="submit">Create group</button><button class="btn" id="cancelCreateGroup" type="button">Cancel</button></div>
+        </form>
+      </div>
+      <div class="searchbar"><input id="groupSearch" class="input" placeholder="Search groups by name or topic…"></div>
+      <div class="grid-3" id="groupResults"></div>
+      <div id="selectedGroupPanel" class="panel" style="margin-top:16px" hidden></div>
+    </section>
+
+
+    <section id="page-codeLab" class="page">
+      <div class="section-head" style="margin-top:0"><div><h2>Terminal Mode · Code Lab</h2><p>Write and run front-end code in a contained browser preview.</p></div><span class="tag green">Sandbox preview</span></div>
+      <div class="notice"><span>ⓘ</span><span>This is a browser coding workspace, not a computer shell. It runs HTML/CSS/JavaScript in an isolated preview. Python, Node.js, package installation, server files and operating-system commands require a separately secured execution backend.</span></div>
+      <div class="panel" style="margin-bottom:12px"><div class="between" style="gap:10px;flex-wrap:wrap"><div><h3>Editor</h3><p class="muted small">Switch language tabs, edit code, then run it.</p></div><div class="btn-row"><button type="button" class="btn primary" id="codeRun">▶ Run</button><button type="button" class="btn" id="codeDownload">Export HTML</button><button type="button" class="btn" id="codeReset">Reset</button></div></div></div>
+      <div class="code-lab-grid">
+        <div class="code-editor-panel">
+          <div class="code-lab-toolbar"><div class="code-tabs"><button class="code-tab active" type="button" data-code-tab="html">HTML</button><button class="code-tab" type="button" data-code-tab="css">CSS</button><button class="code-tab" type="button" data-code-tab="js">JavaScript</button></div><span class="muted small" id="codeEditorLabel">HTML editor</span></div>
+          <textarea class="code-editor" id="codeHtml" spellcheck="false" aria-label="HTML editor"><main class="card">
+  <p class="eyebrow">PROJECT CONNECT · TERMINAL MODE</p>
+  <h1>Hello, creator!</h1>
+  <p>Edit this page and press Run.</p>
+  <button id="helloButton">Click me</button>
+  <p id="message">Your project starts here.</p>
+</main></textarea>
+          <textarea class="code-editor" id="codeCss" spellcheck="false" aria-label="CSS editor" hidden>:root { font-family: system-ui, sans-serif; color: #f4f7fb; background: #0b1120; }
+body { margin: 0; padding: 24px; }
+.card { max-width: 620px; margin: 30px auto; padding: 28px; border: 1px solid #394766; border-radius: 20px; background: #141f32; }
+.eyebrow { color: #a99fff; font-size: 12px; letter-spacing: 2px; }
+button { padding: 10px 15px; border: 0; border-radius: 10px; background: #8b7cff; color: #111528; font-weight: 700; cursor: pointer; }</textarea>
+          <textarea class="code-editor" id="codeJs" spellcheck="false" aria-label="JavaScript editor" hidden>document.querySelector("#helloButton").addEventListener("click", () => {
+  document.querySelector("#message").textContent = "Nice! Your JavaScript is working.";
+});</textarea>
+        </div>
+        <div class="code-preview-panel"><div class="code-lab-toolbar"><b>Preview</b><span class="code-lab-status" id="codeStatus" role="status">Ready</span></div><iframe id="codePreview" class="code-preview-frame" title="Code preview" sandbox="allow-scripts"></iframe></div>
+      </div>
+      <p class="code-lab-note">This demo does not save projects to an account or sync across devices yet.</p>
+    </section>
+
+    <section id="page-profile" class="page">
+      <div class="section-head profile-head-compact" style="margin-top:0"><div><h2>Your story, your terms</h2><p>Photos are optional; your story and interests help people get to know you.</p></div></div>
+      <div class="profile-layout">
+        <div class="panel">
+          <div class="profile-banner"></div>
+          <div class="profile-identity"><button type="button" class="avatar lg" id="profileAvatar" data-action="ai-edit-profile" title="Open AI Edit Profile" aria-label="Open AI Edit Profile">YC</button><div style="padding-bottom:5px"><h2 id="profileDisplayName">Your Connect</h2><div class="story-handle" id="profileHandle">@youconnect</div><button type="button" class="btn primary" data-action="ai-edit-profile" style="margin-top:7px">✦ AI Edit Profile</button></div></div>
+          <div class="profile-card-body"><p id="profileStoryPreview" class="story-quote">Still writing my story…</p><div class="line"></div><div class="story-interests" id="profileInterestTags"></div><div class="line"></div><div class="between"><span class="muted small">Profile discovery</span><span id="visibilityPill" class="tag green">Visible</span></div>
+            <div class="between profile-review-row"><span class="muted small">Reviews</span><span class="tag">☆ No reviews yet</span></div></div>
+        </div>
+        <div class="panel">
+          <h3>Edit your profile</h3><p class="muted small">Your display picture and chat background are remembered in this browser on this device.</p>
+          <div class="visual-settings">
+            <div class="image-picker-card">
+              <div class="image-picker-head">
+                <div class="grow"><h3>Display picture (DP)</h3><p class="muted small">Shown beside your messages</p></div>
+                <div id="dpEditPreview" class="avatar dp-preview">YC</div>
+              </div>
+              <div class="field"><label for="dpUpload">Change your DP</label><input class="input file-input" id="dpUpload" type="file" accept="image/*"></div>
+              <div class="btn-row"><button type="button" class="btn" id="removeDp">Remove DP</button></div>
+            </div>
+            <div class="image-picker-card">
+              <div class="image-picker-head"><div class="grow"><h3>Chat background</h3><p class="muted small">Use it behind your conversations</p></div></div>
+              <div id="chatBgPreview" class="chat-bg-preview"><span>Conversation preview</span></div>
+              <div class="field"><label for="chatBackgroundUpload">Upload background image</label><input class="input file-input" id="chatBackgroundUpload" type="file" accept="image/*"></div>
+              <div class="btn-row"><button type="button" class="btn" id="removeChatBackground">Remove background</button></div>
+              <label class="switchline"><span><b class="small">Share background setting</b><span class="help" style="display:block">For all chats in this prototype; other members need server sync to see it.</span></span><input type="checkbox" class="toggle" id="shareChatBackground" checked></label>
+            </div>
+          </div>
+          <div class="visual-note">Image files are resized before saving. In this prototype, the images persist only in this browser; they are not uploaded to a server or distributed to other users yet.</div>
+          <form id="profileForm">
+            <div class="field"><label for="displayName">Display name</label><input class="input" id="displayName" maxlength="40" required></div>
+            <div class="field"><label for="connectId">Connect ID</label><input class="input" id="connectId" maxlength="24" pattern="[A-Za-z0-9._]+" required><div class="help">Use letters, numbers, dots, or underscores. Your Connect ID is how people can find you without your phone number.</div></div>
+            <div class="field"><label for="profileStory">Your story / bio</label><textarea class="textarea" id="profileStory" maxlength="400" placeholder="What are you curious about? What matters to you?"></textarea><div class="help"><span id="storyCount">0</span>/400 characters</div></div>
+            <div class="field"><label for="profileInterests">Interests (comma-separated)</label><input class="input" id="profileInterests" maxlength="180" placeholder="books, design, travel"></div>
+            <div class="switchline"><div><b class="small">Show me in discovery</b><div class="help">Turn off to hide your profile from directory searches.</div></div><input type="checkbox" class="toggle" id="profileVisible" aria-label="Show me in discovery"></div>
+            <div class="btn-row" style="margin-top:15px"><button type="submit" class="btn primary">Save profile</button><button type="button" class="btn" id="resetProfile">Reset demo profile</button></div>
+          </form>
+        </div>
+      </div>
+      <section class="panel settings-panel">
+        <div class="between"><div><h2>Settings & tools</h2><p class="muted small">Manage your account, chats, privacy, and app preferences.</p></div><span class="tag">Local demo</span></div>
+        <div class="settings-grid">
+          <button class="setting-tile" data-setting="broadcast"><span class="setting-icon">◉</span><span><b>Broadcast messages</b><small>Prepare a message for multiple Connect IDs</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="starred"><span class="setting-icon">★</span><span><b>Starred</b><small>Keep important chat messages handy</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="devices"><span class="setting-icon">▣</span><span><b>Linked devices</b><small>Review device-session status</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="account"><span class="setting-icon">♙</span><span><b>Account</b><small>Connect ID and account overview</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="ai"><span class="setting-icon">✦</span><span><b>Private AI / API keys</b><small>Choose an AI provider and configure your own API</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="cloud"><span class="setting-icon">☁</span><span><b>Cloud & infrastructure</b><small>Backend, database, storage, CDN, monitoring and deployment roadmap</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="terminal"><span class="setting-icon">⌘</span><span><b>Terminal Mode</b><small>Open the HTML, CSS and JavaScript Code Lab</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="optimizeChats"><span class="setting-icon">⚡</span><span><b>Optimize Chats</b><small>Reduce visual effects and fit more messages on screen</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="privacy"><span class="setting-icon">⌑</span><span><b>Privacy</b><small>Discovery visibility and blocked users</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="chat"><span class="setting-icon">▤</span><span><b>Chat</b><small>Read receipts and message preferences</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="appearance"><span class="setting-icon">◐</span><span><b>Appearance</b><small>Chat density and background preference</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="notifications"><span class="setting-icon">♢</span><span><b>Notifications</b><small>Connection and activity preferences</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="storage"><span class="setting-icon">▤</span><span><b>Storage and data</b><small>Local data estimate and export</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="help"><span class="setting-icon">?</span><span><b>Help and feedback</b><small>Send feedback in this local demo</small></span><span class="setting-arrow">›</span></button>
+          <button class="setting-tile" data-setting="invite"><span class="setting-icon">↗</span><span><b>Invite a friend</b><small>Share your Connect ID</small></span><span class="setting-arrow">›</span></button>
+        </div>
+      </section>
+    </section>
+    <div class="modal-overlay" id="aiProfileModal" role="dialog" aria-modal="true" aria-labelledby="aiProfileTitle"><div class="modal-card"><div class="modal-header"><div><div class="eyebrow">Profile assistant</div><h2 id="aiProfileTitle">AI Edit Profile</h2><p class="muted small">Create a better bio and interests from your own instructions.</p></div><button type="button" class="modal-close" data-close-modal="aiProfileModal" aria-label="Close">×</button></div><div class="modal-content"><div class="field"><label for="aiProfileTone">Style</label><select class="select" id="aiProfileTone"><option>Natural and friendly</option><option>Creative and thoughtful</option><option>Funny and playful</option><option>Professional</option><option>Warm and romantic</option></select></div><div class="field"><label for="aiProfilePrompt">What should your profile say?</label><textarea class="textarea" id="aiProfilePrompt" placeholder="Tell the AI about your personality, interests, and the kind of people you hope to meet."></textarea></div><button type="button" class="btn primary" id="generateAiProfile">Generate profile draft</button><div class="field"><label for="aiProfileDraft">Draft (you can edit it)</label><textarea class="textarea" id="aiProfileDraft" maxlength="400" placeholder="Your suggested bio will appear here."></textarea></div><div class="btn-row"><button type="button" class="btn primary" id="applyAiProfileDraft">Use this bio</button><button type="button" class="btn" data-close-modal="aiProfileModal">Cancel</button></div><p class="help" id="aiProfileNote">Preview mode: without a configured backend, this creates a local template draft, not a response from a live AI.</p></div></div></div>
+<footer>Project Connect · local interactive prototype · no live accounts or messages are sent</footer>
+  </main>
+</div>
+<div class="modal-overlay" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+  <section class="modal-card wide">
+    <div class="modal-header"><div><div class="eyebrow">Project Connect settings</div><h2 id="settingsModalTitle">Settings</h2></div><button class="modal-close" type="button" data-close-modal="settingsModal" aria-label="Close settings">×</button></div>
+    <div id="settingsModalContent" class="modal-content"></div>
+  </section>
+</div>
+<div class="modal-overlay" id="qrGeneratorModal" role="dialog" aria-modal="true" aria-labelledby="qrGeneratorTitle">
+  <section class="modal-card">
+    <div class="modal-header"><div><div class="eyebrow">Your unique Connect ID</div><h2 id="qrGeneratorTitle">My Connect QR</h2><p class="muted small">This QR identifies one profile in Project Connect.</p></div><button class="modal-close" type="button" data-close-modal="qrGeneratorModal" aria-label="Close QR generator">×</button></div>
+    <div class="qr-wrap"><div class="qr-paper"><div id="qrCodeOutput" aria-label="Your QR code"></div><div id="qrCodeFallback" class="small muted" hidden>QR generator unavailable. Check your internet connection, then reopen this panel.</div></div><div><h3 id="qrProfileName">Your Connect</h3><p id="qrProfileHandle" class="story-handle">@youconnect</p><p class="muted small">Share this code so someone can discover the person linked to this Connect ID. The QR payload is created in your browser.</p><div class="qr-payload" id="qrPayloadText"></div><div class="btn-row" style="margin-top:12px"><button class="btn primary" id="copyQrId" type="button">Copy Connect ID</button><button class="btn" id="downloadQr" type="button">Download QR</button></div></div></div>
+    <p class="help" style="margin-top:14px">Prototype QR format: <code>projectconnect://connect/ConnectID</code>. Once the website is hosted, replace this with a real HTTPS profile URL.</p>
+  </section>
+</div>
+<div class="modal-overlay" id="qrScannerModal" role="dialog" aria-modal="true" aria-labelledby="qrScannerTitle">
+  <section class="modal-card">
+    <div class="modal-header"><div><div class="eyebrow">Discover a person</div><h2 id="qrScannerTitle">Scan Connect QR</h2><p class="muted small">Allow camera access or enter a Connect ID manually.</p></div><button class="modal-close" type="button" data-close-modal="qrScannerModal" aria-label="Close QR scanner">×</button></div>
+    <video id="qrVideo" class="scanner-video" autoplay playsinline muted></video>
+    <div id="scannerStatus" class="scanner-status">The scanner will request camera access. Camera detection depends on browser support; using a hosted HTTPS site or localhost is recommended.</div>
+    <div class="btn-row"><button class="btn primary" type="button" id="startQrCamera">Start camera</button><button class="btn" type="button" id="stopQrCamera">Stop camera</button></div>
+    <div class="line"></div>
+    <form id="manualQrForm"><div class="field"><label for="manualQrCode">Enter a Connect ID or QR payload</label><input class="input" id="manualQrCode" placeholder="@mira.reads or projectconnect://connect/mira.reads" required></div><button class="btn primary" type="submit">Find profile</button></form>
+    <p class="help" style="margin-top:12px">If your browser doesn't support built-in QR detection, use the manual fallback here. A production app should use HTTPS and a tested QR scanning library.</p>
+  </section>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+/* Independent login gate bootstrap: does not wait for QR libraries or app feature scripts. */
+(function () {
+  const gate = document.getElementById("publicLoginGate");
+  const app = document.getElementById("publicAppShell");
+  if (!gate || !app) return;
+
+  let demoMethod = "";
+  let demoPhone = "";
+  const showStep = function (name) {
+    document.querySelectorAll("[data-auth-step]").forEach(function (step) {
+      step.classList.toggle("active", step.dataset.authStep === name);
+    });
+    const active = document.querySelector('[data-auth-step="' + name + '"]');
+    const target = active && active.querySelector("input,button");
+    if (target) setTimeout(function () { target.focus(); }, 25);
+  };
+  const error = function (id, message) {
+    const node = document.getElementById(id);
+    if (!node) return;
+    node.textContent = message || "";
+    node.classList.toggle("show", !!message);
+  };
+  const revealApp = function () {
+    try {
+      sessionStorage.setItem("pc_public_demo_session", "active");
+      sessionStorage.setItem("pc_public_demo_method", demoMethod || "demo");
+      sessionStorage.setItem("pc_public_demo_phone", demoPhone || "");
+    } catch (e) {}
+    gate.style.display = "none";
+    app.style.display = "";
+    document.body.style.overflow = "";
+    try {
+      const mode = localStorage.getItem("pc_public_demo_mode");
+      const topMode = document.getElementById("topMode");
+      if (topMode && mode) topMode.textContent = mode + " · Demo";
+    } catch (e) {}
+    if (typeof window.projectConnectRender === "function") window.projectConnectRender();
+  };
+
+  // Always start with the welcome screen in the current tab so a stale demo session
+  // cannot accidentally bypass onboarding into a blank/hidden app.
+  try { sessionStorage.removeItem("pc_public_demo_session"); } catch (e) {}
+  gate.style.display = "grid";
+  app.style.display = "none";
+
+  gate.addEventListener("click", function (event) {
+    const next = event.target.closest("[data-auth-next]");
+    if (next) { showStep(next.dataset.authNext); return; }
+    const back = event.target.closest("[data-auth-back]");
+    if (back) { showStep(back.dataset.authBack); return; }
+    const provider = event.target.closest("[data-demo-provider]");
+    if (provider) {
+      demoMethod = provider.dataset.demoProvider;
+      showStep("dob");
+    }
+  });
+
+  document.getElementById("agreeTerms").addEventListener("click", function () {
+    if (!document.getElementById("termsAccepted").checked) {
+      error("termsError", "Please confirm you've read the preview terms.");
+      return;
+    }
+    error("termsError", "");
+    showStep("providers");
+  });
+  document.getElementById("disagreeTerms").addEventListener("click", function () {
+    document.getElementById("termsAccepted").checked = false;
+    error("termsError", "");
+    showStep("welcome");
+  });
+
+  document.getElementById("sendDemoOtp").addEventListener("click", function () {
+    const input = document.getElementById("demoPhone");
+    if (!input.checkValidity()) {
+      error("phoneError", "Enter a valid-looking phone number for this demo.");
+      input.reportValidity();
+      return;
+    }
+    demoPhone = input.value.trim();
+    demoMethod = "Phone";
+    error("phoneError", "");
+    document.getElementById("demoOtpArea").hidden = false;
+    document.getElementById("verifyDemoOtp").hidden = false;
+    document.getElementById("sendDemoOtp").textContent = "Resend demo code";
+    document.getElementById("demoOtp").focus();
+  });
+
+  document.getElementById("demoPhoneForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+    const otp = document.getElementById("demoOtp");
+    if (otp.value !== "246810") {
+      error("phoneError", "That demo code isn't correct. Use the test code shown above.");
+      return;
+    }
+    error("phoneError", "");
+    showStep("dob");
+  });
+
+  document.getElementById("demoDobForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+    const raw = document.getElementById("demoDob").value;
+    if (!raw) {
+      error("dobError", "Please enter your date of birth.");
+      return;
+    }
+    const dob = new Date(raw + "T00:00:00");
+    const today = new Date();
+    if (Number.isNaN(dob.getTime()) || dob > today) {
+      error("dobError", "Enter a valid date that is not in the future.");
+      return;
+    }
+    let age = today.getFullYear() - dob.getFullYear();
+    const monthDiff = today.getMonth() - dob.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) age--;
+    if (age < 0 || age > 120) {
+      error("dobError", "Please check the date you've entered.");
+      return;
+    }
+    const mode = age < 18 ? "Student Mode" : "Full Mode";
+    try {
+      localStorage.setItem("pc_public_demo_mode", mode);
+      localStorage.setItem("pc_public_demo_dob", raw);
+    } catch (e) {}
+    revealApp();
+  });
+})();
+</script>
+
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+"use strict";
+const $ = (sel, root=document) => root.querySelector(sel);
+const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
+const SEED_USERS = [
+ {id:"mira",name:"Mira Shah",handle:"mira.reads",initials:"MS",story:"I collect stories from strangers, annotate books, and believe a good conversation can change the shape of a day.",interests:["Books","Writing","Slow living"],note:"Looking for fellow book lovers"},
+ {id:"arjun",name:"Arjun Mehta",handle:"arjun.makes",initials:"AM",story:"Designer learning to make useful things with less noise. Usually sketching, cycling, or asking too many questions.",interests:["Design","Cycling","Technology"],note:"Would love to meet curious makers"},
+ {id:"leena",name:"Leena Das",handle:"leena.onfilm",initials:"LD",story:"Amateur filmmaker chasing ordinary, honest moments. My favorite stories leave room for silence.",interests:["Film","Art","Music"],note:"Connecting with creative people"},
+ {id:"kabir",name:"Kabir Singh",handle:"kabir.afterhours",initials:"KS",story:"Night-sky watcher and beginner guitarist. Here to find people who enjoy learning without needing to be experts.",interests:["Music","Space","Learning"],note:"Sent you a connection request"},
+ {id:"nila",name:"Nila Sen",handle:"nila.grows",initials:"NS",story:"Trying to live a little lighter: plants on every windowsill, long walks, and conversations that feel kind.",interests:["Plants","Wellness","Nature"],note:"Sent you a connection request"},
+ {id:"ayaan",name:"Ayaan Kapoor",handle:"ayaan.codes",initials:"AK",story:"Building small apps and big playlists. Interested in open-source, language exchange, and ideas that make the internet friendlier.",interests:["Coding","Languages","Music"],note:"Open to sharing ideas"},
+ {id:"tara",name:"Tara Bose",handle:"tara.trails",initials:"TB",story:"Weekend trail walker and amateur cook. I like plans with room for detours and people who are kind to waiters.",interests:["Hiking","Food","Travel"],note:"Finding outdoor friends"},
+ {id:"rohan",name:"Rohan Iyer",handle:"rohan.thinks",initials:"RI",story:"I enjoy thoughtful debates, chess puzzles, and learning how things work. Always happy to hear a different point of view.",interests:["Chess","Science","Reading"],note:"Here for thoughtful discussion"}
+];
+const SEED = {
+ profile:{name:"Your Connect",handle:"youconnect",story:"Still figuring things out, collecting little adventures, and always up for a thoughtful conversation. I value kindness, curiosity, and people who are comfortable being themselves.",interests:["Curiosity","Music","Learning"],visible:true,dpData:null,chatBackgroundData:null,shareChatBackground:true},
+ incoming:[{userId:"kabir",message:"Your profile made me think we might get along. Want to connect?"},{userId:"nila",message:"I'd love to swap book and plant recommendations."}],
+ outgoing:[{userId:"tara"}],
+ connected:["mira","arjun"],
+ chats:[
+  {id:"chat-mira",userId:"mira",messages:[{from:"them",text:"Hey! I liked the way you described your story.",time:"10:22"},{from:"me",text:"Thanks. What's a book you wish you could read again for the first time?",time:"10:24"},{from:"them",text:"Probably The Little Prince. It changes with you.",time:"10:26"}]},
+  {id:"chat-arjun",userId:"arjun",messages:[{from:"them",text:"Have you tried sketching your app ideas before building them?",time:"Yesterday"},{from:"me",text:"I should do that more often. Any tips for getting started?",time:"Yesterday"}]}
+ ],
+ groups:[
+  {id:"g-campus",name:"Campus Ideas",topic:"Learning",description:"A calm place to share projects, questions, notes, and ideas that deserve a little more thought.",memberCount:148,posting:"everyone",isAdmin:false,icon:"✦"},
+  {id:"g-creatives",name:"Creative Corner",topic:"Art & design",description:"Writers, designers, makers, and curious beginners sharing work and encouragement.",memberCount:86,posting:"admins",isAdmin:false,icon:"✎"}
+ ],
+ selectedChat:"chat-mira",selectedGroup:"g-campus",
+ blockedUsers:[],broadcasts:[],feedback:[],
+ settings:{readReceipts:true,showLinkPreviews:true,compactChats:false,shareChatBackground:true,connectionAlerts:true,activityNotifications:true,messagePreviews:true}
+};
+let state;
+try{
+ const saved=localStorage.getItem("projectConnectFeatures_v1");
+ state=saved?JSON.parse(saved):structuredClone(SEED);
+ if(!state.profile||!Array.isArray(state.groups)||!Array.isArray(state.chats)) state=structuredClone(SEED);
+ state.profile={...SEED.profile,...state.profile};
+ state.blockedUsers=Array.isArray(state.blockedUsers)?state.blockedUsers:[];
+ state.broadcasts=Array.isArray(state.broadcasts)?state.broadcasts:[];
+ state.feedback=Array.isArray(state.feedback)?state.feedback:[];
+ state.settings={...SEED.settings,...(state.settings||{})};
+ state.chats.forEach(c=>{if(!Array.isArray(c.messages))c.messages=[]});
+}catch(e){state=structuredClone(SEED)}
+let activeTab="home",toastTimer;
+function save(){try{localStorage.setItem("projectConnectFeatures_v1",JSON.stringify(state));return true}catch(e){return false}}
+function esc(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function user(id){return SEED_USERS.find(u=>u.id===id)||{id:"unknown",name:"Unknown member",handle:"unknown",initials:"?",story:"",interests:[],note:""}}
+function avatar(u,size="md"){
+ const initials=esc(u.initials||u.name.split(/\s+/).map(x=>x[0]).join("").slice(0,2));
+ const src=u.dpData||null;
+ return `<div class="avatar ${size}${src?" has-image":""}" ${src?`style="background-image:url(${src})"`:""}>${src?"":initials}</div>`;
+}
+function initialsForProfile(){return (state.profile.name||"YC").trim().split(/\s+/).map(x=>x[0]).join("").slice(0,2).toUpperCase()||"YC"}
+function myAvatar(size="md"){const src=state.profile.dpData;return `<div class="avatar ${size}${src?" has-image":""}" ${src?`style="background-image:url(${src})"`:""}>${src?"":esc(initialsForProfile())}</div>`}
+function paintAvatar(el,src,initials){if(!el)return;el.classList.toggle("has-image",!!src);el.style.backgroundImage=src?`url(${src})`:"";el.textContent=src?"":initials}
+function refreshAvatarEverywhere(){paintAvatar($("#topAvatar"),state.profile.dpData,initialsForProfile());paintAvatar($("#profileAvatar"),state.profile.dpData,initialsForProfile());paintAvatar($("#dpEditPreview"),state.profile.dpData,initialsForProfile())}
+function refreshImagePreviews(){
+ const bg=$("#chatBgPreview");if(bg){bg.style.backgroundImage=state.profile.chatBackgroundData?`linear-gradient(#0b112066,#0b112066),url("${state.profile.chatBackgroundData}")`:"radial-gradient(circle at 75% 15%,#8173ff88,transparent 35%),linear-gradient(125deg,#202846,#24515a)";bg.style.backgroundSize="cover";bg.style.backgroundPosition="center"}
+ const share=$("#shareChatBackground");if(share)share.checked=state.profile.shareChatBackground!==false;
+ refreshAvatarEverywhere();
+}
+function compressImageFile(file,maxDimension,quality,maxChars){
+ return new Promise((resolve,reject)=>{
+  if(!file||!file.type||!file.type.startsWith("image/")){reject(new Error("Please choose an image file."));return}
+  const reader=new FileReader();
+  reader.onerror=()=>reject(new Error("The image could not be read."));
+  reader.onload=()=>{
+   const img=new Image();
+   img.onerror=()=>reject(new Error("This image format could not be opened by the browser."));
+   img.onload=()=>{
+    let scale=Math.min(1,maxDimension/Math.max(img.naturalWidth||img.width,img.naturalHeight||img.height));
+    const canvas=document.createElement("canvas"),ctx=canvas.getContext("2d");
+    if(!ctx){reject(new Error("Image processing is unavailable in this browser."));return}
+    const draw=()=>{
+     canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));
+     ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);
+    };
+    draw();let q=quality;let data=canvas.toDataURL("image/jpeg",q);
+    while(data.length>maxChars&&q>0.48){q-=0.08;data=canvas.toDataURL("image/jpeg",q)}
+    while(data.length>maxChars&&scale>0.28){scale*=0.82;draw();data=canvas.toDataURL("image/jpeg",Math.max(.5,q))}
+    if(data.length>maxChars){reject(new Error("This image is too large to save in the local demo. Try a smaller image."));return}
+    resolve(data);
+   };
+   img.src=reader.result;
+  };
+  reader.readAsDataURL(file);
+ });
+}
+function badge(text,cls=""){return `<span class="tag ${cls}">${esc(text)}</span>`}
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),2400)}
+function setTab(tab){activeTab=tab;$$(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+tab));$$(".navbtn").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));$("#pageTitle").textContent=({home:"Home",discover:"Discover people",requests:"Connection requests",chats:"Chats",groups:"Groups & communities",profile:"My profile",codeLab:"Terminal Mode"})[tab]||"Home";renderAll();window.scrollTo({top:0,behavior:"smooth"})}
+function storyCard(u){const connected=state.connected.includes(u.id);const sent=state.outgoing.some(x=>x.userId===u.id);const incoming=state.incoming.some(x=>x.userId===u.id);let label=connected?"Connected":sent?"Request sent":incoming?"Respond to request":"Connect";let cls=connected?"success":sent||incoming?"":"primary";let action=connected?`data-action="open-chat" data-user="${u.id}"`:incoming?`data-action="go-requests"`:`data-action="connect" data-user="${u.id}"`;
+return `<article class="panel story-card"><div class="story-top">${avatar(u)}<div class="grow"><div class="story-name">${esc(u.name)}</div><div class="story-handle">@${esc(u.handle)}</div></div>${badge("Story-first")}</div><div class="story-quote">“${esc(u.story)}”</div><div class="story-interests">${u.interests.map(x=>`<span>${esc(x)}</span>`).join("")}</div><div class="between"><span class="muted small">${esc(u.note)}</span><button class="btn ${cls}" ${action} ${connected?"":""}>${label}</button></div></article>`}
+function renderHome(){const picks=SEED_USERS.filter(u=>!state.connected.includes(u.id)).slice(0,3);$("#homeStories").innerHTML=picks.map(storyCard).join("");$("#homeGroups").innerHTML=state.groups.slice(0,2).map(groupCardMini).join("");$("#statConnections").textContent=state.connected.length;$("#statRequests").textContent=state.incoming.length;$("#statChats").textContent=state.chats.length;$("#statGroups").textContent=state.groups.length}
+function renderDiscoverResults(q=""){const norm=q.trim().replace(/^@/,"").toLowerCase();let available=SEED_USERS.filter(u=>!state.blockedUsers.includes(u.id)&&(state.profile.visible||!norm||!norm.includes(state.profile.handle.toLowerCase())));if(norm)available=available.filter(u=>[u.name,u.handle,u.story,...u.interests].join(" ").toLowerCase().includes(norm));$("#discoverResults").innerHTML=available.length?available.map(storyCard).join(""):`<div class="empty" style="grid-column:1/-1">No demo profiles match that search. Try a name, Connect ID, or interest.</div>`;$("#discoverSummary").textContent=`${available.length} ${available.length===1?"profile":"profiles"} in the fictional demo directory.`}
+function renderRequests(){const incoming=$("#incomingRequests");incoming.innerHTML=state.incoming.length?state.incoming.map(r=>{const u=user(r.userId);return `<div class="request-item">${avatar(u)}<div class="grow"><div class="story-name">${esc(u.name)} <span class="story-handle">@${esc(u.handle)}</span></div><p>${esc(r.message||"Would like to connect with you.")}</p><div class="story-interests">${u.interests.slice(0,3).map(x=>`<span>${esc(x)}</span>`).join("")}</div></div><div class="btn-row"><button class="btn success" data-action="accept" data-user="${u.id}">Accept</button><button class="btn danger" data-action="decline" data-user="${u.id}">Decline</button></div></div>`}).join(""):`<div class="empty">You're all caught up. New connection requests will show here.</div>`;
+const outgoing=$("#outgoingRequests");outgoing.innerHTML=state.outgoing.length?state.outgoing.map(r=>{const u=user(r.userId);return `<div class="request-item">${avatar(u)}<div class="grow"><div class="story-name">${esc(u.name)} <span class="story-handle">@${esc(u.handle)}</span></div><p>Waiting for them to respond.</p></div><button class="btn" data-action="cancel-request" data-user="${u.id}">Cancel request</button></div>`}).join(""):`<div class="empty">You haven't sent any connection requests yet.</div>`;$("#requestCount").textContent=state.incoming.length}
+function renderChatList(){const q=($("#chatSearch")?.value||"").toLowerCase();let list=state.chats.filter(c=>{const u=user(c.userId);return !state.blockedUsers.includes(c.userId)&&(u.name+" "+u.handle).toLowerCase().includes(q)});$("#chatList").innerHTML=list.length?list.map(c=>{const u=user(c.userId),last=c.messages[c.messages.length-1];return `<button class="chat-item ${state.selectedChat===c.id?"active":""}" data-action="select-chat" data-chat="${c.id}">${avatar(u,"sm")}<span class="grow"><strong>${esc(u.name)}</strong><small>${esc(last?last.text:"Start a conversation")}</small></span><span class="chat-time">${esc(last?last.time:"")}</span></button>`}).join(""):`<div class="empty">No conversations found.</div>`}
+function renderConversation(){
+ const c=state.chats.find(c=>c.id===state.selectedChat),box=$("#conversation");
+ if(!c){box.innerHTML=`<div class="empty" style="margin:auto">Select a chat to open the conversation.</div>`;return}
+ const u=user(c.userId);
+ const messageHtml=c.messages.map((m,idx)=>{
+  const mine=m.from==="me",sender=mine?{name:state.profile.name,handle:state.profile.handle,initials:initialsForProfile(),dpData:state.profile.dpData}:u;
+  const receipt=mine?`<span class="message-receipt ${m.status==="read"?"read":""}">${m.status==="read"?"Read ✓✓":"Sent ✓"}</span>`:"";
+  return `<div class="message-row ${mine?"mine":""}">${avatar(sender,"sm")}<div class="message-bubble ${mine?"mine":""}"><div class="message-text">${esc(m.text)}</div><div class="message-meta"><button type="button" class="message-star" title="${m.starred?"Remove from starred":"Star message"}" aria-label="${m.starred?"Unstar message":"Star message"}" data-action="star-message" data-chat="${c.id}" data-message-index="${idx}">${m.starred?"★":"☆"}</button><span>${esc(m.time||"")}</span>${receipt}</div></div></div>`;
+ }).join("");
+ box.innerHTML=`<div class="conv-head">${avatar(u,"sm")}<div class="grow"><b>${esc(u.name)}</b><div class="muted small">@${esc(u.handle)}</div></div><div class="chat-head-actions">${badge("Connected","green")}<button type="button" class="btn" data-action="simulate-read" data-chat="${c.id}" title="Preview read receipt behavior">Simulate read</button></div></div><div class="messages" id="messageScroll">${messageHtml}</div>${state.profile.chatBackgroundData?`<div class="chat-bg-note">${state.profile.shareChatBackground===false?"Your background is private to this local preview.":"Shared background preference is on · local preview only"}</div>`:""}<form class="send-form" id="sendMessageForm"><input id="messageInput" class="input" maxlength="1000" autocomplete="off" placeholder="Write a message…" required aria-label="Message"><button class="btn primary" type="submit">Send ↗</button></form><div style="padding:0 13px 10px;color:#71829c;font-size:10px">Demo only — messages and read receipts are not sent to another person. Profile and background changes stay on this browser until a backend is connected.</div>`;
+ const scroll=$("#messageScroll");
+ if(scroll){scroll.scrollTop=scroll.scrollHeight;if(state.profile.chatBackgroundData){scroll.style.backgroundImage=`linear-gradient(180deg,rgba(11,17,32,.60),rgba(11,17,32,.77)),url("${state.profile.chatBackgroundData}")`;scroll.style.backgroundSize="cover";scroll.style.backgroundPosition="center";scroll.style.backgroundRepeat="no-repeat"}}
+}
+function renderChats(){renderChatList();renderConversation()}
+function groupCardMini(g){return `<article class="panel row"><div class="group-icon">${esc(g.icon||"◎")}</div><div class="grow"><h3>${esc(g.name)}</h3><div class="muted small">${esc(g.topic||"Community")} · ${g.memberCount}/500 members</div><div class="small muted" style="margin-top:5px">${esc(g.description)}</div></div><button class="btn" data-action="view-group" data-group="${g.id}">View</button></article>`}
+function groupCard(g){return `<article class="panel group-card"><div class="row"><div class="group-icon">${esc(g.icon||"◎")}</div><div class="grow"><h3>${esc(g.name)}</h3><div class="muted small">${esc(g.topic||"Community")}</div></div>${badge(g.memberCount+"/500")}</div><p class="muted small" style="margin:0">${esc(g.description||"A community on Project Connect.")}</p><div class="between"><span class="small muted">${g.posting==="admins"?"Admins only can message":"All members can message"}</span>${g.isAdmin?badge("Your group","green"):badge("Member")}</div><div class="btn-row"><button class="btn primary" data-action="view-group" data-group="${g.id}">Open group</button>${g.isAdmin?`<button class="btn" data-action="toggle-posting" data-group="${g.id}">${g.posting==="admins"?"Allow everyone to post":"Admins-only mode"}</button>`:""}</div></article>`}
+function renderGroups(){const q=($("#groupSearch")?.value||"").toLowerCase();const groups=state.groups.filter(g=>(g.name+" "+g.topic+" "+g.description).toLowerCase().includes(q));$("#groupResults").innerHTML=groups.length?groups.map(groupCard).join(""):`<div class="empty" style="grid-column:1/-1">No groups match your search. Create one to get started.</div>`;renderSelectedGroup()}
+function renderSelectedGroup(){const el=$("#selectedGroupPanel"),g=state.groups.find(x=>x.id===state.selectedGroup);if(!g){el.hidden=true;el.innerHTML="";return}el.hidden=false;el.innerHTML=`<div class="between"><div class="row"><div class="group-icon">${esc(g.icon||"◎")}</div><div><h2>${esc(g.name)}</h2><p class="muted small">${g.memberCount}/500 members · ${esc(g.topic||"Community")}</p></div></div><button class="btn ghost" data-action="close-group">Close</button></div><div class="line"></div><p>${esc(g.description||"A community on Project Connect.")}</p><div class="grid-2"><div class="panel"><div class="muted small">Posting permissions</div><h3 style="margin-top:6px">${g.posting==="admins"?"Admins only":"All members"}</h3><p class="muted small">${g.posting==="admins"?"Only group admins may post. Members can still view messages.":"Every group member can post messages."}</p>${g.isAdmin?`<button class="btn" data-action="toggle-posting" data-group="${g.id}">Switch to ${g.posting==="admins"?"all members":"admins only"}</button>`:`<span class="tag">Only admins can change this</span>`}</div><div class="panel"><div class="muted small">Manage members</div><h3 style="margin-top:6px">${g.memberCount} of 500 members</h3><p class="muted small">Invite demo members to preview the member limit and count.</p><button class="btn ${g.memberCount>=500?"":"primary"}" data-action="add-member" data-group="${g.id}" ${g.memberCount>=500?"disabled":""}>＋ Add demo member</button></div></div><div class="line"></div><div class="between"><div><h3>Group message preview</h3><p class="muted small">Local-only demonstration; no real members receive messages.</p></div>${g.posting==="admins"?badge("Admins only","amber"):badge("Members can post","green")}</div>${g.posting==="admins"&&!g.isAdmin?`<div class="empty">Only admins can post in this group.</div>`:`<form id="groupMessageForm" data-group="${g.id}" class="send-form" style="padding:12px 0 0;border-top:0"><input id="groupMessageInput" class="input" maxlength="500" placeholder="Write a group message…" required><button class="btn primary" type="submit">Post</button></form><div id="groupMessageOutput" class="help" style="margin-top:10px"></div>`}`}
+function renderProfile(){const p=state.profile;$("#topHandle").textContent="@"+p.handle;$("#profileDisplayName").textContent=p.name;$("#profileHandle").textContent="@"+p.handle;$("#profileStoryPreview").textContent=p.story||"Still writing my story…";$("#profileInterestTags").innerHTML=(p.interests||[]).map(x=>`<span>${esc(x)}</span>`).join("")||`<span>No interests added</span>`;$("#visibilityPill").textContent=p.visible?"Visible":"Hidden";$("#visibilityPill").className="tag "+(p.visible?"green":"amber");$("#displayName").value=p.name;$("#connectId").value=p.handle;$("#profileStory").value=p.story;$("#profileInterests").value=(p.interests||[]).join(", ");$("#profileVisible").checked=p.visible;$("#storyCount").textContent=p.story.length;$("#topMode").textContent=(localStorage.getItem("pc_public_demo_mode")||"Full Mode")+" · Demo";refreshImagePreviews()}
+function renderAll(){refreshAvatarEverywhere();renderHome();if(activeTab==="discover")renderDiscoverResults($("#discoverSearch")?.value||"");if(activeTab==="requests")renderRequests();if(activeTab==="chats")renderChats();if(activeTab==="groups")renderGroups();if(activeTab==="profile")renderProfile();$("#requestCount").textContent=state.incoming.length}
+function ensureChat(userId){let c=state.chats.find(x=>x.userId===userId);if(!c){c={id:"chat-"+userId,userId,messages:[]};state.chats.push(c)}state.selectedChat=c.id;save()}
+function addConnection(userId){if(!state.connected.includes(userId))state.connected.push(userId);state.incoming=state.incoming.filter(x=>x.userId!==userId);state.outgoing=state.outgoing.filter(x=>x.userId!==userId);ensureChat(userId);save()}
+function connect(userId){if(state.connected.includes(userId)){ensureChat(userId);setTab("chats");return}if(state.incoming.some(x=>x.userId===userId)){setTab("requests");return}if(!state.outgoing.some(x=>x.userId===userId))state.outgoing.push({userId});save();renderDiscoverResults($("#discoverSearch").value);renderHome();renderRequests();toast("Connection request sent in this local demo.")}
+document.addEventListener("click",e=>{
+ const nav=e.target.closest("[data-tab]");if(nav){setTab(nav.dataset.tab);return}
+ const go=e.target.closest("[data-go]");if(go){setTab(go.dataset.go);return}
+ const b=e.target.closest("[data-action]");if(!b)return;
+ const action=b.dataset.action,u=b.dataset.user,gid=b.dataset.group;
+ if(action==="connect"){connect(u)}
+ if(action==="go-requests"){setTab("requests")}
+ if(action==="open-chat"){ensureChat(u);save();setTab("chats")}
+ if(action==="accept"){addConnection(u);renderAll();toast("Connection accepted. A demo chat is now available.")}
+ if(action==="decline"){state.incoming=state.incoming.filter(x=>x.userId!==u);save();renderRequests();renderHome();toast("Request declined in this demo.")}
+ if(action==="cancel-request"){state.outgoing=state.outgoing.filter(x=>x.userId!==u);save();renderRequests();renderDiscoverResults($("#discoverSearch")?.value||"");toast("Request cancelled.")}
+ if(action==="select-chat"){state.selectedChat=b.dataset.chat;save();renderChats()}
+ if(action==="simulate-read"){const chat=state.chats.find(x=>x.id===b.dataset.chat);if(!chat)return;const mine=chat.messages.filter(m=>m.from==="me");if(!mine.length){toast("Send a demo message first, then simulate its read receipt.");return}mine.forEach(m=>m.status="read");save();renderChats();toast("Demo read receipt shown for your messages.")}
+ if(action==="remove-dp"){state.profile.dpData=null;save();refreshImagePreviews();if(activeTab==="chats")renderChats();toast("Display picture removed from this browser demo.")}
+ if(action==="remove-chat-background"){state.profile.chatBackgroundData=null;save();refreshImagePreviews();if(activeTab==="chats")renderChats();toast("Chat background removed from this browser demo.")}
+ if(action==="view-group"){state.selectedGroup=gid;renderSelectedGroup();$("#selectedGroupPanel").scrollIntoView({behavior:"smooth",block:"nearest"})}
+ if(action==="close-group"){state.selectedGroup=null;renderSelectedGroup()}
+ if(action==="toggle-posting"){const g=state.groups.find(x=>x.id===gid);if(g&&g.isAdmin){g.posting=g.posting==="admins"?"everyone":"admins";save();renderGroups();toast(g.posting==="admins"?"Only admins can post now.":"All members can post now.")}}
+ if(action==="add-member"){const g=state.groups.find(x=>x.id===gid);if(g&&g.memberCount<500){g.memberCount++;save();renderGroups();toast("Added one fictional demo member.")}}
+});
+$("#discoverSearch").addEventListener("input",e=>renderDiscoverResults(e.target.value));
+$("#clearDiscover").addEventListener("click",()=>{$("#discoverSearch").value="";renderDiscoverResults("");$("#discoverSearch").focus()});
+$("#chatSearch").addEventListener("input",()=>renderChatList());
+document.addEventListener("submit",e=>{
+ if(e.target.id==="sendMessageForm"){e.preventDefault();const input=$("#messageInput"),text=input.value.trim();if(!text)return;const chat=state.chats.find(c=>c.id===state.selectedChat);if(!chat)return;const now=new Date();chat.messages.push({from:"me",text,time:now.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}),status:"sent"});save();renderChats();$("#messageInput")?.focus()}
+ if(e.target.id==="profileForm"){e.preventDefault();const name=$("#displayName").value.trim(),handle=$("#connectId").value.trim().replace(/^@/,""),story=$("#profileStory").value.trim(),interests=$("#profileInterests").value.split(",").map(x=>x.trim()).filter(Boolean).slice(0,12);if(!/^[A-Za-z0-9._]{3,24}$/.test(handle)){toast("Connect ID must be 3–24 letters, numbers, dots, or underscores.");return}state.profile={...state.profile,name,handle,story,interests,visible:$("#profileVisible").checked};save();renderProfile();renderHome();if(activeTab==="chats")renderChats();toast("Your demo profile has been saved on this device.")}
+ if(e.target.id==="createGroupForm"){e.preventDefault();const name=$("#groupName").value.trim();if(!name)return;const g={id:"g-"+Date.now(),name,topic:$("#groupTopic").value.trim()||"Community",description:$("#groupDescription").value.trim()||"A new space to connect and share ideas.",memberCount:1,posting:$("#groupPosting").value,isAdmin:true,icon:"✦"};state.groups.unshift(g);state.selectedGroup=g.id;save();e.target.reset();$("#createGroupPanel").hidden=true;renderGroups();renderHome();toast("Group created in this local demo.")}
+ if(e.target.id==="groupMessageForm"){e.preventDefault();const input=$("#groupMessageInput"),text=input.value.trim();if(!text)return;$("#groupMessageOutput").textContent="You posted in the local preview: “"+text+"”";input.value=""}
+});
+$("#showCreateGroup").addEventListener("click",()=>{$("#createGroupPanel").hidden=!$("#createGroupPanel").hidden;if(!$("#createGroupPanel").hidden)$("#groupName").focus()});
+$("#cancelCreateGroup").addEventListener("click",()=>{$("#createGroupPanel").hidden=true});
+$("#groupSearch").addEventListener("input",()=>renderGroups());
+$("#profileStory").addEventListener("input",e=>$("#storyCount").textContent=e.target.value.length);
+$("#dpUpload").addEventListener("change",async e=>{
+ const file=e.target.files&&e.target.files[0];if(!file)return;
+ try{const data=await compressImageFile(file,512,.84,420000);const old=state.profile.dpData;state.profile.dpData=data;if(!save()){state.profile.dpData=old;toast("Browser storage is full. Remove another image or choose a smaller one.");return}refreshImagePreviews();if(activeTab==="chats")renderChats();toast("DP saved in this browser and applied to your profile and chat bubbles.");}
+ catch(err){toast(err.message||"Unable to use this image.");}finally{e.target.value=""}
+});
+$("#chatBackgroundUpload").addEventListener("change",async e=>{
+ const file=e.target.files&&e.target.files[0];if(!file)return;
+ try{const data=await compressImageFile(file,1400,.76,820000);const old=state.profile.chatBackgroundData;state.profile.chatBackgroundData=data;if(!save()){state.profile.chatBackgroundData=old;toast("Browser storage is full. Choose a smaller background image.");return}refreshImagePreviews();if(activeTab==="chats")renderChats();toast("Chat background saved and applied to your conversations in this browser.");}
+ catch(err){toast(err.message||"Unable to use this image.");}finally{e.target.value=""}
+});
+$("#removeDp").addEventListener("click",()=>{state.profile.dpData=null;save();refreshImagePreviews();if(activeTab==="chats")renderChats();toast("Display picture removed.")});
+$("#removeChatBackground").addEventListener("click",()=>{state.profile.chatBackgroundData=null;save();refreshImagePreviews();if(activeTab==="chats")renderChats();toast("Chat background removed.")});
+$("#shareChatBackground").addEventListener("change",e=>{state.profile.shareChatBackground=e.target.checked;save();if(activeTab==="chats")renderChats();toast(e.target.checked?"Shared-background preference enabled (local preview).":"Background sharing preference disabled.");});
+$("#resetProfile").addEventListener("click",()=>{state.profile=structuredClone(SEED.profile);save();renderProfile();renderHome();if(activeTab==="chats")renderChats();toast("Demo profile and images reset.")});
+
+/* Global search + settings hub + QR discovery */
+let activeScannerStream=null, activeScannerTimer=null, qrTargetHandle=null;
+const SETTINGS_LABELS={
+ broadcast:"Broadcast messages",starred:"Starred",devices:"Linked devices",account:"Account",ai:"Private AI / API settings",cloud:"Cloud & infrastructure roadmap",terminal:"Terminal Mode",optimizeChats:"Optimize Chats",privacy:"Privacy",chat:"Chat",appearance:"Appearance",notifications:"Notifications",storage:"Storage and data",help:"Help and feedback",invite:"Invite a friend"
+};
+function openSettings(key){
+ const modal=$("#settingsModal");if(!SETTINGS_LABELS[key])key="account";
+ $("#settingsModalTitle").textContent=SETTINGS_LABELS[key];renderSettingsContent(key);modal.classList.add("open");document.body.style.overflow="hidden";
+ const focusTarget=modal.querySelector("button,input,textarea,select");if(focusTarget)focusTarget.focus();
+}
+function closeModal(id){const m=$("#"+id);if(m)m.classList.remove("open");if(!$$(".modal-overlay.open").length)document.body.style.overflow="";if(id==="qrScannerModal")stopQrCamera();}
+function settingsRow(title,description,control){return `<div class="settings-field-row"><div><b>${esc(title)}</b><small>${esc(description)}</small></div>${control}</div>`}
+function renderSettingsContent(key){
+ const p=state.profile,settings=state.settings;
+ let content="";
+ if(key==="terminal"){
+  content=`<div class="settings-section"><h3>Terminal Mode · Code Lab</h3><p>Open the browser-based editor for HTML, CSS and JavaScript. Code runs inside an isolated preview; this is not a computer shell and cannot run operating-system commands.</p><div class="notice">Your current code is held in this page only. Export your HTML before leaving if you want to keep a copy.</div><div class="btn-row" style="margin-top:14px"><button type="button" class="btn primary" data-action="open-terminal-mode">Open Terminal Mode</button></div></div>`;
+ }else if(key==="optimizeChats"){
+  const prefs=(()=>{try{return JSON.parse(localStorage.getItem("pc_chat_optimization")||"{}")}catch(e){return {}}})();
+  content=`<div class="settings-section"><h3>Optimize your chat experience</h3><p>These browser-side options reduce visual work and help more messages fit on screen. They do not change server speed or message delivery.</p>${settingsRow("Compact chat bubbles","Reduce spacing around messages",`<input class="toggle" id="optCompactChats" type="checkbox" ${prefs.compact!==false?"checked":""}>`)}${settingsRow("Lightweight mode","Reduce transitions and decorative effects",`<input class="toggle" id="optLightweightChats" type="checkbox" ${prefs.lightweight?"checked":""}>`)}<div class="btn-row" style="margin-top:14px"><button type="button" class="btn primary" data-action="apply-chat-optimization">Apply recommended settings</button><button type="button" class="btn" data-action="reset-chat-optimization">Restore defaults</button></div><div id="chatOptimizationStatus" class="scanner-status" role="status">Preferences are saved in this browser.</div></div>`;
+ }else if(key==="broadcast"){
+  content=`<div class="settings-section"><h3>Send a broadcast</h3><p>Prepare one message for multiple Connect IDs. In this prototype the broadcast is saved locally; it isn't delivered.</p><form id="broadcastForm"><div class="field"><label for="broadcastRecipients">Recipient Connect IDs (comma-separated)</label><input class="input" id="broadcastRecipients" placeholder="@mira.reads, @arjun.makes" required></div><div class="field"><label for="broadcastText">Message</label><textarea class="textarea" id="broadcastText" maxlength="1000" placeholder="Write your broadcast…" required></textarea></div><button class="btn primary" type="submit">Save broadcast draft</button></form></div><div class="settings-section"><h3>Recent drafts</h3>${state.broadcasts.length?state.broadcasts.slice().reverse().map(b=>`<div class="starred-item"><div class="between"><b>${esc(b.recipients)}</b><small class="muted">${esc(b.time)}</small></div><p>${esc(b.text)}</p></div>`).join(""):`<div class="empty">No broadcast drafts yet.</div>`}`;
+ }else if(key==="starred"){
+  const starred=[];state.chats.forEach(c=>c.messages.forEach((m,i)=>{if(m.starred)starred.push({c,m,i})}));
+  content=`<div class="settings-section"><p>Star important messages to find them later. In Chats, select ☆ beside a message to star it.</p>${starred.length?starred.map(x=>`<div class="starred-item"><div class="between"><b>${esc(user(x.c.userId).name)} · ${esc(user(x.c.userId).handle)}</b><button class="btn" data-action="unstar-message" data-chat="${x.c.id}" data-message-index="${x.i}">★ Remove</button></div><p>${esc(x.m.text)}</p><small class="muted">${esc(x.m.time||"")}</small></div>`).join(""):`<div class="empty">No starred messages yet. Open a chat and tap ☆ beside a message.</div>`}</div>`;
+ }else if(key==="devices"){
+  content=`<div class="settings-section"><h3>Linked devices</h3><p>This local prototype has no account sessions to link or revoke.</p><div class="request-item">${myAvatar("sm")}<div class="grow"><b>This browser</b><p>Current local demo · browser storage only</p></div>${badge("Current","green")}</div><div class="notice" style="margin-top:12px">Real linked devices require secure login, server-side sessions, device registration, and a revoke-session API. Do not add linked sessions by trusting a client-only page.</div><button class="btn" type="button" disabled>Link another device (backend required)</button></div>`;
+ }else if(key==="account"){
+  content=`<div class="settings-section"><h3>Account overview</h3><p>Your current demo identity. No password, phone number, or provider login is stored here.</p>${settingsRow("Display name",p.name,`<button class="btn" data-action="edit-profile">Edit profile</button>`)}${settingsRow("Connect ID","@"+p.handle,`<button class="btn" data-action="edit-profile">Change ID</button>`)}${settingsRow("Account status","Local browser profile",badge("Demo only","amber"))}</div><div class="settings-section"><h3>Data portability</h3><p>Export a copy of the demo data stored in this browser.</p><div class="btn-row"><button class="btn primary" data-action="export-data">Export my data (JSON)</button><button class="btn danger" data-action="public-signout">Sign out of demo</button></div></div>`;
+ }else if(key==="ai"){
+  const aiPrefs=(()=>{try{return JSON.parse(sessionStorage.getItem("pc_ai_preferences")||"{}")}catch(e){return {}}})();
+  content=`<div class="settings-section"><h3>Run your own private AI</h3><p>Choose a provider and enter your own API details. This preview does not send requests to AI providers yet; a secure backend proxy is required before real chat or AI profile editing can work.</p><div class="field"><label for="aiProvider">AI provider</label><select class="select" id="aiProvider"><option value="openai" ${aiPrefs.provider==="openai"?"selected":""}>OpenAI compatible API</option><option value="anthropic" ${aiPrefs.provider==="anthropic"?"selected":""}>Anthropic</option><option value="google" ${aiPrefs.provider==="google"?"selected":""}>Google Gemini</option><option value="openrouter" ${aiPrefs.provider==="openrouter"?"selected":""}>OpenRouter (multiple models)</option><option value="ollama" ${aiPrefs.provider==="ollama"?"selected":""}>Ollama / local model</option><option value="custom" ${aiPrefs.provider==="custom"?"selected":""}>Custom OpenAI-compatible endpoint</option></select></div><div class="field"><label for="aiBaseUrl">API base URL (optional)</label><input class="input" id="aiBaseUrl" placeholder="https://your-provider.example/v1" value="${esc(aiPrefs.baseUrl||"")}"></div><div class="field"><label for="aiModel">Model name</label><input class="input" id="aiModel" placeholder="e.g. gpt-4o-mini, gemini model, or local model" value="${esc(aiPrefs.model||"")}"></div><div class="field"><label for="aiApiKey">API key</label><input class="input" id="aiApiKey" type="password" autocomplete="off" placeholder="Paste your provider API key (optional)"><div class="help">For this preview, the key is held in memory only and is not saved when you close/reload the page. Never put a production API key in a public website's frontend.</div></div><div class="btn-row"><button type="button" class="btn primary" data-action="save-ai-settings">Save provider settings</button><button type="button" class="btn" data-action="clear-ai-settings">Clear</button></div><div id="aiSettingsStatus" class="scanner-status" role="status">${aiPrefs.provider?"Provider preference loaded for this browser session.":"No provider configured yet."}</div></div><div class="settings-section"><h3>Provider options</h3><p>OpenAI, Anthropic, Gemini, OpenRouter, Ollama/local models, and compatible custom endpoints can be configured here. Each provider has its own model names, billing, rate limits, and API format.</p><p class="notice">Security: real use should send requests through a backend that stores secrets securely. Do not expose API keys in HTML, public repositories, or client-side JavaScript.</p></div>`;
+ }else if(key==="cloud"){
+  content=`<div class="settings-section"><h3>Cloud & infrastructure roadmap</h3><p>This section records the major services to plan for the next phase. Nothing here is deployed or connected yet.</p>
+  <div class="request-item"><div class="setting-icon">☁</div><div class="grow"><b>Cloud hosting / edge delivery</b><p>Deploy frontend and API in supported regions; add CDN, TLS, domain and environment separation.</p></div>${badge("Planned","amber")}</div>
+  <div class="request-item"><div class="setting-icon">▤</div><div class="grow"><b>Application backend + database</b><p>Authenticated APIs, relational database, migrations, rate limits, queues and realtime messaging.</p></div>${badge("Required","amber")}</div>
+  <div class="request-item"><div class="setting-icon">▧</div><div class="grow"><b>Object storage and media processing</b><p>Private uploads, signed URLs, image/video processing, size limits, malware scanning and retention policies.</p></div>${badge("Planned","amber")}</div>
+  <div class="request-item"><div class="setting-icon">◉</div><div class="grow"><b>Monitoring, logs and alerts</b><p>Metrics, error tracking, uptime checks, privacy-safe logs, incident alerts and audit trails.</p></div>${badge("Required","amber")}</div>
+  <div class="request-item"><div class="setting-icon">⟳</div><div class="grow"><b>Backups and disaster recovery</b><p>Encrypted backups, tested restore drills, recovery objectives and data deletion lifecycle.</p></div>${badge("Required","amber")}</div>
+  <div class="request-item"><div class="setting-icon">⌘</div><div class="grow"><b>CI/CD and secret management</b><p>Automated tests, staged releases, rollback, least-privilege service accounts and server-side secrets.</p></div>${badge("Required","amber")}</div>
+  <div class="notice" style="margin-top:14px">Security gate: design E2EE before implementing production messaging. Cloud operators should not have a routine way to decrypt message content. Do not store API keys in browser code or commit them to a repository.</div></div>`;
+ }else if(key==="privacy"){
+  const blocked=state.blockedUsers.map(id=>user(id));
+  content=`<div class="settings-section"><h3>Profile visibility</h3><p>Control whether your demo profile should be shown in discovery.</p><label class="switchline"><span><b>Show me in discovery</b><span class="help" style="display:block">Turn off to hide your profile from ordinary discovery searches.</span></span><input id="privacyVisible" type="checkbox" class="toggle" ${p.visible?"checked":""}></label></div><div class="settings-section"><h3>Blocked people</h3><p>Blocked demo users are hidden from discovery and chat list in this browser.</p>${blocked.length?blocked.map(u=>`<div class="request-item">${avatar(u,"sm")}<div class="grow"><b>${esc(u.name)}</b><p>@${esc(u.handle)}</p></div><button class="btn" data-action="unblock-user" data-user="${u.id}">Unblock</button></div>`).join(""):`<div class="empty">No blocked demo users.</div>`}</div><div class="settings-section"><h3>Privacy note</h3><p>Production privacy controls must be enforced by the backend, not only hidden in the interface. Exact location and phone number should never be public by default.</p></div>`;
+ }else if(key==="chat"){
+  content=`<div class="settings-section"><h3>Chat preferences</h3>${settingsRow("Read receipts","Show read status for messages when supported",`<input class="toggle" id="settingReadReceipts" type="checkbox" ${settings.readReceipts?"checked":""}>`)}${settingsRow("Link previews","Allow links to display a preview in chats",`<input class="toggle" id="settingLinkPreviews" type="checkbox" ${settings.showLinkPreviews?"checked":""}>`)}<p>Receipt and link-preview toggles are saved locally in this prototype. Real delivery/read status requires a message backend.</p></div>`;
+ }else if(key==="appearance"){
+  content=`<div class="settings-section"><h3>Appearance</h3><p>The Project Connect theme stays dark navy and purple for a consistent brand identity.</p>${settingsRow("Compact chat bubbles","Use tighter spacing in chat messages",`<input class="toggle" id="settingCompactChats" type="checkbox" ${settings.compactChats?"checked":""}>`)}${settingsRow("Share chat background preference","Keep your shared-background preference on for this local demo",`<input class="toggle" id="settingShareBackground" type="checkbox" ${p.shareChatBackground!==false?"checked":""}>`)}<div class="help">Setting a preference doesn't upload or distribute your background until the backend supports shared media.</div></div>`;
+ }else if(key==="notifications"){
+  content=`<div class="settings-section"><h3>Notifications</h3><p>These are preferences only; the website doesn't send notifications yet.</p>${settingsRow("Connection request alerts","Get notified when a person requests to connect",`<input class="toggle" id="settingConnectionAlerts" type="checkbox" ${settings.connectionAlerts?"checked":""}>`)}${settingsRow("Activity updates","Receive relevant group and account updates",`<input class="toggle" id="settingActivityNotifications" type="checkbox" ${settings.activityNotifications?"checked":""}>`)}${settingsRow("Message previews","Show a short message preview in notifications",`<input class="toggle" id="settingMessagePreviews" type="checkbox" ${settings.messagePreviews?"checked":""}>`)}</div>`;
+ }else if(key==="storage"){
+  const bytes=new Blob([JSON.stringify(state)]).size;
+  const imageBytes=(p.dpData||"").length+(p.chatBackgroundData||"").length;
+  content=`<div class="settings-section"><h3>Storage and data</h3><p>Local browser storage estimate for this prototype. It may be approximate and isn't a device-wide storage report.</p><div class="grid-2"><div class="panel"><div class="muted small">Saved demo data</div><h2>${(bytes/1024).toFixed(1)} KB</h2></div><div class="panel"><div class="muted small">Image data (estimate)</div><h2>${(imageBytes/1024).toFixed(1)} KB</h2></div></div><div class="btn-row" style="margin-top:12px"><button class="btn primary" data-action="export-data">Export demo data</button><button class="btn danger" data-action="reset-demo-data">Reset all local demo data</button></div><p>Reset clears your demo messages, profile images, groups, requests, settings, and profile edits from this browser. It does not delete any server account because no server is connected.</p></div>`;
+ }else if(key==="help"){
+  content=`<div class="settings-section"><h3>Help and feedback</h3><p>Send a note about a bug or feature idea. This is saved locally and is not sent to a support team.</p><form id="feedbackForm"><div class="field"><label for="feedbackType">Feedback type</label><select class="select" id="feedbackType"><option>Bug report</option><option>Feature suggestion</option><option>Privacy concern</option><option>General feedback</option></select></div><div class="field"><label for="feedbackText">Your message</label><textarea class="textarea" id="feedbackText" maxlength="1500" required placeholder="Tell us what happened or what you'd like to improve…"></textarea></div><button class="btn primary" type="submit">Save feedback locally</button></form></div><div class="settings-section"><h3>Prototype help</h3><p>Real sign-in, chat delivery, safety reporting, and cross-device sync are not connected in this prototype.</p></div>`;
+ }else if(key==="invite"){
+  const payload=`projectconnect://invite/@${p.handle}`;
+  content=`<div class="settings-section"><h3>Invite a friend</h3><p>Share your Connect ID so friends can find you. The invite link is a prototype format and will need a real hosted URL before public launch.</p><div class="qr-payload">@${esc(p.handle)}</div><div class="field"><label for="invitePayload">Prototype invite link</label><input class="input" id="invitePayload" readonly value="${esc(payload)}"></div><div class="btn-row"><button class="btn primary" data-action="copy-invite">Copy invite link</button><button class="btn" data-action="copy-connect-id">Copy Connect ID</button></div></div>`;
+ }
+ $("#settingsModalContent").innerHTML=content;
+ // Settings controls use delegated change handlers so the modal can be re-rendered safely.
+}
+function getProfileByHandle(raw){
+ const handle=String(raw||"").trim().replace(/^@/,"").replace(/\/+$/,"").toLowerCase();
+ if(!handle)return null;
+ if(handle===String(state.profile.handle||"").toLowerCase())return {id:"self",name:state.profile.name,handle:state.profile.handle,initials:initialsForProfile(),story:state.profile.story,interests:state.profile.interests||[],dpData:state.profile.dpData,note:"Your profile"};
+ return SEED_USERS.find(u=>u.handle.toLowerCase()===handle)||null;
+}
+function showQrProfile(raw){
+ const handle=String(raw||"").trim().replace(/^@/,"").replace(/\/+$/,"");
+ const person=getProfileByHandle(handle);
+ setTab("discover");
+ $("#discoverSearch").value="@"+handle;
+ renderDiscoverResults("@"+handle);
+ const panel=$("#qrProfileResult");
+ panel.hidden=false;qrTargetHandle=handle;
+ if(!person){
+  panel.innerHTML=`<div class="between"><div><div class="eyebrow">Connect ID lookup</div><h2>No demo profile found</h2><p class="muted small">The scanned ID is <b>@${esc(handle)}</b>. Only the fictional demo directory is available until a backend is connected.</p></div><button class="btn" data-action="qr-skip">Close</button></div><div class="scanner-status">When the website has live accounts, this ID will be looked up securely on the server.</div>`;
+  panel.scrollIntoView({behavior:"smooth",block:"start"});return;
+ }
+ const self=person.id==="self";
+ const blocked=state.blockedUsers.includes(person.id);
+ const connected=state.connected.includes(person.id);
+ panel.innerHTML=`<div class="between"><div class="row">${avatar(person,"lg")}<div><div class="eyebrow">QR-discovered profile</div><h2>${esc(person.name)}</h2><div class="story-handle">@${esc(person.handle)}</div></div></div><button class="btn ghost" data-action="qr-skip">Skip</button></div>
+ <p class="profile-story">${esc(person.story||"This profile hasn't added a story yet.")}</p><div class="story-interests">${(person.interests||[]).map(x=>`<span>${esc(x)}</span>`).join("")}</div>
+ ${blocked?`<div class="line"></div><span class="blocked-chip">Blocked in this browser</span><div class="qr-actions"><button class="btn" data-action="unblock-user" data-user="${esc(person.id)}">Unblock</button></div>`:
+ self?`<div class="qr-actions"><span class="tag green">This is your own profile</span><button class="btn" data-action="edit-profile">Edit profile</button></div>`:
+ `<div class="qr-actions"><button class="btn primary" data-action="qr-connect" data-user="${esc(person.id)}">${connected?"Message":"Connect"}</button><button class="btn" data-action="qr-skip">Skip</button><button class="btn danger" data-action="qr-block" data-user="${esc(person.id)}">Block</button></div>`}`;
+ panel.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function parseQrPayload(raw){
+ const value=String(raw||"").trim();if(!value)return "";
+ let decoded=value;
+ try{decoded=decodeURIComponent(value)}catch(e){}
+ const scheme=decoded.match(/projectconnect:\/\/(?:connect|profile)\/@?([A-Za-z0-9._-]+)/i);
+ if(scheme)return scheme[1];
+ try{
+  if(/^https?:\/\//i.test(decoded)){
+   const u=new URL(decoded);const parts=u.pathname.split("/").filter(Boolean);
+   const marker=parts.findIndex(x=>["connect","profile","u","discover"].includes(x.toLowerCase()));
+   if(marker>=0&&parts[marker+1])return parts[marker+1].replace(/^@/,"");
+   if(parts.length)return parts[parts.length-1].replace(/^@/,"");
+  }
+ }catch(e){}
+ if(decoded.startsWith("@"))return decoded.slice(1).split(/\s/)[0];
+ return decoded.replace(/^\/?@?/,"").split(/\s/)[0].replace(/[^A-Za-z0-9._-]/g,"");
+}
+function openQrGenerator(){
+ const payload=`projectconnect://connect/${encodeURIComponent(state.profile.handle)}`;
+ $("#qrProfileName").textContent=state.profile.name;
+ $("#qrProfileHandle").textContent="@"+state.profile.handle;
+ $("#qrPayloadText").textContent=payload;
+ $("#qrCodeOutput").innerHTML="";$("#qrCodeFallback").hidden=true;
+ $("#qrGeneratorModal").classList.add("open");document.body.style.overflow="hidden";
+ if(window.QRCode){
+  try{new QRCode($("#qrCodeOutput"),{text:payload,width:220,height:220,colorDark:"#111827",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});}
+  catch(e){$("#qrCodeFallback").hidden=false;$("#qrCodeFallback").textContent="Unable to generate QR in this browser. Copy your Connect ID instead."}
+ }else{$("#qrCodeFallback").hidden=false;$("#qrCodeFallback").textContent="QR generator library could not load. Check your internet connection, then reopen this panel. Your Connect ID still works in search."}
+}
+function stopQrCamera(){
+ if(activeScannerTimer){cancelAnimationFrame(activeScannerTimer);activeScannerTimer=null}
+ if(activeScannerStream){activeScannerStream.getTracks().forEach(t=>t.stop());activeScannerStream=null}
+ const video=$("#qrVideo");if(video){video.pause();video.srcObject=null;video.style.display="none"}
+}
+async function startQrCamera(){
+ stopQrCamera();
+ const status=$("#scannerStatus"),video=$("#qrVideo");
+ if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+  status.textContent="Camera access is unavailable. Open the hosted site on HTTPS or localhost, or enter the Connect ID manually below.";return
+ }
+ let detector=null;
+ if("BarcodeDetector" in window){
+  try{detector=new BarcodeDetector({formats:["qr_code"]})}catch(e){}
+ }
+ try{
+  activeScannerStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"}},audio:false});
+  video.srcObject=activeScannerStream;video.style.display="block";await video.play();
+  if(!detector){
+   status.textContent="Camera preview is active, but this browser lacks built-in QR detection. Use the manual Connect ID field below, or try a supported browser.";
+   return;
+  }
+  status.textContent="Camera is active. Point it at a Project Connect QR code.";
+  const scan=async()=>{
+   if(!activeScannerStream||!video.videoWidth){activeScannerTimer=requestAnimationFrame(scan);return}
+   try{
+    const codes=await detector.detect(video);
+    if(codes&&codes.length&&codes[0].rawValue){
+     const raw=codes[0].rawValue;stopQrCamera();closeModal("qrScannerModal");
+     const handle=parseQrPayload(raw);
+     if(handle)showQrProfile(handle);else toast("That QR code doesn't contain a Connect ID.");
+     return;
+    }
+   }catch(e){}
+   activeScannerTimer=requestAnimationFrame(scan);
+  };
+  activeScannerTimer=requestAnimationFrame(scan);
+ }catch(e){
+  stopQrCamera();
+  status.textContent="Could not open the camera. Check browser camera permission and ensure the site is served from HTTPS or localhost. You can still enter the Connect ID manually.";
+ }
+}
+function handleGlobalSearch(event){
+ if(event)event.preventDefault();
+ const q=$("#globalSearch").value.trim();if(!q){toast("Type something to search.");$("#globalSearch").focus();return}
+ const raw=q.replace(/^@/,"").toLowerCase();
+ const settingMatch=Object.entries({broadcast:"broadcast",starred:"starred",device:"devices","linked device":"devices",account:"account",privacy:"privacy",chat:"chat",appearance:"appearance",notification:"notifications",storage:"storage",feedback:"help",help:"help",invite:"invite"})
+  .find(([label])=>raw===label||raw.includes(label));
+ if(settingMatch&&/\b(settings?|broadcast|starred|devices?|account|privacy|chat|appearance|notifications?|storage|feedback|help|invite)\b/i.test(raw)){setTab("profile");openSettings(settingMatch[1]);return}
+ const person=SEED_USERS.find(u=>u.handle.toLowerCase()===raw||u.name.toLowerCase()===q.toLowerCase())||(String(state.profile.handle).toLowerCase()===raw?getProfileByHandle(raw):null);
+ if(person){showQrProfile(person.handle);return}
+ const group=state.groups.find(g=>(g.name+" "+g.topic+" "+g.description).toLowerCase().includes(q.toLowerCase()));
+ if(group){setTab("groups");$("#groupSearch").value=q;renderGroups();state.selectedGroup=group.id;renderSelectedGroup();return}
+ const messageChat=state.chats.find(c=>c.messages.some(m=>m.text.toLowerCase().includes(q.toLowerCase())));
+ if(messageChat){setTab("chats");$("#chatSearch").value=user(messageChat.userId).name;state.selectedChat=messageChat.id;renderChats();toast("Found a matching conversation in local demo messages.");return}
+ setTab("discover");$("#discoverSearch").value=q;renderDiscoverResults(q);
+}
+function exportDemoData(){
+ const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+ const url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="project-connect-demo-data.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ toast("Your local demo data export was prepared.");
+}
+function resetDemoData(){
+ if(!confirm("Reset all Project Connect local demo data in this browser? This removes profile edits, uploaded images, chats, requests, groups, settings, and starred items."))return;
+ state=structuredClone(SEED);save();closeModal("settingsModal");renderAll();toast("Local demo data reset.");
+}
+document.addEventListener("click",e=>{
+ const settingButton=e.target.closest("[data-setting]");
+ if(settingButton){openSettings(settingButton.dataset.setting);return}
+ const close=e.target.closest("[data-close-modal]");
+ if(close){closeModal(close.dataset.closeModal);return}
+ const actionButton=e.target.closest("[data-action]");
+ if(!actionButton)return;
+ const action=actionButton.dataset.action;
+ if(action==="open-terminal-mode"){closeModal("settingsModal");setTab("codeLab");return}
+ if(action==="apply-chat-optimization"){
+  const prefs={compact:$("#optCompactChats")?.checked??true,lightweight:$("#optLightweightChats")?.checked??true};
+  try{localStorage.setItem("pc_chat_optimization",JSON.stringify(prefs))}catch(e){}
+  document.body.classList.toggle("compact-chats",prefs.compact);document.body.classList.toggle("lightweight-chats",prefs.lightweight);
+  const status=$("#chatOptimizationStatus");if(status)status.textContent="Optimization settings applied and saved in this browser.";toast("Chat optimization settings applied.");return;
+ }
+ if(action==="reset-chat-optimization"){
+  const prefs={compact:false,lightweight:false};try{localStorage.setItem("pc_chat_optimization",JSON.stringify(prefs))}catch(e){}
+  document.body.classList.remove("compact-chats","lightweight-chats");renderSettingsContent("optimizeChats");toast("Chat appearance restored to defaults.");return;
+ }
+ if(action==="edit-profile"){closeModal("settingsModal");setTab("profile");$("#displayName").focus()}
+ if(action==="ai-edit-profile"){closeModal("settingsModal");setTab("profile");$("#aiProfileDraft").value=state.profile.story||"";$("#aiProfilePrompt").value="";$("#aiProfileModal").classList.add("open");document.body.style.overflow="hidden";$("#aiProfilePrompt").focus()}
+ if(action==="save-ai-settings"){const pref={provider:$("#aiProvider").value,baseUrl:$("#aiBaseUrl").value.trim(),model:$("#aiModel").value.trim()};try{sessionStorage.setItem("pc_ai_preferences",JSON.stringify(pref));}catch(e){}window.pcAiApiKey=$("#aiApiKey").value;$("#aiSettingsStatus").textContent="Provider preferences saved for this session. No API request has been made.";toast("AI provider preferences saved for this session.")}
+ if(action==="clear-ai-settings"){try{sessionStorage.removeItem("pc_ai_preferences")}catch(e){}window.pcAiApiKey="";renderSettingsContent("ai");toast("AI provider settings cleared.")}
+ if(action==="qr-skip"){const panel=$("#qrProfileResult");panel.hidden=true;panel.innerHTML="";qrTargetHandle=null;toast("Skipped this profile.");}
+ if(action==="qr-connect"){
+  const id=actionButton.dataset.user;
+  if(id==="self"){toast("This is your own profile.");return}
+  if(state.connected.includes(id)){ensureChat(id);closeModal("qrScannerModal");setTab("chats");return}
+  if(state.incoming.some(r=>r.userId===id)){setTab("requests");toast("This person already sent you a request.");return}
+  if(!state.outgoing.some(r=>r.userId===id))state.outgoing.push({userId:id});
+  save();renderRequests();renderDiscoverResults($("#discoverSearch").value);toast("Connection request sent in this local demo.");
+  const panel=$("#qrProfileResult");if(panel)panel.scrollIntoView({behavior:"smooth",block:"start"});
+ }
+ if(action==="qr-block"){
+  const id=actionButton.dataset.user;if(!id||id==="self")return;
+  if(confirm("Block this demo profile? It will be hidden from discovery and the chat list on this browser.")){
+   if(!state.blockedUsers.includes(id))state.blockedUsers.push(id);
+   state.incoming=state.incoming.filter(r=>r.userId!==id);state.outgoing=state.outgoing.filter(r=>r.userId!==id);
+   save();renderHome();renderRequests();renderDiscoverResults($("#discoverSearch")?.value||"");
+   const panel=$("#qrProfileResult");panel.hidden=true;panel.innerHTML="";toast("Profile blocked in this browser demo.");
+  }
+ }
+ if(action==="star-message"||action==="unstar-message"){
+  const chat=state.chats.find(c=>c.id===actionButton.dataset.chat),idx=Number(actionButton.dataset.messageIndex);
+  if(chat&&Number.isInteger(idx)&&chat.messages[idx]){chat.messages[idx].starred=action==="star-message"?!chat.messages[idx].starred:false;save();if(activeTab==="chats")renderChats();if($("#settingsModal").classList.contains("open")&&$("#settingsModalTitle").textContent==="Starred")renderSettingsContent("starred");toast(chat.messages[idx].starred?"Message added to Starred.":"Message removed from Starred.");}
+ }
+ if(action==="unblock-user"){
+  const id=actionButton.dataset.user;state.blockedUsers=state.blockedUsers.filter(x=>x!==id);save();renderSettingsContent("privacy");renderHome();renderDiscoverResults($("#discoverSearch")?.value||"");toast("Demo profile unblocked.");
+ }
+ if(action==="export-data"){exportDemoData()}
+ if(action==="public-signout"){if(confirm("Sign out of this browser demo?")){try{sessionStorage.removeItem("pc_public_demo_session");sessionStorage.removeItem("pc_public_demo_method");sessionStorage.removeItem("pc_public_demo_phone")}catch(e){}location.reload()}}
+ if(action==="reset-demo-data"){resetDemoData()}
+ if(action==="copy-invite"){copyText(`projectconnect://invite/@${state.profile.handle}`,"Prototype invite link copied.")}
+ if(action==="copy-connect-id"){copyText("@"+state.profile.handle,"Connect ID copied.")}
+});
+function copyText(value,message){
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(value).then(()=>toast(message)).catch(()=>fallbackCopy(value,message))}
+ else fallbackCopy(value,message)
+}
+function fallbackCopy(value,message){const t=document.createElement("textarea");t.value=value;t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();try{document.execCommand("copy");toast(message)}catch(e){toast(value)}t.remove()}
+$("#globalSearchForm").addEventListener("submit",handleGlobalSearch);
+$("#openQrGenerator").addEventListener("click",openQrGenerator);
+$("#openQrScanner").addEventListener("click",()=>{$("#qrScannerModal").classList.add("open");document.body.style.overflow="hidden";startQrCamera();});
+$("#startQrCamera").addEventListener("click",startQrCamera);
+$("#stopQrCamera").addEventListener("click",()=>{stopQrCamera();$("#scannerStatus").textContent="Camera stopped. You can start it again or enter the Connect ID manually.";});
+$("#copyQrId").addEventListener("click",()=>copyText("@"+state.profile.handle,"Connect ID copied."));
+$("#downloadQr").addEventListener("click",()=>{
+ const root=$("#qrCodeOutput"),img=root.querySelector("img"),canvas=root.querySelector("canvas");
+ const link=document.createElement("a");link.download="project-connect-"+state.profile.handle+"-qr.png";
+ if(img&&img.src)link.href=img.src;else if(canvas)link.href=canvas.toDataURL("image/png");else{toast("QR code hasn't been generated. Check your connection.");return}
+ link.click();
+});
+$("#manualQrForm").addEventListener("submit",e=>{e.preventDefault();const h=parseQrPayload($("#manualQrCode").value);if(!h){toast("Enter a Connect ID or QR payload.");return}closeModal("qrScannerModal");showQrProfile(h)});
+["settingsModal","qrGeneratorModal","qrScannerModal","aiProfileModal"].forEach(id=>{$("#"+id).addEventListener("click",e=>{if(e.target.id===id)closeModal(id)})});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$$(".modal-overlay.open").forEach(m=>closeModal(m.id))});
+$("#settingsModalContent").addEventListener("change",e=>{
+ const id=e.target.id;
+ if(id==="optCompactChats"||id==="optLightweightChats"){
+  let prefs={};try{prefs=JSON.parse(localStorage.getItem("pc_chat_optimization")||"{}")}catch(err){}
+  if(id==="optCompactChats")prefs.compact=e.target.checked;else prefs.lightweight=e.target.checked;
+  try{localStorage.setItem("pc_chat_optimization",JSON.stringify(prefs))}catch(err){}
+  document.body.classList.toggle("compact-chats",!!prefs.compact);document.body.classList.toggle("lightweight-chats",!!prefs.lightweight);
+  const status=$("#chatOptimizationStatus");if(status)status.textContent="Preference saved in this browser.";
+ }
+ if(id==="privacyVisible"){state.profile.visible=e.target.checked;save();renderHome();toast("Discovery visibility updated.");}
+ if(id==="settingReadReceipts")state.settings.readReceipts=e.target.checked;
+ if(id==="settingLinkPreviews")state.settings.showLinkPreviews=e.target.checked;
+ if(id==="settingCompactChats"){state.settings.compactChats=e.target.checked;document.body.classList.toggle("compact-chats",e.target.checked);}
+ if(id==="settingShareBackground"){state.profile.shareChatBackground=e.target.checked;state.settings.shareChatBackground=e.target.checked;}
+ if(id==="settingConnectionAlerts")state.settings.connectionAlerts=e.target.checked;
+ if(id==="settingActivityNotifications")state.settings.activityNotifications=e.target.checked;
+ if(id==="settingMessagePreviews")state.settings.messagePreviews=e.target.checked;
+ if(id==="settingReadReceipts"||id==="settingLinkPreviews"||id==="settingCompactChats"||id==="settingShareBackground"||id==="settingConnectionAlerts"||id==="settingActivityNotifications"||id==="settingMessagePreviews"){save();toast("Preference saved in this browser.");if(id==="settingCompactChats")document.body.classList.toggle("compact-chats",e.target.checked)}
+});
+$("#generateAiProfile").addEventListener("click",()=>{const p=state.profile;const prompt=$("#aiProfilePrompt").value.trim();const tone=$("#aiProfileTone").value;const interests=(p.interests||[]).join(", ");const seed=prompt||`I enjoy ${interests||"learning new things and meeting thoughtful people"}.`;let draft=`${seed.replace(/[.!\s]+$/g,"")}. ${tone==="Funny and playful"?"Here for good conversations, shared laughs, and unexpected adventures.":tone==="Creative and thoughtful"?"I appreciate creativity, curiosity, and conversations that make me see things differently.":tone==="Professional"?"Always open to meaningful connections, exchanging ideas, and learning from others.":tone==="Warm and romantic"?"I value kindness, warmth, and connections that feel genuine and effortless.":"I value kindness, curiosity, and genuine conversations."}`;$("#aiProfileDraft").value=draft.slice(0,400);$("#aiProfileNote").textContent="Draft created locally. Connect a secure AI backend to generate this using your selected provider.";});
+$("#applyAiProfileDraft").addEventListener("click",()=>{const draft=$("#aiProfileDraft").value.trim();if(!draft){toast("Generate or write a bio draft first.");return}$("#profileStory").value=draft.slice(0,400);$("#storyCount").textContent=$("#profileStory").value.length;closeModal("aiProfileModal");setTab("profile");toast("Bio draft placed in the editor. Tap Save profile to keep it.")});
+$("#settingsModalContent").addEventListener("submit",e=>{
+ if(e.target.id==="broadcastForm"){
+  e.preventDefault();const recipients=$("#broadcastRecipients").value.trim(),text=$("#broadcastText").value.trim();if(!recipients||!text)return;
+  state.broadcasts.push({recipients,text,time:new Date().toLocaleString()});save();renderSettingsContent("broadcast");toast("Broadcast draft saved locally; no messages were delivered.");
+ }
+ if(e.target.id==="feedbackForm"){
+  e.preventDefault();state.feedback.push({type:$("#feedbackType").value,text:$("#feedbackText").value.trim(),time:new Date().toLocaleString()});save();renderSettingsContent("help");toast("Feedback saved locally; it was not sent to support.");
+ }
+});
+
+
+
+// Terminal Mode Code Lab interactions
+(function initCodeLab(){
+ const html=document.getElementById("codeHtml"),css=document.getElementById("codeCss"),js=document.getElementById("codeJs"),preview=document.getElementById("codePreview"),status=document.getElementById("codeStatus");
+ if(!html||!css||!js||!preview)return;
+ const defaults={html:html.value,css:css.value,js:js.value};let active="html";
+ function run(){const doc=`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>${css.value}</style></head><body>${html.value}<script>${js.value.replace(/<\/script/gi,"<\\/script")}<\/script></body></html>`;preview.srcdoc=doc;if(status)status.textContent="Preview updated";}
+ document.querySelectorAll("[data-code-tab]").forEach(btn=>btn.addEventListener("click",()=>{active=btn.dataset.codeTab;document.querySelectorAll("[data-code-tab]").forEach(b=>b.classList.toggle("active",b===btn));[[html,"html"],[css,"css"],[js,"js"]].forEach(([el,key])=>el.hidden=key!==active);const label=document.getElementById("codeEditorLabel");if(label)label.textContent=active==="js"?"JavaScript editor":active.toUpperCase()+" editor";}));
+ document.getElementById("codeRun")?.addEventListener("click",run);
+ document.getElementById("codeReset")?.addEventListener("click",()=>{html.value=defaults.html;css.value=defaults.css;js.value=defaults.js;run();if(status)status.textContent="Reset to starter code";});
+ document.getElementById("codeDownload")?.addEventListener("click",()=>{const doc=`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>${css.value}</style></head><body>${html.value}<script>${js.value.replace(/<\/script/gi,"<\\/script")}<\/script></body></html>`;const url=URL.createObjectURL(new Blob([doc],{type:"text/html"}));const a=document.createElement("a");a.href=url;a.download="project-connect-code-lab.html";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);if(status)status.textContent="HTML exported";});
+ [html,css,js].forEach(el=>el.addEventListener("keydown",e=>{if(e.key==="Tab"){e.preventDefault();const start=el.selectionStart,end=el.selectionEnd;el.setRangeText("  ",start,end,"end");}}));
+ let prefs={};try{prefs=JSON.parse(localStorage.getItem("pc_chat_optimization")||"{}")}catch(e){}document.body.classList.toggle("compact-chats",!!prefs.compact);document.body.classList.toggle("lightweight-chats",!!prefs.lightweight);run();
+})();
+
+window.projectConnectRender = renderAll;
+renderAll();
+</script>
